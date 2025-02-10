@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from login.views import signup_view, login_view  # Import your login_view
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("leaderboard/", include("leaderboard.urls")),
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('contact/', include('contact.urls')),
+    path('admin/', admin.site.urls),
+    path("login/", login_view, name="login"),  # ✅ Use your custom login view
+    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    path("sign-up/", signup_view, name="signup"),
+    path('', include("django.contrib.auth.urls"))
 ]

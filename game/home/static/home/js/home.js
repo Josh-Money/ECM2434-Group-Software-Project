@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loggedIn = document.getElementById("loggedIn");
     const loggedOut = document.getElementById("loggedOut");
-    const userIsAuthenticated = false;
+    const userIsAuthenticated = true;
     console.log('User is authenticated:', userIsAuthenticated);
 
     if (userIsAuthenticated) {

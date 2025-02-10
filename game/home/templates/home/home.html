@@ -1,0 +1,52 @@
+<!-- Author: Will Cooke -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Exeter University - Sustainability</h1>
+
+<div class="content-wrapper">
+    <div id="loggedIn">
+        <div class="top-content">
+            <p>Welcome back, {{ user.name }}!</p>
+            <p>Keep completing challenges and earning rewards to help Exeter University reach net zero.</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-content">
+                <div class="active-challenges">
+                    <h2>Suggested Challenges for You</h2>
+                    <ul>
+                        <li>♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
+                        <li>🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
+                        <li>🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
+                    </ul>
+                    <a href="/challenges" class="btn">See All Challenges</a>
+                </div>
+            </div>
+
+            <div class="right-content">
+                <div class="leaderboard">
+                    <h4>Leaderboard</h4>
+                    <p>Your current points (test): {{ user.points }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loggedOut">
+        <p>Please <a href="">sign in</a> or <a href="">create an account</a> to participate.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'home/js/home.js' %}"></script>
+{% endblock %}

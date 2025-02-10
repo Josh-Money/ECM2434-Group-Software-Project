@@ -6,44 +6,73 @@
 {% block title %}Home{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+  <!-- Custom leaderboard CSS -->
+  <link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
 <h1>Exeter University - Sustainability</h1>
 
 <div class="content-wrapper">
-    <div id="loggedIn">
-        <div class="top-content">
-            <p>Welcome back, {{ user.name }}!</p>
-            <p>Keep completing challenges and earning rewards to help Exeter University reach net zero.</p>
-        </div>
-
-        <div class="main-content">
-            <div class="left-content">
-                <div class="active-challenges">
-                    <h2>Suggested Challenges for You</h2>
-                    <ul>
-                        <li>♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
-                        <li>🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
-                        <li>🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
-                    </ul>
-                    <a href="/challenges" class="btn">See All Challenges</a>
-                </div>
-            </div>
-
-            <div class="right-content">
-                <div class="leaderboard">
-                    <h4>Leaderboard</h4>
-                    <p>Your current points (test): {{ user.points }}</p>
-                </div>
-            </div>
-        </div>
+  <div id="loggedIn">
+    <div class="top-content">
+      <p>Welcome back, {{ user.name }}!</p>
+      <p>Keep completing challenges and earning rewards to help Exeter University reach net zero.</p>
     </div>
 
-    <div id="loggedOut">
-        <p>Please <a href="">sign in</a> or <a href="">create an account</a> to participate.</p>
+    <div class="main-content row">
+      <div class="left-content col-md-8">
+        <div class="active-challenges">
+          <h2>Suggested Challenges for You</h2>
+          <ul>
+            <li>♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
+            <li>🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
+            <li>🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
+          </ul>
+          <a href="/challenges" class="btn btn-primary">See All Challenges</a>
+        </div>
+      </div>
+
+      <div class="right-content col-md-4">
+        <div class="leaderboard">
+          <h4>Leaderboard</h4>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Points</th>
+                <th scope="col">Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for leader in leaderboard %}
+              <tr>
+                <td>{{ leader.name }}</td>
+                <td>{{ leader.points }}</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ leader.progress }}%;" aria-valuenow="{{ leader.progress }}" aria-valuemin="0" aria-valuemax="100">
+                      {{ leader.progress }}%
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="3">No leaderboard data available.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div id="loggedOut">
+    <p>Please <a href="/login">sign in</a> or <a href="/signup">create an account</a> to participate.</p>
+  </div>
 </div>
 {% endblock %}
 

@@ -1,0 +1,48 @@
+/* Author: Will Cooke */
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Space between left and right sections */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-left a {
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-right img {
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-left a:hover, .nav-right img:hover {
+    transition: transform 0.2s ease-in-out;
+    transform: translateY(-2px);
+}
+
+.profile-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer
+}
+
+.nav-left a:hover, .nav-right .profile-button:hover {
+    border-radius: 5px;
+    border-bottom: #06800c;
+    translate: (-2px);
+}

@@ -1,0 +1,36 @@
+/* home/css/leaderboard.css */
+
+/* Enhance the overall look of the leaderboard section */
+.leaderboard {
+    background-color: #fefefe;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+  }
+  
+  /* Card styling for each leaderboard entry */
+  .leaderboard .card {
+    border-radius: 10px;
+    transition: transform 0.2s;
+  }
+  
+  .leaderboard .card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Adjust card title for a clean look */
+  .leaderboard .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  /* Style for the progress bar text inside */
+  .progress-bar {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  /* Ensure proper spacing between cards */
+  .leaderboard .card:not(:last-child) {
+    margin-bottom: 15px;
+  }
+  

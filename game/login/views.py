@@ -38,7 +38,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect("dashboard")  # Change to your actual dashboard/homepage URL
+            return redirect("home")  # Change to your actual dashboard/homepage URL
         else:
             messages.error(request, "Invalid password. Please try again.")
             print("DEBUG: Invalid password")  # Debugging

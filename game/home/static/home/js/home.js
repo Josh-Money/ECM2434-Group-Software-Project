@@ -1,14 +1,16 @@
 // Author: Will Cooke
+console.log('x');
 
-document.addEventListener("DOMContentLoaded", function () {
-    const loggedIn = document.getElementById("loggedIn");
-    const loggedOut = document.getElementById("loggedOut");
-    const userIsAuthenticated = true;
-    console.log('User is authenticated:', userIsAuthenticated);
+window.userLoaded
+    .then((user) => { // user and their data is loaded
 
-    if (userIsAuthenticated) {
+        const loggedIn = document.getElementById("loggedIn");
+        const userIsAuthenticated = true;
+        console.log('User is authenticated:', userIsAuthenticated);
         loggedIn.style.display = "block";
-    } else {
+    })
+    .catch((error) => { // user did not load
+        const loggedOut = document.getElementById("loggedOut");
         loggedOut.style.display = "block";
-    }
-});
+    });
+

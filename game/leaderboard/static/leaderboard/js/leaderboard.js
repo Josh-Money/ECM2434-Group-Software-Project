@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 lb.style.display = "none";
             }
         });
+
+        buttons.forEach(btn => btn.classList.remove("active"));
+
+        document.querySelector(`[data_target="${targetId}"]`).classList.add("active");
     }
 
     buttons.forEach(button => {

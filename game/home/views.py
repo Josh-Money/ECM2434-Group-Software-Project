@@ -10,7 +10,7 @@ def home(request):
     print('Is Authenticated:', request.user.is_authenticated)
 
     if not request.user.is_authenticated:
-        return redirect('')
+        return redirect('/')
 
     context = {
         'page_title': 'Home',

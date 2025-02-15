@@ -21,8 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         buttons.forEach(btn => btn.classList.remove("active"));
 
-        document.querySelector(`[data_target="${targetId}"]`).classList.add("active");
+        const activeButton = document.querySelector(`[data-target="${targetId}"]`);
+        if (activeButton) {
+            activeButton.classList.add("active");
+        }    
     }
+
 
     buttons.forEach(button => {
         button.addEventListener("click", function() {

@@ -53,7 +53,14 @@ p {
     justify-content: center;
 }
 
-#loggedIn, #loggedOut {
+#loggedIn {
+    flex: 1;
+    display: block;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#loggedOut {
     flex: 1;
     display: none;
     flex-direction: column;

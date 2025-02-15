@@ -1,10 +1,10 @@
 # Author: Joshua Money
 from django.contrib import admin
-from .models import Score
+from .models import Leaderboard
 
 # Register your models here.
 
-class ScoreAdmin(admin.ModelAdmin):
+class LeaderboardAdmin(admin.ModelAdmin):
     list_display = ('player_name', 'activity_type', 'score', 'created_at')
     list_filter = ('activity_type',)
     search_fields = ('player_name',)

@@ -9,6 +9,7 @@ def home(request):
 
 
     if not request.user.is_authenticated:
+
         return redirect('/')  
 
     real_users = User.objects.exclude(username__startswith='testuser')
@@ -25,6 +26,9 @@ def home(request):
 
     # Sort the leaderboard by points (highest first) and limit to top 10
     leaderboard = sorted(leaderboard, key=lambda x: x['points'], reverse=True)[:10]
+
+    return redirect('/')
+
 
     context = {
         'page_title': 'Home',

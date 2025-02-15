@@ -1,13 +1,9 @@
-{% extends 'base.html' %}
+
 {% load static %}
 
-{% block title %}Login{% endblock %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> <!-- OLD Global bootstrap css -->
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'login/css/login-styles.css' %}">
-{% endblock %}
 
-{% block content %}
 <div class="login-wrapper">
     <div class="login-container">
         <h2 class="text-center text-success">Login</h2>
@@ -45,7 +41,3 @@
         </form>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-{% endblock %}

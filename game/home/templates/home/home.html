@@ -4,15 +4,14 @@
 {% block title %}Home{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
-<link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="container my-4">
   <h1 class="mb-4">Exeter University - Sustainability</h1>
 
-  <!-- User Welcome Section -->
   <div class="user-welcome mb-4">
     {% if user.is_authenticated %}
       <p>Welcome back, {{ user_info.name }}!</p>
@@ -23,7 +22,6 @@
   </div>
 
   <div class="row">
-    <!-- Left Column: Active Challenges -->
     <div class="left-content col-md-8">
       <div class="active-challenges mb-4">
         <h2>Suggested Challenges for You</h2>
@@ -36,20 +34,33 @@
       </div>
     </div>
 
-    <!-- Right Column: Leaderboard -->
-    <div class="right-content col-md-4">
-      <div class="leaderboard p-3 shadow-sm rounded">
-        <h4 class="text-center mb-3">Leaderboard</h4>
-        <ul class="list-group">
-          {% for entry in leaderboard %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              {{ entry.name }}
-              <span class="badge badge-primary badge-pill">{{ entry.points }}</span>
-            </li>
-          {% empty %}
-            <li class="list-group-item">No leaderboard data available.</li>
-          {% endfor %}
-        </ul>
+    <div class="col-md-4">
+      <div class="leaderboard-container">
+        <h4 class="text-center">Leaderboard</h4>
+        <div class="leaderboard-header row">
+          <div class="col-4 text-center header-name">NAME</div>
+          <div class="col-3 text-center header-points">POINTS</div>
+          <div class="col-5 text-center header-progress">PROGRESS</div>
+        </div>
+        {% for entry in leaderboard %}
+          <div class="leaderboard-row row align-items-center">
+            <div class="col-4 text-center">{{ entry.name }}</div>
+            <div class="col-3 text-center">{{ entry.points }}</div>
+            <div class="col-5">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    style="width: {{ entry.progress }}%;"
+                    aria-valuenow="{{ entry.progress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center">No leaderboard data available.</p>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -57,5 +68,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'home/js/home.js' %}"></script>
+  <script src="{% static 'home/js/home.js' %}"></script>
 {% endblock %}

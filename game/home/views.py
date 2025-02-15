@@ -1,41 +1,32 @@
-# Author: Will Cooke
+# Author: Will Cooke and Tim Mishakov
 
 from django.shortcuts import render
+from django.contrib.auth.models import User
+
+def create_test_users():
+    """
+    Create 10 test users (if they do not exist already) with usernames testuser1 ... testuser10.
+    """
+    for i in range(10):
+        username = f"testuser{i+1}"
+        if not User.objects.filter(username=username).exists():
+            User.objects.create_user(username=username, password="password")
 
 def home(request):
-    # Determine the name to display for the current user
-    user_name = request.user.username if request.user.is_authenticated else "Guest"
-    
-    # Build the leaderboard.
-    # If your User model (or a related Profile) has a points attribute, use that.
-    # For demonstration, we assume each user has a "points" attribute or default to 100.
+    create_test_users()
     leaderboard = []
-    users = User.objects.all()  # In production, you might want to order this by points.
-    for user in users:
-        # If you have extended the User model or have a profile with points, do something like:
-        # points = user.profile.points
-        # For demonstration, we'll check if the user has an attribute 'points', otherwise use 100.
-        points = getattr(user, 'points', 100)
+    for i in range(10):
+        username = f"testuser{i+1}"
+        points = 100 - i * 10   
+        progress = points       
         leaderboard.append({
-            'name': user.username,
+            'name': username,
             'points': points,
+            'progress': progress,
         })
-    
-    # Optionally, sort the leaderboard in descending order by points
-    leaderboard = sorted(leaderboard, key=lambda x: x['points'], reverse=True)
     
     context = {
         'page_title': 'Home',
-        'welcome_message': 'Welcome to the Home!',
-        'description': 'Check out the latest posts and updates here.',
-        'user_info': {
-            'name': user_name,
-            # Here you can also pull the logged-in user’s points from a session or their profile.
-            'points': request.session.get('points', 0)  # Or, e.g., request.user.profile.points if available.
-        },
         'leaderboard': leaderboard,
     }
     return render(request, 'home/home.html', context)
-
-#def post_detail(request, id):
-#    return render(request, 'home/post_detail.html', {'post_id': id})

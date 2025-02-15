@@ -1,36 +1,62 @@
-/* home/css/leaderboard.css */
+/* Leaderboard Container */
+.leaderboard-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
 
-/* Enhance the overall look of the leaderboard section */
-.leaderboard {
-    background-color: #fefefe;
-    border: 1px solid #e3e3e3;
-    border-radius: 10px;
-  }
-  
-  /* Card styling for each leaderboard entry */
-  .leaderboard .card {
-    border-radius: 10px;
-    transition: transform 0.2s;
-  }
-  
-  .leaderboard .card:hover {
-    transform: scale(1.02);
-  }
-  
-  /* Adjust card title for a clean look */
-  .leaderboard .card-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-  
-  /* Style for the progress bar text inside */
-  .progress-bar {
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  /* Ensure proper spacing between cards */
-  .leaderboard .card:not(:last-child) {
-    margin-bottom: 15px;
-  }
-  
+/* Leaderboard Title */
+.leaderboard-container h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Header Row */
+.leaderboard-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+
+.header-name,
+.header-points,
+.header-progress {
+  padding: 0 8px;
+}
+
+/* Leaderboard Rows */
+.leaderboard-row {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+/* Hover Effect */
+.leaderboard-row:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* Progress Bar */
+.progress {
+  height: 20px;
+  margin-bottom: 0;
+}
+
+.progress-bar {
+  font-size: 0.9rem;
+  line-height: 20px;
+}

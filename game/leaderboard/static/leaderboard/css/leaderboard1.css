@@ -39,9 +39,11 @@ h1 {
     background-color: #0056b3;
 }
 
-.leaderboard-button.active {
+.leaderboard-button:active {
     background-color: #0056b3;
     font-weight: bold;
+    box-shadow: 0 0 8px rgba(0, 91, 187, 0.8);
+    transform: translateY(-2px);
 }
 
 .leaderboard-container {

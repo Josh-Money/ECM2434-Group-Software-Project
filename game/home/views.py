@@ -8,7 +8,7 @@ def home(request):
         'welcome_message': 'Welcome to the Home!',
         'description': 'Check out the latest posts and updates here.', 
         'user': {
-            'name': 'Will',
+            'name': request.user.username,
             'points': 100
         }
     }

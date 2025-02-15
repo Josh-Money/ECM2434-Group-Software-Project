@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import SignupForm
 
@@ -13,35 +13,26 @@ def signup_view(request):
     else:
         form = SignupForm()
 
-    return render(request, "signup.html", {"form": form})
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib import messages
+    return render(request, "registration/signup.html", {"form": form})
 
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
 
-        print(f"DEBUG: Attempting login with username: {username}")  # Debugging
-
-        # Check if the username exists
-        if not User.objects.filter(username=username).exists():
-            messages.error(request, "User does not exist. Please sign up first.")
-            print("DEBUG: User not found, redirecting to signup")  # Debugging
-            return redirect("signup")  # Make sure 'signup' is the correct URL name
-
         # Authenticate the user
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect("dashboard")  # Change to your actual dashboard/homepage URL
+            if user.is_superuser:
+                return redirect('/admin/')
+            else:
+                return redirect('home')  
         else:
-            messages.error(request, "Invalid password. Please try again.")
-            print("DEBUG: Invalid password")  # Debugging
-
+            messages.error(request, "Invalid username or password. Please try again.")
     return render(request, "login.html")
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
 

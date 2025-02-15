@@ -44,7 +44,6 @@ header {
     height: auto;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
-    opacity: 0;
 }
 
 .nav-left a:hover, .nav-right img:hover {

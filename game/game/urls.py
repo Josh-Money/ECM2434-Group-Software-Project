@@ -21,11 +21,11 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),
+    path('home/', include('home.urls')),
     path('contact/', include('contact.urls')),
     path('articles/', include('articles.urls')),
     path('admin/', admin.site.urls),
-    path("login/", login_view, name="login"),  # ✅ Use your custom login view
+    path("login/", login_view, name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("sign-up/", signup_view, name="signup"),
     path('', include("django.contrib.auth.urls"))

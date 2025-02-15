@@ -1,3 +1,18 @@
 div {
     text-align: center;
 }
+
+.container {
+    text-align: center;
+    align-items: center;
+    max-width: 50%;
+}
+
+.contact-form button {
+    background-color: #06800c;
+    border: none;
+}
+
+.contact-form button:hover {
+    background-color: #066f0b;
+}

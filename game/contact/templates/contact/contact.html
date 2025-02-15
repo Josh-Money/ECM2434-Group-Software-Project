@@ -3,16 +3,43 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Contact Us{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'contact/css/contact-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'contact/css/contact-styles.css' %}">
 {% endblock %}
 
 {% block content %}
-<div>
-    <h1>Contact us</h1>
-</div>
+<section class="contact-section">
+    <div class="container">
+        <h1 class="text-center">Contact Us</h1>
+        <p class="text-center">Have questions? Reach out to us using the form below.</p>
+
+        <form style="margin-top: 40px;" method="post" class="contact-form">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Your Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+        </form>
+        <br>
+        <p>Alternatively, you can email us here:</p>
+        <p>testEmail@example.com</p>
+    </div>
+</section>
 {% endblock %}
 
 {% block extra_js %}

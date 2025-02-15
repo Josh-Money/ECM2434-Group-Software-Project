@@ -9,7 +9,7 @@ def home(request):
 
 
     if not request.user.is_authenticated:
-        return redirect('login')  
+        return redirect('/')  
 
     real_users = User.objects.exclude(username__startswith='testuser')
 

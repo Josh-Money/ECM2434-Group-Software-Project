@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('contact/', include('contact.urls')),
+    path('articles/', include('articles.urls')),
     path('admin/', admin.site.urls),
     path("login/", login_view, name="login"),  # ✅ Use your custom login view
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),

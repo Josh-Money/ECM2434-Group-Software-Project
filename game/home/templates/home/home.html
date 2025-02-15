@@ -7,6 +7,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -32,12 +33,35 @@
                 </div>
             </div>
 
-            <div class="right-content">
-                <div class="leaderboard">
-                    <h4>Leaderboard</h4>
-                    <p>Your current points (test): {{ user.points }}</p>
+            <div class="col-md-4">
+                <div class="leaderboard-container">
+                  <h4 class="text-center">Leaderboard</h4>
+                  <div class="leaderboard-header row">
+                    <div class="col-4 text-center header-name">NAME</div>
+                    <div class="col-3 text-center header-points">POINTS</div>
+                    <div class="col-5 text-center header-progress">PROGRESS</div>
+                  </div>
+                  {% for entry in leaderboard %}
+                    <div class="leaderboard-row row align-items-center">
+                      <div class="col-4 text-center">{{ entry.name }}</div>
+                      <div class="col-3 text-center">{{ entry.points }}</div>
+                      <div class="col-5">
+                        <div class="progress" style="height: 20px;">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated"
+                              role="progressbar"
+                              style="width: {{ entry.progress }}%;"
+                              aria-valuenow="{{ entry.progress }}"
+                              aria-valuemin="0"
+                              aria-valuemax="100">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% empty %}
+                    <p class="text-center">No leaderboard data available.</p>
+                  {% endfor %}
                 </div>
-            </div>
+              </div>
         </div>
     </div>
 

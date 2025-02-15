@@ -137,3 +137,4 @@ LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
 
 CRISPY_TEMPLATE_PACK ="bootstrap5"
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.207.239.67']

@@ -1,56 +1,48 @@
-/* General Styling */
 body {
-    background-color: #f4f4f4; /* Light gray background */
-    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
     line-height: 1.6;
     margin: 0;
     padding: 0;
 }
 
-/* Privacy Policy Wrapper */
 .privacy-policy-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    padding-top: 60px; /* Adjust based on your navbar height */
+    padding-top: 60px;
     box-sizing: border-box;
 }
 
-/* Privacy Policy Container */
 .privacy-policy-container {
-    background-color: #ffffff; /* White background */
+    background-color: #ffffff;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 800px;
     margin: 20px;
-    text-align: left; /* Align text to the left */
+    text-align: left;
 }
 
-/* Headings */
 h1, h2, h3 {
-    color: #28a745; /* Green color */
+    color: #28a745;
     font-weight: bold;
 }
 
-/* Paragraphs */
 p {
     font-size: 16px;
-    color: #333333; /* Dark gray text */
+    color: #333333;
     margin-bottom: 15px;
 }
 
-/* Lists */
 ul {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-/* Links */
 a {
-    color: #28a745; /* Green links */
+    color: #28a745;
     text-decoration: none;
 }
 
@@ -58,10 +50,9 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Footer */
 footer {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
-    color: #777777; /* Light gray text */
+    color: #777777;
 }

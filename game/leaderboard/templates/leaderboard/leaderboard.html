@@ -32,7 +32,7 @@
                     {% for entry in leaderboard_main  %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.player_name }}</td>
+                        <td>{{ entry.user__username }}</td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% endfor %}
@@ -40,7 +40,7 @@
             </table>
         </div>
 
-        <div id="leaderboard-qr" class="leaderboard-container" class="display: none;">
+        <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
             <h2>QR Scan Leaderboard</h2>
             <table class="table table-striped">
                 <thead>
@@ -54,7 +54,7 @@
                     {% for entry in leaderboard_qr  %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.player_name }}</td>
+                        <td>{{ entry.user__username }}</td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% endfor %}
@@ -76,7 +76,7 @@
                     {% for entry in leaderboard_quiz  %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.player_name }}</td>
+                        <td>{{ entry.user__username }}</td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% endfor %}
@@ -98,7 +98,7 @@
                     {% for entry in leaderboard_travel  %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.player_name }}</td>
+                        <td>{{ entry.user__username }}</td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% endfor %}

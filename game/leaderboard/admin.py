@@ -5,7 +5,7 @@ from .models import Leaderboard
 # Register your models here.
 
 class LeaderboardAdmin(admin.ModelAdmin):
-    list_display = ('player_name', 'activity_type', 'score', 'created_at')
+    list_display = ('user', 'activity_type', 'score', 'created_at')
     list_filter = ('activity_type',)
-    search_fields = ('player_name',)
+    search_fields = ('user__username',)
     

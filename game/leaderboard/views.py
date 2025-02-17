@@ -5,28 +5,28 @@ from django.db.models import Sum
 
 def leaderboard(request):
     leaderboard_main = (
-        Leaderboard.objects.values('player_name')
+        Leaderboard.objects.values('user__username')
         .annotate(total_score=Sum('score'))
         .order_by('-total_score')[:10]
     )
 
     leaderboard_qr = (
         Leaderboard.objects.filter(activity_type='qr_scan')
-        .values('player_name')
+        .values('user__username')
         .annotate(total_score=Sum('score'))
         .order_by('-score')[:10]
     )
 
     leaderboard_quiz = (
         Leaderboard.objects.filter(activity_type='quiz')
-        .values('player_name')
+        .values('user__username')
         .annotate(total_score=Sum('score'))
         .order_by('-score')[:10]
     )
     
     leaderboard_travel = (
         Leaderboard.objects.filter(activity_type='travel')
-        .values('player_name')
+        .values('user__username')
         .annotate(total_score=Sum('score'))
         .order_by('-score')[:10]
     )

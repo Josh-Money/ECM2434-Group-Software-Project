@@ -1,25 +1,5 @@
 /* Author: Will Cooke */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
-header {
-    position: relative;
-    background-color: #f4f4f4;
-    padding: 10px;
-    height: 50px;
-}
-
-
 h1 {
     color: #333;
     text-align: center;
@@ -73,7 +53,14 @@ p {
     justify-content: center;
 }
 
-#loggedIn, #loggedOut {
+#loggedIn {
+    flex: 1;
+    display: block;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#loggedOut {
     flex: 1;
     display: none;
     flex-direction: column;

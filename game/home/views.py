@@ -1,7 +1,7 @@
-# Author: Will Cooke
+# Author: Will Cooke and Tim Mishakov
 
 from django.shortcuts import render
-
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 def home(request):
@@ -23,6 +23,3 @@ def home(request):
     }
     return render(request, 'home/home.html', context)
 
-
-#def post_detail(request, id):
-#    return render(request, 'home/post_detail.html', {'post_id': id})

@@ -1,52 +1,72 @@
-<!-- Author: Will Cooke -->
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Home{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>Exeter University - Sustainability</h1>
+<div class="container my-4">
+  <h1 class="mb-4">Exeter University - Sustainability</h1>
 
-<div class="content-wrapper">
-    <div id="loggedIn">
-        <div class="top-content">
-            <p>Welcome back, {{ user.name }}!</p>
-            <p>Keep completing challenges and earning rewards to help Exeter University reach net zero.</p>
-        </div>
+  <div class="user-welcome mb-4">
+    {% if user.is_authenticated %}
+      <p>Welcome back, {{ user_info.name }}!</p>
+      <p>You have {{ user_info.points }} points.</p>
+    {% else %}
+      <p>Welcome, Guest! Please <a href="/login/">sign in</a> to access more features.</p>
+    {% endif %}
+  </div>
 
-        <div class="main-content">
-            <div class="left-content">
-                <div class="active-challenges">
-                    <h2>Suggested Challenges for You</h2>
-                    <ul>
-                        <li>♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
-                        <li>🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
-                        <li>🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
-                    </ul>
-                    <a href="/challenges" class="btn">See All Challenges</a>
-                </div>
-            </div>
-
-            <div class="right-content">
-                <div class="leaderboard">
-                    <h4>Leaderboard</h4>
-                    <p>Your current points (test): {{ user.points }}</p>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="left-content col-md-8">
+      <div class="active-challenges mb-4">
+        <h2>Suggested Challenges for You</h2>
+        <ul class="list-group">
+          <li class="list-group-item">♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
+          <li class="list-group-item">🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
+          <li class="list-group-item">🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
+        </ul>
+        <a href="/challenges" class="btn btn-primary mt-3">See All Challenges</a>
+      </div>
     </div>
 
-    <div id="loggedOut">
-        <p>Please <a href="">sign in</a> or <a href="">create an account</a> to participate.</p>
+    <div class="col-md-4">
+      <div class="leaderboard-container">
+        <h4 class="text-center">Leaderboard</h4>
+        <div class="leaderboard-header row">
+          <div class="col-4 text-center header-name">NAME</div>
+          <div class="col-3 text-center header-points">POINTS</div>
+          <div class="col-5 text-center header-progress">PROGRESS</div>
+        </div>
+        {% for entry in leaderboard %}
+          <div class="leaderboard-row row align-items-center">
+            <div class="col-4 text-center">{{ entry.name }}</div>
+            <div class="col-3 text-center">{{ entry.points }}</div>
+            <div class="col-5">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    style="width: {{ entry.progress }}%;"
+                    aria-valuenow="{{ entry.progress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center">No leaderboard data available.</p>
+        {% endfor %}
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'home/js/home.js' %}"></script>
+  <script src="{% static 'home/js/home.js' %}"></script>
 {% endblock %}

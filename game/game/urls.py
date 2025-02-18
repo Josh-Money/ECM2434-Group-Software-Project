@@ -16,17 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import signup_view, privacy_policy
+from login.views import signup_view, privacy_policy, login_view
 from django.contrib.auth.views import LogoutView
+from leaderboard.views import leaderboard
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', include('home.urls')),
-    path('contact/', include('contact.urls')),
     path('', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('articles/', include('articles.urls')),
-    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+
+    path('home/', include('home.urls')),
     path("sign-up/", signup_view, name="signup"),
+    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    
+    path('contact/', include('contact.urls')),
+    path('leaderboard/', leaderboard, name="leaderboard"),
+    path('articles/', include('articles.urls')),
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
 ]

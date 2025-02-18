@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'contact',
     "login.apps.LoginConfig",
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'leaderboard',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

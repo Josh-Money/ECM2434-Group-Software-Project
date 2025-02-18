@@ -25,16 +25,16 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
+            return redirect("/")
+        else:
+            messages.error(request, "Invalid password. Please try again.")
+            print("DEBUG: Invalid password")
 
             if user.is_superuser:
                 return redirect('/admin/')
             else:
                 return redirect('home')  
-
-         
-
-        else:
-            messages.error(request, "Invalid username or password. Please try again.")
+            
     return render(request, "login.html")
 
 def privacy_policy(request):

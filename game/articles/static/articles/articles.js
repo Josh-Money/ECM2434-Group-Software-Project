@@ -1,3 +1,5 @@
+// Author: Marcos Vega Ipas 
+
 document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("toggleQuiz").addEventListener("click", function () {

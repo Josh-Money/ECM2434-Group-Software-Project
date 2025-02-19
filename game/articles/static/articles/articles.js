@@ -1,13 +1,15 @@
+// Author: Marcos Vega Ipas 
+
 document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("toggleQuiz").addEventListener("click", function () {
         const quizContainer = document.getElementById("quizContainer");
         if (quizContainer.style.display === "none" || quizContainer.classList.contains("hidden")) {
             quizContainer.style.display = "block";
-            this.textContent = "Close Quiz ⬆"; // Change button text
+            this.textContent = "Close Quiz ⬆"; 
         } else {
             quizContainer.style.display = "none";
-            this.textContent = "Quiz 1 ⬇"; // Change button text
+            this.textContent = "Quiz 1 ⬇"; 
         }
         quizContainer.classList.toggle("hidden");
     });
@@ -27,19 +29,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalQuestions = Object.keys(correctAnswers).length;
 
         Object.keys(correctAnswers).forEach(questionId => {
-            // Get selected option
+           
             const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
 
-            // Remove existing feedback (if any)
+           
             const existingFeedback = document.getElementById(`feedback-${questionId}`);
             if (existingFeedback) {
                 existingFeedback.remove();
             }
 
-            // Create a new feedback element
+           
             const feedback = document.createElement("span");
             feedback.id = `feedback-${questionId}`;
-            feedback.style.marginLeft = "10px"; // Spacing for better visibility
+            feedback.style.marginLeft = "10px"; 
 
             if (selectedOption) {
                 if (selectedOption.value === correctAnswers[questionId]) {
@@ -55,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 feedback.style.color = "orange";
             }
 
-            // Insert feedback next to the selected option (or the last radio button if none are selected)
+           
            
             const lastRadioButton = document.querySelectorAll(`input[name="${questionId}"]`);
             lastRadioButton[lastRadioButton.length - 1].parentNode.appendChild(feedback);
@@ -63,14 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let scoreDisplay = document.getElementById("scoreDisplay");
 
         if (!scoreDisplay) {
-            // If the score display doesn't exist, create it
             scoreDisplay = document.createElement("span");
             scoreDisplay.id = "scoreDisplay";
             scoreDisplay.style.marginLeft = "15px";
             document.getElementById("checkAnswer").after(scoreDisplay);
         }
 
-        // Set the score text
+       
         scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}`;
         scoreDisplay.style.fontWeight = "bold";
 
@@ -78,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
             input.disabled = true;
         });
 
-        // **Disable the "Check Answers" button**
         document.getElementById("checkAnswer").disabled = true;
     });
 })

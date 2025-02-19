@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             quizContainer.style.display = "none";
             this.textContent = "Quiz 1 ⬇"; 
+
         }
         quizContainer.classList.toggle("hidden");
     });
@@ -47,12 +48,10 @@ document.addEventListener("DOMContentLoaded", function () {
            
             const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
 
-           
             const existingFeedback = document.getElementById(`feedback-${questionId}`);
             if (existingFeedback) {
                 existingFeedback.remove();
             }
-
            
             const feedback = document.createElement("span");
             feedback.id = `feedback-${questionId}`;
@@ -73,20 +72,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
            
-           
             const lastRadioButton = document.querySelectorAll(`input[name="${questionId}"]`);
             lastRadioButton[lastRadioButton.length - 1].parentNode.appendChild(feedback);
         });
         let scoreDisplay = document.getElementById("scoreDisplay");
 
         if (!scoreDisplay) {
+
             scoreDisplay = document.createElement("span");
             scoreDisplay.id = "scoreDisplay";
             scoreDisplay.style.marginLeft = "15px";
             document.getElementById("checkAnswer").after(scoreDisplay);
         }
 
-       
         scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}`;
         scoreDisplay.style.fontWeight = "bold";
 

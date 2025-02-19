@@ -20,8 +20,7 @@ def leaderboard(request):
         user_scores[activity] = user_entry.score
     
     leaderboard_main = (
-        Leaderboard.objects.filter(activity_type='main')
-        .values('user__username')
+        Leaderboard.objects.values('user__username')
         .annotate(total_score=Sum('score'))
         .order_by('-total_score')[:10]
     )

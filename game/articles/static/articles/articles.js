@@ -85,8 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("checkAnswer").after(scoreDisplay);
         }
 
-        // Set the score text
-        scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}`;
+        scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}. You won ${score * 10} points`;
         scoreDisplay.style.fontWeight = "bold";
 
         document.querySelectorAll('input[type="radio"]').forEach(input => {

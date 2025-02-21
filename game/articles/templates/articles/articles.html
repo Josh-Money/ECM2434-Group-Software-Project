@@ -1,8 +1,15 @@
+<!-- Author: Marcos Vega Ipas -->
+
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Home{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'contact/css/contact-styles.css' %}">
+{% endblock %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,5 +41,8 @@
     <script src="{% static 'articles/articles.js' %}"></script>
 
 </body>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+{% endblock %}
+

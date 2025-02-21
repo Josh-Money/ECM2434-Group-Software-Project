@@ -13,12 +13,8 @@
   <h1 class="mb-4">Exeter University - Sustainability</h1>
 
   <div class="user-welcome mb-4">
-    {% if request.user.is_authenticated %}
       <p>Welcome back, {{ user.name }}!</p>
       <p>You have {{ user.points }} points.</p>
-    {% else %}
-      <p>Welcome, Guest! Please <a href="/">sign in</a> to access more features.</p>
-    {% endif %}
   </div>
 
   <div class="row">

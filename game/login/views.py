@@ -1,7 +1,11 @@
+# Authors: Michael Porter and Nitzan Lahav
+
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib import messages
 from .forms import SignupForm
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 def signup_view(request):
     if request.method == "POST":
@@ -15,28 +19,41 @@ def signup_view(request):
 
     return render(request, "registration/signup.html", {"form": form})
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect("/")
-        else:
-            messages.error(request, "Invalid password. Please try again.")
-            print("DEBUG: Invalid password")
-
+            
+            # Debugging: Print out the user's superuser status and username
+            print(f"Logged in as: {user.username}, Superuser: {user.is_superuser}")
+            
+            # Check if the user is a superuser and redirect to admin
             if user.is_superuser:
+                
                 return redirect('/admin/')
             else:
-                return redirect('home')  
-            
-    return render(request, "login.html")
+                print("Redirecting to home")
+                return redirect('home')
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
+    else:
+        form = AuthenticationForm()
+
+    return render(request, "login.html", {"form": form})
+
+
 
 def privacy_policy(request):
     return render(request, 'privacy_policy.html')
 
+def logout_view(request):
+    logout(request)  # This logs out the user
+    return redirect('/')  # Redirect to home or another page after logout

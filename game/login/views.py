@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import SignupForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.contrib.auth.forms import AuthenticationForm
 
 def signup_view(request):
     if request.method == "POST":
@@ -18,11 +19,6 @@ def signup_view(request):
         form = SignupForm()
 
     return render(request, "registration/signup.html", {"form": form})
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 
 def login_view(request):
     if request.method == "POST":
@@ -37,8 +33,7 @@ def login_view(request):
             
             # Check if the user is a superuser and redirect to admin
             if user.is_superuser:
-                
-                return redirect('/admin/')
+                return redirect('admin/')
             else:
                 print("Redirecting to home")
                 return redirect('home')

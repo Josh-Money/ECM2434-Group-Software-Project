@@ -18,7 +18,7 @@ header {
 
 .navbar {
     display: flex;
-    justify-content: space-between; /* Space between left and right sections */
+    justify-content: space-between; /* Space between left/right sections */
     align-items: center;
     padding: 10px 20px;
 }

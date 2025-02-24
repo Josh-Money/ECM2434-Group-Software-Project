@@ -119,3 +119,8 @@ p {
 .active-challenges li:hover {
     transform: translateY(-3px);
 }
+
+.see-all-challenges {
+    width: 30%;
+    height: 13%;
+}

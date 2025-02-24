@@ -1,3 +1,4 @@
+/* Global reset and styling */
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +15,16 @@ header {
     position: relative;
     padding: 10px;
     height: 50px;
+}
+
+button {
+    background-color: #28a745;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+button:hover {
+    background-color: #218838;
 }
 
 .navbar {
@@ -37,6 +48,7 @@ header {
 .nav-right {
     display: flex;
     align-items: center;
+    gap: 10px;  /* Much larger gap between profile button and logout button */
 }
 
 .nav-right img {
@@ -56,3 +68,48 @@ header {
     border-bottom: #06800c;
     translate: (-2px);
 }
+
+/* Styling for Profile Button */
+#profile-button {
+    margin-right: 5px;  /* Increased space to push profile button farther away from logout button */
+}
+
+/* Styling for the Logout button (making it much smaller) */
+.btn.btn-danger {
+    padding: 4px 10px;  /* Smaller padding for a much smaller button */
+    font-size: 12px;  /* Smaller font size for the button */
+    margin-left: 5px; /* Extra space between profile button and logout button */
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn.btn-danger:hover {
+    background-color: #c82333;  /* Darker shade on hover */
+    cursor: pointer;
+}
+
+/* Style for the Terms and Conditions button */
+.terms-btn {
+    position: fixed;   /* Fix the button at the bottom-right corner */
+    bottom: 20px;      /* Adjust the distance from the bottom */
+    right: 20px;       /* Adjust the distance from the right edge */
+    padding: 10px 20px;
+    background-color: #17a2b8; /* Bootstrap 'info' button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.terms-btn:hover {
+    background-color: #138496;  /* Darker shade on hover */
+    cursor: pointer;
+}
+
+

@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}My Website{% endblock %}</title>
@@ -13,22 +14,32 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body>
+<body data-authenticated="{% if is_authenticated %}true{% else %}false{% endif %}">
     <!-- Navbar/Header (Available on all pages) -->
+    {% if is_authenticated %}
     <header>
         <nav class="navbar">
             <div class="nav-left">
                 <a href="/home" class="logo">Home</a>
-                <a href="/challenges">Challenges</a>
+                <a href="/qr">QR Scan</a>
                 <a href="/articles">Articles</a>
                 <a href="/leaderboard">Leaderboard</a>
                 <a href="/contact">Contact</a>
             </div>
             <div class="nav-right">
+                <!-- Profile Image and Logout Button (conditionally shown) -->
+
                 <img id="profile-button" src="{% static 'images/profile.png' %}" alt="Profile">
+
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="btn btn-danger" role="button">Logout</a>
+                {% endif %}
             </div>
         </nav>
     </header>
+    {% else %}
+    {% endif %}
+    
 
     <!-- Dynamic Content Block -->
     <main>
@@ -38,6 +49,13 @@
     </main>
 
     <script src="{% static 'js/base.js' %}"></script>
+
+    <!-- Terms and Conditions Button -->
+    <a href="/privacy-policy" class="terms-btn btn btn-info">Terms & Conditions</a>
+
+    <script src="{% static 'js/base.js' %}"></script>
     {% block extra_js %}{% endblock %}
+
 </body>
+
 </html>

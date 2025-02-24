@@ -19,7 +19,9 @@ from django.urls import path, include
 from login.views import signup_view, privacy_policy, login_view
 from django.contrib.auth.views import LogoutView
 from leaderboard.views import leaderboard
+from qr.views import scan_qr
 from django.contrib.auth import views as auth_views
+from login.views import logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,10 +29,11 @@ urlpatterns = [
 
     path('home/', include('home.urls')),
     path("sign-up/", signup_view, name="signup"),
-    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
-    
+    path('logout/', logout_view, name='logout'),
+   
     path('contact/', include('contact.urls')),
     path('leaderboard/', leaderboard, name="leaderboard"),
     path('articles/', include('articles.urls')),
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
+    path('qr/', scan_qr, name="qr_scan")
 ]

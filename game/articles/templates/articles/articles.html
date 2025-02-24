@@ -1,7 +1,15 @@
+<!-- Author: Marcos Vega Ipas -->
+
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'articles/css/articles-styles.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <head>
     <meta charset="UTF-8">
@@ -17,22 +25,24 @@
 
 <body>
     <h1>Educational articles on sustainability</h1>
-    <p>Read the articles below and complete quizzes in order to gain points to overtake your friends on the leaderboard! 
+    <p>Read the articles below and complete quizzes in order to gain points to overtake your friends on the leaderboard!
         Warning! You will only get one try on each quiz, so make sure you are confident before clicking check.
     </p>
-    
+
     <a href="https://www.exeter.ac.uk/about/sustainability/whatyoucando/#footprint">Article 1 - University Of Exeter
         sustainability page: What you can do to reduce your carbon footprint</a>
 
 
-        {% include 'quiz1.html' %}
-    
+    {% include 'quiz1.html' %}
+
     <button id="checkAnswer" style="display: block; margin-top: 10px;">Check Answers</button>
 
     <p id="feedback"></p>
 
-    <script src="{% static 'articles/articles.js' %}"></script>
+    <script src="{% static 'articles/js/articles.js' %}"></script>
 
 </body>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+{% endblock %}

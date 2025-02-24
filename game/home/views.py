@@ -5,10 +5,6 @@ from leaderboard.models import Leaderboard
 from django.db.models import Sum 
 
 def home(request):
-    if not request.user.is_authenticated:
-        return redirect('/')
-
-
     leaderboard_data = (
         Leaderboard.objects.values('user__username')
         .annotate(total_score=Sum('score'))

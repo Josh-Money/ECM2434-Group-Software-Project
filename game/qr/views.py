@@ -1,7 +1,6 @@
 # Author: Joshua Money
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
 from leaderboard.utils import update_leaderboard
 
 # Create your views here.
@@ -19,7 +18,7 @@ def scan_qr(request):
         if qr_code_content in valid_qr_codes:
             points_earned = valid_qr_codes[qr_code_content]
             update_leaderboard(request.user, "qr_scan", points=points_earned)
-            message = f"♻️Great job! You've earned {points_earned} points for recycling!♻️"
+            message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
         else:
             message = "Invalid QR code. Please try again."
             

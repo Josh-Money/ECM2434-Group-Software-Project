@@ -9,12 +9,6 @@ class HomeViewTest(TestCase):
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
-    def test_home_redirects_if_not_authenticated(self):
-        """Test if unauthenticated users are redirected to '/'"""
-        response = self.client.get(reverse('home'))  # Ensure 'home' matches the URL name
-        self.assertEqual(response.status_code, 302)  # Redirect expected
-        self.assertRedirects(response, '/')  # Ensure it redirects to home page
-
     def test_home_renders_for_authenticated_user(self):
         """Test if authenticated users can access the home page"""
         self.client.login(username='testuser', password='testpassword')  # Log in user

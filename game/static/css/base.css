@@ -17,6 +17,16 @@ header {
     height: 50px;
 }
 
+button {
+    background-color: #28a745;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+button:hover {
+    background-color: #218838;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between; /* Space between left and right sections */

@@ -1,6 +1,6 @@
 # ECM2434
 
-### [Cointributors](contributors-url)
+### [Contributors](https://github.com/Josh-Money/ECM2434-Group-Software-Project/graphs/contributors)
 
 ## Gamification of Sustainabilty on Campus
 
@@ -14,12 +14,12 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 
 ## Table of Contents
 
-- [Getting Started](#start)
-- [Built With](#build)
-- [Prerequisites](#preq)
+- [Getting Started](#getting-started)
+- [Built With](#built-with)
+- [Prerequisites](#prerequesites)
 - [Installation](#installation)
-- [Testing](#test)
-- [Initial Contributions](#contributing)
+- [Testing](#testing)
+- [Initial Contributions](#initial-contributions)
 - [License](#license)
 
 ## Getting Started []()
@@ -114,7 +114,7 @@ Unit tests verify the functionality of individual components within the applicat
   ```bash
   python manage.py test
 
-# Initial Contributions []()
+# Initial Contributions
 
 ## Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
@@ -143,5 +143,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[contributors-url]: https://github.com/Josh-Money/ECM2434-Group-Software-Project/graphs/contributors

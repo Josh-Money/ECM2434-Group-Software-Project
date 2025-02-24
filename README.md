@@ -4,7 +4,7 @@
 
 ## Gamification of Sustainabilty on Campus
 
-A web app which uses gamification to promote sustainability on campus for students/staff at the University of Exeter<br>
+A web app which uses gamification to promote sustainability on campus for students/staff at the University of Exeter.
 
 Welcome to our web app, an application designed to help users explore the campus and become sustainable students. Our app offers an engaging, gamified experience that inspires users to explore the campus while learning about sustainable living and ways to positively impact the environment.
 
@@ -19,7 +19,7 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 - [Prerequisites](#preq)
 - [Installation](#installation)
 - [Testing](#test)
-- [Contributing](#contributing)
+- [Initial Contributions](#contributing)
 - [License](#license)
 
 ## Getting Started []()
@@ -39,18 +39,6 @@ This section includes the software you will need to run the app and how to insta
 
 [Python](https://www.python.org/) you can download this from the website.
 
-Pyzbar
-
-```bash
-pip3 install pyzbar
-```
-
-OpenCV
-
-```bash
-pip3 install opencv-python-headless
-```
-
 ## Installation []()
 
 Here is a step by step on how to get the developement enviroment working.
@@ -58,19 +46,19 @@ Here is a step by step on how to get the developement enviroment working.
 1. Clone the repository:
 
   ```bash
-  git clone https://github.com/guy-watson/ecm2434-Group-26/
+  git clone https://github.com/Josh-Money/ECM2434-Group-Software-Project/
   ```
 
 2. Change into the project directory:
 
   ```bash
-  cd ecm2434-Group-26/(directory_name)
+  cd ECM2434-Group-Software-Project/game
   ```
 
 3. Create a virtual environment:
 
   ```bash
-  python3 -m venv env
+  python -m venv env
   ```
 
 4. Activate the virtual environment:
@@ -83,21 +71,20 @@ Here is a step by step on how to get the developement enviroment working.
 5. Install dependencies:
 
   ```bash
-  pip3 install Django
-  pip3 install opencv-python-headless
-  pip3 install pyzbar
+  pip install Django 
+  pip install django-crispy-forms crispy-bootstrap5
   ```
 
 6. Run migrations:
 
   ```bash
-  python3 manage.py migrate
+  python manage.py migrate
   ```
 
-7. Create a superuser. You can login into the site as superuser and then into django admin interface where you can edit the questions and answers for the quizzes.
+7. Create a superuser. You can login into the site as superuser and then into django admin interface.
 
   ```bash
-  python3 manage.py createsuperuser
+  python manage.py createsuperuser
   ```
 
 8. Run the development server:
@@ -106,21 +93,26 @@ Here is a step by step on how to get the developement enviroment working.
   py manage.py runserver
   ```
 
-  At this point you can copy the provided url into your browser to access the website.
+  At this point you can go to http://127.0.0.1:8000/ to access the website normally or go to http://127.0.0.1:8000/admin/ to sign into your admin account.
 
 To reset the database:
 
 ```bash
-python3 manage.py flush
+python manage.py flush
 ```
 
 ## Testing []()
 
-To run the inbuilt tests input the following command when in the working directory:
+### Testing Plan
 
-```bash
-python3 manage.py test
-```
+This section outlines the testing strategy for ensuring the reliability and functionality of the web application. The tests cover unit testing, integration testing, and user acceptance testing.
+
+### 1. Unit Testing  
+Unit tests verify the functionality of individual components within the application. The tests focus on models, views, and forms.
+
+- **Run unit tests:**  
+  ```bash
+  python manage.py test
 
 # Initial Contributions []()
 
@@ -136,7 +128,7 @@ python3 manage.py test
 
 ## Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-## Lucas Doyle -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
+## Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
 
 The rest of the details of our contributions are found in the workload unit file and the trello page.
 

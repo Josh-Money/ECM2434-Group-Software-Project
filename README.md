@@ -14,13 +14,13 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Built With](#built-with)
-- [Prerequisites](#prerequesites)
-- [Installation](#installation)
-- [Testing](#testing)
-- [Initial Contributions](#initial-contributions)
-- [License](#license)
+- [Getting Started](##getting-started)
+- [Built With](##built-with)
+- [Prerequisites](##prerequesites)
+- [Installation](##installation)
+- [Testing](##testing)
+- [Initial Contributions](##initial-contributions)
+- [License](##license)
 
 ## Getting Started []()
 
@@ -114,25 +114,25 @@ Unit tests verify the functionality of individual components within the applicat
   ```bash
   python manage.py test
 
-# Initial Contributions
+## Initial Contributions
 
-## Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-## Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
+### Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
 
-## Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
+### Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
 
-## Tim Mishakov-> [Leaderboard home implementation](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Tim Mishakov-> [Leaderboard home implementation](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-## Nitzan Lahav -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Nitzan Lahav -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-## Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-## Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
+### Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
 
 The rest of the details of our contributions are found in the workload unit file and the trello page.
 
-# License[]()
+## License[]()
 
 MIT License
 

@@ -16,24 +16,24 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 
 - [Getting Started](#getting-started)
 - [Built With](#built-with)
-- [Prerequisites](#prerequesites)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Testing](#testing)
 - [Initial Contributions](#initial-contributions)
 - [License](#license)
 
-## Getting Started []()
+## Getting Started
 
 These instructions will allow you to set up the project for development and testing on your local machine.
 
-## Built With []()
+## Built With
 
 - Django
 - Bootstrap
 - SQL
 - Python
 
-## Prerequisites []()
+## Prerequisites
 
 This section includes the software you will need to run the app and how to install it. You will need to install these in the virtual enviroment you are working in.
 
@@ -101,7 +101,7 @@ To reset the database:
 python manage.py flush
 ```
 
-## Testing []()
+## Testing
 
 ### Testing Plan
 
@@ -110,7 +110,7 @@ This section outlines the testing strategy for ensuring the reliability and func
 ### 1. Unit Testing  
 Unit tests verify the functionality of individual components within the application. The tests focus on models, views, and forms.
 
-- **Run unit tests:**  
+- **Run unit tests:**
   ```bash
   python manage.py test
 
@@ -132,7 +132,7 @@ Unit tests verify the functionality of individual components within the applicat
 
 The rest of the details of our contributions are found in the workload unit file and the trello page.
 
-## License[]()
+## License
 
 MIT License
 

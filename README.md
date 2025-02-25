@@ -39,7 +39,7 @@ This section includes the software you will need to run the app and how to insta
 
 [Python](https://www.python.org/) you can download this from the website.
 
-## Installation []()
+## Installation
 
 Here is a step by step on how to get the developement enviroment working.
 

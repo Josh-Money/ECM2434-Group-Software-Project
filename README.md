@@ -14,13 +14,13 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 
 ## Table of Contents
 
-- [Getting Started](##getting-started)
-- [Built With](##built-with)
-- [Prerequisites](##prerequesites)
-- [Installation](##installation)
-- [Testing](##testing)
-- [Initial Contributions](##initial-contributions)
-- [License](##license)
+- [Getting Started](#getting-started)
+- [Built With](#built-with)
+- [Prerequisites](#prerequesites)
+- [Installation](#installation)
+- [Testing](#testing)
+- [Initial Contributions](#initial-contributions)
+- [License](#license)
 
 ## Getting Started []()
 

@@ -16,30 +16,30 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 
 - [Getting Started](#getting-started)
 - [Built With](#built-with)
-- [Prerequisites](#prerequesites)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Testing](#testing)
 - [Initial Contributions](#initial-contributions)
 - [License](#license)
 
-## Getting Started []()
+## Getting Started
 
 These instructions will allow you to set up the project for development and testing on your local machine.
 
-## Built With []()
+## Built With
 
 - Django
 - Bootstrap
 - SQL
 - Python
 
-## Prerequisites []()
+## Prerequisites
 
 This section includes the software you will need to run the app and how to install it. You will need to install these in the virtual enviroment you are working in.
 
 [Python](https://www.python.org/) you can download this from the website.
 
-## Installation []()
+## Installation
 
 Here is a step by step on how to get the developement enviroment working.
 
@@ -101,7 +101,7 @@ To reset the database:
 python manage.py flush
 ```
 
-## Testing []()
+## Testing
 
 ### Testing Plan
 
@@ -110,29 +110,29 @@ This section outlines the testing strategy for ensuring the reliability and func
 ### 1. Unit Testing  
 Unit tests verify the functionality of individual components within the application. The tests focus on models, views, and forms.
 
-- **Run unit tests:**  
+- **Run unit tests:**
   ```bash
   python manage.py test
 
-# Initial Contributions
+## Initial Contributions
 
-## Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-## Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
+### Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
 
-## Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
+### Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
 
-## Tim Mishakov-> [Leaderboard home implementation](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Tim Mishakov-> [Leaderboard home implementation](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-## Nitzan Lahav -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Nitzan Lahav -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-## Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-## Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
+### Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
 
 The rest of the details of our contributions are found in the workload unit file and the trello page.
 
-# License[]()
+## License
 
 MIT License
 

@@ -35,5 +35,8 @@ urlpatterns = [
     path('leaderboard/', leaderboard, name="leaderboard"),
     path('articles/', include('articles.urls')),
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
-    path('qr/', scan_qr, name="qr_scan")
+    path('qr/', scan_qr, name="qr_scan"),
+
+     path('profile/', include('profiles.urls')),
+
 ]

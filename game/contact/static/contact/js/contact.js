@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
         
         // Initialize EmailJS with your user ID
-        emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS user ID
+        emailjs.init("I2O_65b92fRzGoI9q"); // Replace with your actual EmailJS user ID
         
         // Prepare template parameters
         const templateParams = {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // Send email
-        emailjs.send('default_service', 'template_id', templateParams) // Replace with your service and template IDs
+        emailjs.send('service_t8gkz6o', 'template_ltcprtq', templateParams) // Replace with your service and template IDs
             .then(function(response) {
                 console.log('Email sent successfully!', response.status, response.text);
                 alert('Thanks for your message! A confirmation has been sent to your email.');

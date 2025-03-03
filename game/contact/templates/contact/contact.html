@@ -33,14 +33,16 @@
                 <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            <button id="submit" type="submit" class="btn btn-primary w-100">Send Message</button>
         </form>
         <br>
         <p>Alternatively, you can email us here:</p>
-        <p>syntaxsquad@gmail.com</p>
+        <p>syntaxsquad2025@gmail.com</p>
     </div>
 </section>
 {% endblock %}
 
 {% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="{% static 'contact/js/contact-form.js' %}"></script>
 {% endblock %}

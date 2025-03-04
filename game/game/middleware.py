@@ -12,7 +12,7 @@ class RedirectLoggedOutUsersMiddleware:
 
         # If user is not authenticated and trying to access a restricted page, redirect them
         if request.path not in logged_out_allowed_paths and not request.user.is_authenticated:
-            return redirect('/login/')  # Redirect to login instead of home
+            return redirect('/')  # Redirect to login instead of home
         elif request.path in logged_in_disallowed_paths and request.user.is_authenticated:
             return redirect('/home/')
 

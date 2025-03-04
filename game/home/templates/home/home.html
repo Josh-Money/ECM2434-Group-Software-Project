@@ -6,17 +6,17 @@
 {% block title %}Home{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
-  <link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="container my-4">
-  <h1 class="mb-4">Exeter University - Sustainability</h1>
+  <h1 class="mb-4">EcoQuest</h1>
 
   <div class="user-welcome mb-4">
-      <p>Welcome back, {{ user.name }}!</p>
-      <p>You have {{ user.points }} points.</p>
+    <p>Welcome back, {{ user.name }}!</p>
+    <p>You have {{ user.points }} points.</p>
   </div>
 
   <div class="row">
@@ -24,7 +24,8 @@
       <div class="active-challenges mb-4">
         <h2>Suggested Challenges for You</h2>
         <ul class="list-group">
-          <li class="list-group-item">♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.</li>
+          <li class="list-group-item">♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.
+          </li>
           <li class="list-group-item">🚶 <strong>Transport</strong> – Log how you travelled to campus.</li>
           <li class="list-group-item">🌳 <strong>Increase your knowledge!</strong> – Complete a quiz on an article.</li>
         </ul>
@@ -41,30 +42,28 @@
           <div class="col-5 text-center header-progress">PROGRESS</div>
         </div>
         {% for entry in leaderboard %}
-          <div class="leaderboard-row row align-items-center">
-            <div class="col-4 text-center">{{ entry.name }}</div>
-            <div class="col-3 text-center">{{ entry.points }}</div>
-            <div class="col-5">
-              <div class="progress" style="height: 20px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    style="width: {{ entry.progress }}%;"
-                    aria-valuenow="{{ entry.progress }}"
-                    aria-valuemin="0"
-                    aria-valuemax="100">
-                </div>
+        <div class="leaderboard-row row align-items-center">
+          <div class="col-4 text-center">{{ entry.name }}</div>
+          <div class="col-3 text-center">{{ entry.points }}</div>
+          <div class="col-5">
+            <div class="progress" style="height: 20px;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                style="width: {{ entry.progress }}%;" aria-valuenow="{{ entry.progress }}" aria-valuemin="0"
+                aria-valuemax="100">
               </div>
             </div>
           </div>
+        </div>
         {% empty %}
-          <p class="text-center">No leaderboard data available.</p>
+        <p class="text-center">No leaderboard data available.</p>
         {% endfor %}
       </div>
     </div>
   </div>
 </div>
+
 {% endblock %}
 
 {% block extra_js %}
-  <script src="{% static 'home/js/home.js' %}"></script>
+<script src="{% static 'home/js/home.js' %}"></script>
 {% endblock %}

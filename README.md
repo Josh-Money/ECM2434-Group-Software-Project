@@ -72,7 +72,9 @@ Here is a step by step on how to get the developement enviroment working.
 
   ```bash
   pip install Django 
-  pip install django-crispy-forms crispy-bootstrap5
+  pip install django-crispy-forms
+  pip install crispy-bootstrap5
+  pip install Pillow
   ```
 
 6. Run migrations:
@@ -90,7 +92,7 @@ Here is a step by step on how to get the developement enviroment working.
 8. Run the development server:
 
   ```bash
-  py manage.py runserver
+  python manage.py runserver
   ```
 
   At this point you can go to http://127.0.0.1:8000/ to access the website normally or go to http://127.0.0.1:8000/admin/ to sign into your admin account.

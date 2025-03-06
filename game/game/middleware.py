@@ -6,11 +6,15 @@ class RedirectLoggedOutUsersMiddleware:
 
     def __call__(self, request):
         # Allowed paths for unauthenticated users
-        allowed_paths = ['/', '/sign-up/', '/privacy-policy/']
+        logged_out_allowed_paths = ['/', '/sign-up/', '/privacy-policy/']
+        logged_in_disallowed_paths = ['/', '/sign-up/']
+
 
         # If user is not authenticated and trying to access a restricted page, redirect them
-        if request.path not in allowed_paths and not request.user.is_authenticated:
-            return redirect('/login/')  # Redirect to login instead of home
+        if request.path not in logged_out_allowed_paths and not request.user.is_authenticated:
+            return redirect('/')  # Redirect to login instead of home
+        elif request.path in logged_in_disallowed_paths and request.user.is_authenticated:
+            return redirect('/home/')
 
         return self.get_response(request)
 

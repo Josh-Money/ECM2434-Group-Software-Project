@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'leaderboard',
     'qr',
-    'profiles.apps.ProfilesConfig'
+    'profiles.apps.ProfilesConfig',
+    'challenges',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

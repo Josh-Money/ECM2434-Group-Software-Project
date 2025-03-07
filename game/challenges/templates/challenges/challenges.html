@@ -1,0 +1,33 @@
+<!-- Author: Marcos Vega Ipas -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'challenges/css/challenges-styles.css' %}">
+{% endblock %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational articles</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <h1>Challenges</h1>
+    </div>
+</body>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

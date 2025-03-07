@@ -8,104 +8,104 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="text-center">Leaderboard</h1>
+<h1 class="title">Leaderboard</h1>
+<div class="container mt-5">
 
-        <div class="text-center">
-            <button class="leaderboard-button" data-target="leaderboard-main">Overall</button>
-            <button class="leaderboard-button" data-target="leaderboard-qr">QR Scan</button>
-            <button class="leaderboard-button" data-target="leaderboard-quiz">Quiz</button>
-            <button class="leaderboard-button" data-target="leaderboard-travel">Travel</button>
-        </div>
-
-        <div id="leaderboard-main" class="leaderboard-container">
-            <h2>Overall Leaderboard</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in leaderboard_main  %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.user__username }}</td>
-                        <td>{{ entry.total_score }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
-            <h2>QR Scan Leaderboard</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in leaderboard_qr  %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.user__username }}</td>
-                        <td>{{ entry.total_score }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div id="leaderboard-quiz" class="leaderboard-container" style="display: none;">
-            <h2>Quiz Leaderboard</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in leaderboard_quiz  %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.user__username }}</td>
-                        <td>{{ entry.total_score }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div id="leaderboard-travel" class="leaderboard-container" style="display: none;">
-            <h2>Travel Leaderboard</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in leaderboard_travel  %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.user__username }}</td>
-                        <td>{{ entry.total_score }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="text-center">
+        <button class="leaderboard-button" data-target="leaderboard-main">Overall</button>
+        <button class="leaderboard-button" data-target="leaderboard-qr">QR Scan</button>
+        <button class="leaderboard-button" data-target="leaderboard-quiz">Quiz</button>
+        <button class="leaderboard-button" data-target="leaderboard-travel">Travel</button>
     </div>
+
+    <div id="leaderboard-main" class="leaderboard-container">
+        <h2 class="subtitle">Overall Leaderboard</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard_main %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ entry.user__username }}</td>
+                    <td>{{ entry.total_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
+        <h2 class="subtitle">QR Scan Leaderboard</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard_qr %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ entry.user__username }}</td>
+                    <td>{{ entry.total_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="leaderboard-quiz" class="leaderboard-container" style="display: none;">
+        <h2 class="subtitle">Quiz Leaderboard</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard_quiz %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ entry.user__username }}</td>
+                    <td>{{ entry.total_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="leaderboard-travel" class="leaderboard-container" style="display: none;">
+        <h2 class="subtitle">Travel Leaderboard</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard_travel %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ entry.user__username }}</td>
+                    <td>{{ entry.total_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
 <script src="{% static 'leaderboard/js/leaderboard.js' %}"></script>

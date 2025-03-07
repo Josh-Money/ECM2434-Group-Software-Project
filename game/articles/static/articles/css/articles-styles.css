@@ -8,15 +8,31 @@
 }
 
 p {
-    
-    text-align: center;
     line-height: 0.8;
 }
 
-
 button {
-    height: 25px;
-    width: 80px;
-    border-radius: 7px;
-    border: none;
+    height: 32px;
+}
+
+#toggleQuiz {
+    margin-top: 10px;
+}
+
+#checkAnswer {
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    line-height: 0px;
+}
+
+.truefalse {
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+.question {
+    font-size: 20px;
+    text-align: left;
 }

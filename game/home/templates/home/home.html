@@ -12,7 +12,7 @@
 
 {% block content %}
 <div class="container my-4">
-  <h1 class="mb-4">EcoQuest</h1>
+  <h1 class="title">EcoQuest</h1>
 
   <div class="user-welcome mb-4">
     <p>Welcome back, {{ user.name }}!</p>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="left-content col-md-8">
       <div class="active-challenges mb-4">
-        <h2>Suggested Challenges for You</h2>
+        <h2 class="subtitle">Suggested Challenges for You</h2>
         <ul class="list-group">
           <li class="list-group-item">♻️ <strong>Recycle & Win!</strong> – Scan the QR code after recycling plastic.
           </li>
@@ -35,7 +35,7 @@
 
     <div class="col-md-4">
       <div class="leaderboard-container">
-        <h4 class="text-center">Leaderboard</h4>
+        <h4 class="subtitle">Leaderboard</h4>
         <div class="leaderboard-header row">
           <div class="col-4 text-center header-name">NAME</div>
           <div class="col-3 text-center header-points">POINTS</div>
@@ -59,6 +59,7 @@
         {% endfor %}
       </div>
     </div>
+    
   </div>
 </div>
 

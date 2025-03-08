@@ -36,6 +36,8 @@ urlpatterns = [
     path('articles/', include('articles.urls')),
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
     path('qr/', scan_qr, name="qr_scan"),
+    path('challenges/', include('challenges.urls')),
+
 
      path('profile/', include('profiles.urls')),
 

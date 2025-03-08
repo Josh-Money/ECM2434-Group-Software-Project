@@ -38,6 +38,17 @@
         </nav>
     </header>
     {% else %}
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="/home">
+                    <img id="logo-button" src="{% static 'images/logo_no_background.png' %}" alt="Profile">
+                </a>
+            </div>
+            <div class="nav-right">
+            </div>
+        </nav>
+    </header>
     {% endif %}
     
 

@@ -8,7 +8,7 @@ def home(request):
     leaderboard_data = (
         Leaderboard.objects.values('user__username')
         .annotate(total_score=Sum('score'))
-        .order_by('-total_score')[:10]
+        .order_by('-total_score')[:4]
     )
 
     leaderboard_list = []

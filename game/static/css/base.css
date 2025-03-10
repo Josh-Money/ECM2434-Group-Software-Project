@@ -179,6 +179,7 @@ button:hover {
     border-radius: 4px;
     text-align: center;
     font-weight: bold;
+    position: relative;
 }
 
 .btn.btn-danger:hover {
@@ -200,6 +201,22 @@ button:hover {
     background-color: #00702f;
     cursor: pointer;
 }
+
+
+.earth-mascot {
+    position: fixed;   /* Keeps it fixed even when scrolling */
+    bottom: 20px;      /* Adjust the distance from the bottom */
+    left: 20px;        /* Adjust the distance from the left */
+    width: 20vw;        /* Scale width based on the viewport width */
+    max-width: 300px;   /* Maximum width to ensure it doesn't get too large */
+    height: auto;      /* Maintain aspect ratio */
+    z-index: 9999;     /* Keep it on top of everything */
+    pointer-events: none; /* Prevent it from interfering with clicks */
+}
+
+/* Hide the Earth mascot on the Privacy Policy page */
+body.privacy-policy-page .earth-mascot {
+    display: none;
 
 input[type="radio"] {
     appearance: none;

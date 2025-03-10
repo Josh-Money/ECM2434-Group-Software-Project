@@ -204,19 +204,20 @@ button:hover {
 
 
 .earth-mascot {
-    position: fixed;   /* Keeps it fixed even when scrolling */
-    bottom: 20px;      /* Adjust the distance from the bottom */
-    left: 20px;        /* Adjust the distance from the left */
-    width: 20vw;        /* Scale width based on the viewport width */
-    max-width: 300px;   /* Maximum width to ensure it doesn't get too large */
-    height: auto;      /* Maintain aspect ratio */
-    z-index: 9999;     /* Keep it on top of everything */
-    pointer-events: none; /* Prevent it from interfering with clicks */
+    position: fixed;
+    bottom: 52px;
+    left: 20px;
+    width: 150px;
+    max-width: 225px;
+    height: auto;
+    z-index: 9999;
+    pointer-events: none;
 }
 
 /* Hide the Earth mascot on the Privacy Policy page */
 body.privacy-policy-page .earth-mascot {
     display: none;
+}
 
 input[type="radio"] {
     appearance: none;
@@ -265,7 +266,7 @@ a {
     justify-content: space-between;
 }
 
-.footer img {
+.footer #footer-logo {
     height: 100%;
     width: auto;
 }

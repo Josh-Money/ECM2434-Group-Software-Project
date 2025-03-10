@@ -1,11 +1,18 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     var isAuthenticated = document.body.getAttribute("data-authenticated") === "true";
-//     var currentPath = window.location.pathname;
-
-//     if (!isAuthenticated && currentPath !== "/") {
-//         window.location.href = "/";
-//         console.log('not logged in, redirecting')
-//     } else {
-//         console.log('logged in.')
-//     }
-// });
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
+    const isPrivacyPage = currentPath === '/privacy-policy/';
+    
+    const logo = document.getElementById('footer-logo')
+    const earthMascot = document.getElementById('earthMascot');
+    const termsBtn = document.getElementById('termsBtn');
+    
+    if (isPrivacyPage) {
+        // On privacy policy page: hide mascot and terms button
+        earthMascot.style.display = 'none';
+        termsBtn.style.display = 'none';
+    } else {
+        // On all other pages: hide logo
+        console.log(logo);
+        logo.style.opacity = 0;
+    }
+});

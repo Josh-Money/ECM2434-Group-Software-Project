@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}EcoQuest{% endblock %}</title>
-    
+
     {% load static %}
     <link rel="icon" type="image/png" href="{% static 'images/logo_no_background.png' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -26,7 +26,6 @@
                 </a>
                 <a href="/home" class="logo">Home</a>
                 <a href="/challenges">Challenges</a>
-   
                 <a href="/leaderboard">Leaderboard</a>
                 <a href="/contact">Contact</a>
             </div>
@@ -53,7 +52,7 @@
         </nav>
     </header>
     {% endif %}
-    
+
 
     <!-- Dynamic Content Block -->
     <main>
@@ -62,25 +61,16 @@
     </main>
 
 
-    <!-- Terms and Conditions Button -->
-
-    {% if request.path != '/privacy-policy/' %}
-    <a href="{% url 'privacy_policy' %}" class="terms-btn btn btn-info">Terms & Conditions</a>
-    {% endif %}
-
-
     <footer class="footer">
-        <img class="logo" src="{% static 'images/logo_no_background.png' %}" alt="Logo">
+        <img id="footer-logo" class="logo" src="{% static 'images/logo_no_background.png' %}" alt="Logo">
         <p class="footer-text">© 2025 EcoQuest. All rights reserved.</p>
-        <a href="/privacy-policy" class="terms-btn btn btn-info">Terms & Conditions</a>
+        <img id="mascot-img" src="{% static 'images/earth-mascot.png' %}" alt="Earth Mascot" class="earth-mascot" id="earthMascot">
+        <a href="{% url 'privacy_policy' %}" class="terms-btn btn btn-info" id="termsBtn">Terms & Conditions</a>
     </footer>
 
 
     <script src="{% static 'js/base.js' %}"></script>
     {% block extra_js %}{% endblock %}
-
-    <!-- Mascot Image (Hidden on Privacy Policy Page) -->
-    <img src="{% static 'images/earth-mascot.png' %}" alt="Earth Mascot" class="earth-mascot" id="earthMascot">
    
 </body>
 

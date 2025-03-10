@@ -23,7 +23,7 @@
                 {% endfor %}
             {% endif %}
 
-            <form method="post">
+            <form method="post" id="signup-form">
                 {% csrf_token %}
 
                 <div class="mb-3">
@@ -66,6 +66,16 @@
                     {% endif %}
                 </div>
 
+                <!-- Privacy Policy Checkbox -->
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="privacy-checkbox" name="agree_to_privacy_policy" disabled>
+                    <label for="privacy-checkbox" class="form-check-label">
+                        I have read and agree to the 
+                        <a href="{% url 'privacy_policy' %}" target="_blank" class="text-success" id="privacy-link">Privacy Policy</a>.
+                    </label>
+                    <div class="text-danger d-none" id="privacy-error">You must read the Privacy Policy before agreeing.</div>
+                </div>
+
                 <button type="submit" class="btn btn-primary w-100">Sign Up</button>
 
                 <p class="mt-3 text-center">
@@ -75,4 +85,39 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript to handle Privacy Policy Click Requirement -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let privacyCheckbox = document.getElementById("privacy-checkbox");
+        let privacyLink = document.getElementById("privacy-link");
+        let privacyError = document.getElementById("privacy-error");
+
+        // Reset checkbox when page loads
+        privacyCheckbox.checked = false;
+        privacyCheckbox.disabled = true;
+        sessionStorage.removeItem("privacy_policy_clicked"); // Reset sessionStorage each time
+
+        // When the privacy policy link is clicked, store a session flag
+        privacyLink.addEventListener("click", function() {
+            sessionStorage.setItem("privacy_policy_clicked", "true");
+        });
+
+        // Check if user visited privacy policy page and enable checkbox
+        setInterval(function() {
+            if (sessionStorage.getItem("privacy_policy_clicked") === "true") {
+                privacyCheckbox.disabled = false;
+            }
+        }, 500);
+
+        // Prevent form submission if checkbox is unchecked
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            if (!privacyCheckbox.checked) {
+                event.preventDefault();
+                privacyError.classList.remove("d-none");
+            }
+        });
+    });
+</script>
+
 {% endblock %}

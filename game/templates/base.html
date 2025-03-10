@@ -15,8 +15,7 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="{% if request.path == '/privacy-policy/' %}privacy-policy-page{% endif %}"
-    data-authenticated="{% if is_authenticated %}true{% else %}false{% endif %}">
+<body class="{% if request.path == '/privacy-policy/' %}privacy-policy-page{% endif %}" data-authenticated="{% if is_authenticated %}true{% else %}false{% endif %}">
     <!-- Navbar/Header (Available on all pages) -->
     {% if is_authenticated %}
     <header>
@@ -27,11 +26,13 @@
                 </a>
                 <a href="/home" class="logo">Home</a>
                 <a href="/challenges">Challenges</a>
-
                 <a href="/leaderboard">Leaderboard</a>
                 <a href="/contact">Contact</a>
             </div>
             <div class="nav-right">
+
+                <!-- Profile Image and Logout Button (conditionally shown) -->
+
                 <a href="{% url 'profile' %}">
                     <img id="profile-button" src="{% static 'images/profile.png' %}" alt="Profile">
                 </a>
@@ -56,12 +57,16 @@
     <!-- Dynamic Content Block -->
     <main>
         {% block content %}
-
         {% endblock %}
     </main>
 
 
     <!-- Terms and Conditions Button -->
+
+    {% if request.path != '/privacy-policy/' %}
+    <a href="{% url 'privacy_policy' %}" class="terms-btn btn btn-info">Terms & Conditions</a>
+    {% endif %}
+
 
     <footer class="footer">
         <img class="logo" src="{% static 'images/logo_no_background.png' %}" alt="Logo">
@@ -71,12 +76,13 @@
         {% endif %}
     </footer>
 
+
     <script src="{% static 'js/base.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
     <!-- Mascot Image (Hidden on Privacy Policy Page) -->
     <img src="{% static 'images/earth-mascot.png' %}" alt="Earth Mascot" class="earth-mascot" id="earthMascot">
-
+   
 </body>
 
 </html>

@@ -11,6 +11,16 @@
         <div class="login-container card p-5 shadow-sm" style="max-width: 400px;">
             <h2 class="subtitle" style="font-size: 2rem;">Login</h2>
 
+
+            <!-- ✅ Display messages (Success or Error) -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <!-- Display form errors -->
             {% if form.errors %}
                 <div class="alert alert-danger">
@@ -47,4 +57,15 @@
         </div>
     </div>
 </div>
+
+<!-- ✅ Auto-hide message after 5 seconds -->
+<script>
+    setTimeout(function() {
+        let alert = document.querySelector(".alert");
+        if (alert) {
+            alert.style.display = "none";
+        }
+    }, 5000);  // Hides after 5 seconds
+</script>
+
 {% endblock %}

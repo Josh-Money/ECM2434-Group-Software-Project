@@ -1,61 +1,48 @@
 /* travel.css */
 
-/* Overall body background */
+/* Overall background and container spacing */
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
+}
+
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Card enhancements */
+.card {
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+/* Heading styling */
+h1, h2 {
+  font-weight: 600;
+}
+
+/* Form customization */
+.form-group label {
+  font-weight: 500;
+}
+
+.form-control {
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+/* Button customization */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  h1, h2 {
+    font-size: 1.75rem;
   }
-  
-  /* Container spacing */
-  .container {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  /* Headings */
-  h1 {
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Form Section Styling */
-  #formSection {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    background-color: #ffffff;
-  }
-  
-  /* Message Section Styling */
-  #messageSection {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    background-color: #e9ecef;
-  }
-  
-  /* Form Group Labels */
-  .form-group label {
-    font-weight: 500;
-  }
-  
-  /* Form control customization */
-  .form-control {
-    max-width: 300px;
-    margin-bottom: 1rem;
-  }
-  
-  /* Button customization (if you want to adjust Bootstrap defaults) */
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  /* Responsive typography for smaller screens */
-  @media (max-width: 576px) {
-    h1 {
-      font-size: 1.75rem;
-    }
-  }
-  
+}

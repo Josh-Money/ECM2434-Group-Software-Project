@@ -1,77 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Campus Travel{% endblock %}
+{% block title %}Campus Travel Submission{% endblock %}
 
 {% block extra_css %}
-<!-- You can add additional CSS for this page if needed -->
 <link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container my-4">
-    <h1 class="mb-4">University of Exeter Campus Tracker</h1>
-    <!-- Message when not on campus -->
-    <div id="messageSection" class="alert alert-info" style="display:none;">
-        <p>You are not on campus at the moment.</p>
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">University of Exeter Campus Tracker</h2>
     </div>
-    <!-- Form section: Only shown if on campus -->
-    <div id="formSection" style="display:none;">
+    <div class="card-body">
+      <!-- Alert when the user is not on campus -->
+      <div id="messageSection" class="alert alert-info" style="display:none;">
+        <p>You are not on campus at the moment. Please come back when you're on campus!</p>
+      </div>
+      <!-- Form is shown only if on campus -->
+      <div id="formSection" style="display:none;">
         <form method="post" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="travel_method">How do you go to campus?</label>
-                <select class="form-control" name="travel_method" id="travel_method">
-                    <option value="Walking">Walking</option>
-                    <option value="Biking">Biking</option>
-                    <option value="Car">Car</option>
-                    <option value="Public transport">Public transport</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="travel_method">How did you travel to campus?</label>
+            <select class="form-control" name="travel_method" id="travel_method">
+              <option value="Walking">Walking</option>
+              <option value="Biking">Biking</option>
+              <option value="Car">Car</option>
+              <option value="Public transport">Public transport</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
         </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // University of Exeter campus coordinates (example values)
-    const campusCenter = { lat: 50.7180, lon: -3.5330 };
-    const campusRadius = 500; // in meters
+  // University of Exeter campus coordinates (example values)
+  const campusCenter = { lat: 50.735566, lon: -3.533208};
+  const campusRadius = 500; // in meters
 
-    function getDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371000; // Earth's radius in meters
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                  Math.sin(dLon/2) * Math.sin(dLon/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return R * c;
-    }
+  function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000; // Earth's radius in meters
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+  }
 
-    function checkCampus() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
-                if(distance <= campusRadius) {
-                    document.getElementById("formSection").style.display = "block";
-                    document.getElementById("messageSection").style.display = "none";
-                } else {
-                    document.getElementById("formSection").style.display = "none";
-                    document.getElementById("messageSection").style.display = "block";
-                }
-            }, function(error) {
-                console.error(error);
-            });
-        } else {
-            alert("Geolocation is not supported by your browser.");
-        }
-    }
+  function checkCampus() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
+              if (distance <= campusRadius) {
+                  document.getElementById("formSection").style.display = "block";
+                  document.getElementById("messageSection").style.display = "none";
+              } else {
+                  document.getElementById("formSection").style.display = "none";
+                  document.getElementById("messageSection").style.display = "block";
+              }
+          }, function(error) {
+              console.error(error);
+          });
+      } else {
+          alert("Geolocation is not supported by your browser.");
+      }
+  }
 
-    window.onload = checkCampus;
+  window.onload = checkCampus;
 </script>
 {% endblock %}

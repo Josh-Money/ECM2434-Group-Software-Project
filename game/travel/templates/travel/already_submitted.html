@@ -4,10 +4,14 @@
 {% block title %}Already Submitted{% endblock %}
 
 {% block content %}
-<div class="container my-4">
-    <h1>Already Submitted</h1>
-    <div class="alert alert-info">
-        <p>You have already submitted your campus travel method for today. Please come back tomorrow!</p>
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-body text-center">
+      <h1 class="card-title">Submission Received</h1>
+      <p class="card-text">You have already submitted your campus travel method for today.</p>
+      <p class="card-text">Please wait <strong>{{ wait_time }}</strong> before you can submit again.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
     </div>
+  </div>
 </div>
 {% endblock %}

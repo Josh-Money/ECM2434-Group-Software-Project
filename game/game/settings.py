@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'qr',
     'profiles.apps.ProfilesConfig',
     'challenges',
+    'travel',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

@@ -11,6 +11,10 @@
     <div class="container mt-5">
         <h1 class="text center">QR Code Challenge</h1>
 
+        <div class="map-container">
+            <img src="{% static 'qr/images/uni-qr-map.PNG' %}" alt="University QR Code Map" class="qr-map">
+        </div>
+
         <p class="text center">Scan the QR code located near recycling 
         bins across the University, or enter the code manually below.</p>
 
@@ -20,7 +24,7 @@
         </div>
 
         <!-- Manual Entry Form -->
-        <div class="card mb-4">
+        <div class="card mb-4" id="manualCard">
             <div class="card-body">
                 <h5 class="card-title">Manual QR Code Entry</h5>
                 <form method="post" action="" id="qrForm">
@@ -30,7 +34,7 @@
                         <input type="text" class="form-control" id="qr_code" name="qr_code" 
                             placeholder="Enter QR code" required>
                     </div>
-                    <button type="submit" class="btn btn-success mt-3">Submit QR Code</button>
+                    <button type="submit" class="btn btn-primary w-25">Submit QR Code</button>
                 </form>
             </div>
         </div>

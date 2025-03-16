@@ -4,74 +4,74 @@
 {% block title %}Privacy Policy{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/home-styles.css' %}">
 <link rel="stylesheet" href="{% static 'login/css/privacy_policy-styles.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="privacy-policy-wrapper">
+<div class="container my-4">
+    <h1 class="title" style="margin-bottom: 30px;">Privacy Policy</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div class="privacy-policy-container">
-        <h2 class="text-center text-success">Privacy Policy</h2>
-
-        <!-- Display success and error messages -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-
         <div class="privacy-policy-content">
-            <h3>1. Information We Collect</h3>
+            <h4 class="subtitle" style="margin-top: 0px;">1. Information We Collect</h4>
             <p>We collect the following types of information:</p>
-            <ul>
-                <li><strong>Personal Data:</strong> When you register on our Service, we collect personal details such as your name, email address, and other contact information.</li>
-                <li><strong>Usage Data:</strong> We collect information on how the Service is accessed and used, including your IP address, browser type, and pages visited.</li>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Personal Data:</strong> When you register on our Service, we collect personal details such as your name, email address, and other contact information.</li>
+                <li class="list-group-item"><strong>Usage Data:</strong> We collect information on how the Service is accessed and used, including your IP address, browser type, and pages visited.</li>
             </ul>
 
-            <h3>2. How We Use Your Information</h3>
+            <h4 class="subtitle">2. How We Use Your Information</h4>
             <p>We use your information for the following purposes:</p>
-            <ul>
-                <li>To provide and maintain our Service.</li>
-                <li>To notify you about changes to our Service.</li>
-                <li>To allow you to participate in interactive features of our Service when you choose to do so.</li>
-                <li>To provide customer support.</li>
-                <li>To gather analysis or valuable information so that we can improve our Service.</li>
-                <li>To monitor the usage of our Service.</li>
-                <li>To detect, prevent, and address technical issues.</li>
+            <ul class="list-group">
+                <li class="list-group-item">To provide and maintain our Service.</li>
+                <li class="list-group-item">To notify you about changes to our Service.</li>
+                <li class="list-group-item">To allow you to participate in interactive features of our Service when you choose to do so.</li>
+                <li class="list-group-item">To provide customer support.</li>
+                <li class="list-group-item">To gather analysis or valuable information so that we can improve our Service.</li>
+                <li class="list-group-item">To monitor the usage of our Service.</li>
+                <li class="list-group-item">To detect, prevent, and address technical issues.</li>
             </ul>
 
-            <h3>3. Data Sharing and Disclosure</h3>
+            <h4 class="subtitle">3. Data Sharing and Disclosure</h4>
             <p>We do not sell or rent your personal information to third parties. We may share your information with:</p>
-            <ul>
-                <li><strong>Service Providers:</strong> Third-party companies and individuals employed to facilitate our Service, such as hosting providers and analytics services.</li>
-                <li><strong>Legal Requirements:</strong> If required by law or in response to valid requests by public authorities.</li>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Service Providers:</strong> Third-party companies and individuals employed to facilitate our Service, such as hosting providers and analytics services.</li>
+                <li class="list-group-item"><strong>Legal Requirements:</strong> If required by law or in response to valid requests by public authorities.</li>
             </ul>
 
-            <h3>4. Data Security</h3>
+            <h4 class="subtitle">4. Data Security</h4>
             <p>We implement appropriate technical and organizational measures to protect your personal data. However, no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
 
-            <h3>5. Your Data Protection Rights</h3>
+            <h4 class="subtitle">5. Your Data Protection Rights</h4>
             <p>Depending on your location, you may have the following rights regarding your personal data:</p>
-            <ul>
-                <li><strong>Access:</strong> The right to request copies of your personal data.</li>
-                <li><strong>Rectification:</strong> The right to request correction of any information you believe is inaccurate or completion of information you believe is incomplete.</li>
-                <li><strong>Erasure:</strong> The right to request deletion of your personal data under certain conditions.</li>
-                <li><strong>Restriction:</strong> The right to request restriction of processing your personal data under certain conditions.</li>
-                <li><strong>Data Portability:</strong> The right to request transfer of your data to another organization or directly to you under certain conditions.</li>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Access:</strong> The right to request copies of your personal data.</li>
+                <li class="list-group-item"><strong>Rectification:</strong> The right to request correction of any information you believe is inaccurate or completion of information you believe is incomplete.</li>
+                <li class="list-group-item"><strong>Erasure:</strong> The right to request deletion of your personal data under certain conditions.</li>
+                <li class="list-group-item"><strong>Restriction:</strong> The right to request restriction of processing your personal data under certain conditions.</li>
+                <li class="list-group-item"><strong>Data Portability:</strong> The right to request transfer of your data to another organization or directly to you under certain conditions.</li>
             </ul>
-            <p>To exercise these rights, please contact us at <a href="mailto:syntaxsquad@gmail.com">syntaxsquad@gmail.com</a>.</p>
+            <p>To exercise these rights, please contact us at <a href="mailto:syntaxsquad2025@gmail.com">syntaxsquad2025@gmail.com</a>.</p>
 
-            <h3>6. Cookies</h3>
+            <h4 class="subtitle">6. Cookies</h4>
             <p>Our Service uses cookies to enhance your experience. You can set your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
 
-            <h3>7. Changes to This Privacy Policy</h3>
+            <h4 class="subtitle">7. Changes to This Privacy Policy</h4>
             <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
 
-            <h3>8. Contact Us</h3>
+            <h4 class="subtitle">8. Contact Us</h4>
             <p>If you have any questions about this Privacy Policy, please contact us at:</p>
             <p><strong>Syntax Squad</strong><br>
-            Email: <a href="mailto:syntaxsquad@gmail.com">syntaxsquad@gmail.com</a></p>
+            Email: <a href="mailto:syntaxsquad2025@gmail.com">syntaxsquad2025@gmail.com</a></p>
         </div>
     </div>
 </div>

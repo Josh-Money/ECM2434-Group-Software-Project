@@ -1,100 +1,82 @@
-/* QR Scanner CSS - Supporting both manual entry and camera scanning */
-
-/* Video preview styling */
-#preview {
-    width: 100%;
-    max-width: 100%;
-    height: 300px;
-    display: block;
-    background-color: #000;
-    border-radius: 5px;
+body {
+  font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
-.scan-overlay {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    overflow: hidden;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
-    font-size: 28px;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #006341;
+  margin-bottom: 30px;
+}
+
+.map-container {
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.map-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 p {
-    color: #555;
-    text-align: center;
-    font-size: 16px;
-    margin-bottom: 20px;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 18px;
+  line-height: 1.6;
+  text-decoration: underline;
 }
 
-/* Form styling */
-.form-group {
-    margin-bottom: 15px;
+.btn {
+  display: block;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  width: 200px; 
+  margin: 0 auto; 
+  background-color: #4285f4; 
+  color: white;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.form-control {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+.navigation-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  gap: 10px;
 }
 
-.form-control:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-}
-
-/* Button styling */
-.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-}
-
-/* Card styling */
-.card {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.card-title {
-    color: #28a745;
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-/* Alert styling */
-.alert {
-    border-radius: 4px;
-    padding: 12px 20px;
-}
-
-/* Text alignment helpers */
-.text-left {
-    text-align: left;
-}
-
-/* List styling */
-ul {
-    padding-left: 20px;
-}
-
-li {
-    margin-bottom: 8px;
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }

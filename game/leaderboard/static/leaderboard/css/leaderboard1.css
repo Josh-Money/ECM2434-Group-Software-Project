@@ -17,11 +17,12 @@ body {
 
 .leaderboard-button {
     border: none;
-    padding: 10px 15px;
+    padding: 8px 14px;
     margin: 5px;
-    font-size: 16px;
+    font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
+    line-height: 1.4;
 }
 
 .leaderboard-button:active {
@@ -77,11 +78,13 @@ tr.current-user {
     background-color: var(--primary);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 4px 10px;
     margin: 0 5px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .pagination-button:hover {
@@ -111,9 +114,10 @@ tr.current-user {
 }
 
 .per-page-selector select {
-    padding: 5px;
+    padding: 4px 6px;
     border-radius: 5px;
     border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 /* ellipsis row */

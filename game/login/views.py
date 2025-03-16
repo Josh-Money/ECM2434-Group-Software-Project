@@ -9,6 +9,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 def signup_view(request):
@@ -71,3 +73,9 @@ def privacy_policy(request):
 def logout_view(request):
     logout(request)  # This logs out the user
     return redirect('/')  # Redirect to home or another page after logout
+
+@staff_member_required  # Only allow staff members
+def admin_panel(request):
+    return render(request, "templates/admin/admin.html")  # Path matches new structure
+
+

@@ -26,19 +26,15 @@ from login.views import logout_view, CustomLoginView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
-
     path('home/', include('home.urls')),
     path("sign-up/", signup_view, name="signup"),
     path('logout/', logout_view, name='logout'),
-   
     path('contact/', include('contact.urls')),
     path('leaderboard/', leaderboard, name="leaderboard"),
     path('articles/', include('articles.urls')),
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
     path('qr/', scan_qr, name="qr_scan"),
     path('challenges/', include('challenges.urls')),
-
-
-     path('profile/', include('profiles.urls')),
+    path('profile/', include('profiles.urls')),
 
 ]

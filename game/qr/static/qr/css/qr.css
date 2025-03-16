@@ -51,3 +51,7 @@ p {
   align-items: center;
   margin-top: 20px;
 }
+
+.info {
+  font-size: 17px;
+}

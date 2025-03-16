@@ -9,22 +9,36 @@ User = get_user_model()
 
 class ProfileAppTests(TestCase):
     def setUp(self):
-        # Create a test user and log them in.
+        # Make a test user and log them in
         self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.client = Client()
         self.client.force_login(self.user)
     
     def test_profile_signal_creates_profile(self):
         """
-        Test that a Profile is automatically created when a new User is created.
+        Check if a Profile gets made automatically when a new User is created.
         """
-        # The signal should have created a profile for self.user.
+        # Should have created a profile for our user
         self.assertTrue(hasattr(self.user, 'profile'))
         self.assertIsInstance(self.user.profile, Profile)
     
+    def test_profile_default_image(self):
+        """
+        Check if new profiles get the default image.
+        """
+        # New profiles should have the default image
+        self.assertEqual(self.user.profile.image, 'default_profile.jpg')
+        
+    def test_profile_default_points(self):
+        """
+        Check if new profiles start with 0 points.
+        """
+        # New profiles should start with 0 points
+        self.assertEqual(self.user.profile.points, 0)
+    
     def test_profile_view_status_and_template(self):
         """
-        Test that the profile view returns a 200 status code and uses the correct template.
+        Check if the profile page loads and uses the right template.
         """
         url = reverse('profile')
         response = self.client.get(url)
@@ -33,27 +47,27 @@ class ProfileAppTests(TestCase):
     
     def test_profile_view_context(self):
         """
-        Test that the profile view context contains the correct total_score and rank.
+        Check if the profile page shows the right score and rank.
         """
-        # Create two leaderboard entries for our test user.
+        # Add some points for our test user
         Leaderboard.objects.create(user=self.user, activity_type='main', score=10)
         Leaderboard.objects.create(user=self.user, activity_type='qr_scan', score=20)
-        # Total score for testuser should be 30.
+        # Total should be 30
         
-        # Create another user with a higher score to affect the ranking.
+        # Make another user with more points to test ranking
         other_user = User.objects.create_user(username='otheruser', password='testpassword')
-        # Force login as other_user temporarily to create their scores.
+        # Log in as other user to add their points
         self.client.force_login(other_user)
         Leaderboard.objects.create(user=other_user, activity_type='main', score=50)
-        # Log back in with testuser.
+        # Switch back to our main test user
         self.client.force_login(self.user)
         
         url = reverse('profile')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
-        # Verify that total_score is correctly calculated.
+        # Check total score
         self.assertEqual(response.context['total_score'], 30)
         
-        # Since otheruser has 50 points and testuser has 30, testuser should be rank 2.
+        # Our user should be rank 2 (other user has more points)
         self.assertEqual(response.context['rank'], 2)

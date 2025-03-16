@@ -11,8 +11,8 @@ from leaderboard.models import Leaderboard
 class LeaderboardSignalTests(TestCase):
     def test_new_user_has_leaderboard_entry(self):
         """
-        When a new user is created, the signal should automatically create a leaderboard
-        entry (for the default activity, e.g. 'main'). The new entry should have 0 points.
+        Check if new users get a leaderboard entry automatically.
+        Should start with 0 points.
         """
         user = User.objects.create_user(username='testuser', password='password123')
 
@@ -25,14 +25,13 @@ class LeaderboardTests(TestCase):
 
     def setUp(self):
         """
-        Set up a test user to test points gained in leaderboard. 
+        Make a test user for checking points stuff.
         """
         self.user = User.objects.create_user(username='testuser', password='password123')
     
     def test_update_same_activity(self):
         """
-        Test that multiple updates to same activity increments the score
-        rather than creating new records.
+        Check if points add up when doing the same activity multiple times.
         """
         update_leaderboard(self.user, 'quiz', points=10)
         update_leaderboard(self.user, 'quiz', points=20)
@@ -41,8 +40,7 @@ class LeaderboardTests(TestCase):
     
     def test_user_recieves_points_overall(self):
         """
-        Test that when a user receives points for multiple tasks,
-        the overall aggregated score is calculated correctly.
+        Check if points from different activities get added up correctly.
         """
         update_leaderboard(self.user, 'quiz', points=10)
         update_leaderboard(self.user, 'qr_scan', points=20)
@@ -52,7 +50,7 @@ class LeaderboardTests(TestCase):
 
     def test_overall_leaderboard_ordering(self):
         """
-        Test that the overall leaderboard correctly orders user based on their aggregate score.
+        Check if users are ranked correctly based on their total points.
         """
 
         user2 = User.objects.create_user(username='user2', password='password123')

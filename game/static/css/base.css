@@ -167,6 +167,7 @@ button:hover {
 
 #logo-button {
     max-height: 35px;
+    
 }
 
 .btn.btn-danger {
@@ -217,6 +218,7 @@ button:hover {
 /* Hide the Earth mascot on the Privacy Policy page */
 body.privacy-policy-page .earth-mascot {
     display: none;
+}
 
 input[type="radio"] {
     appearance: none;

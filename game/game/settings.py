@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'qr',
     'profiles.apps.ProfilesConfig',
     'challenges',
+    'import_export',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -70,7 +72,9 @@ ROOT_URLCONF = "game.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [
+            BASE_DIR / 'templates',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,7 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "game.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -149,3 +152,16 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 CRISPY_TEMPLATE_PACK ="bootstrap5"
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Leaderboard Admin",
+    "site_header": "Leaderboard Admin",
+    "welcome_sign": "Welcome to the Leaderboard Admin Panel",
+    "search_model": ["leaderboard.Leaderboard"],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Leaderboard", "url": "/admin/leaderboard/leaderboard/", "permissions": ["leaderboard.view_leaderboard"]},
+    ],
+    "custom_css": "css/custom_admin.css",
+}
+

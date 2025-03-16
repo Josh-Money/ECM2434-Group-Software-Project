@@ -15,7 +15,7 @@
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--primary);
 }
 
 /* Header Row */
@@ -24,7 +24,7 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  color: #555;
+  color: var(--primary);
 }
 
 
@@ -45,9 +45,24 @@
   border-bottom: none;
 }
 
+/* Current User Row */
+.leaderboard-row.current-user {
+  border-left: 4px solid var(--secondary);
+  background-color: rgba(6, 128, 12, 0.05);
+  font-weight: bold;
+}
+
+/* Ellipsis Row */
+.leaderboard-row.ellipsis {
+  border-bottom: none;
+  padding: 5px 0;
+  text-align: center;
+  color: #6c757d;
+}
+
 /* Hover Effect */
 .leaderboard-row:hover {
-  background-color: #f9f9f9;
+  background-color: rgba(0, 60, 60, 0.05);
   cursor: pointer;
   transform: scale(1.05);
 }

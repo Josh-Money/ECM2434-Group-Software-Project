@@ -116,3 +116,8 @@ p {
     width: 30%;
     height: 13%;
 }
+
+/* Progress bar with theme colors */
+.theme-progress-bar {
+    background-color: var(--secondary);
+}

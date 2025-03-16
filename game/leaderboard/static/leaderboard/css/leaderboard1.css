@@ -52,6 +52,91 @@ th {
     font-weight: bold;
 }
 
+/* Current user row highlighting */
+tr.current-user {
+    border-left: 4px solid var(--secondary);
+    background-color: rgba(6, 128, 12, 0.05);
+    font-weight: bold;
+}
+
+/* Pagination controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-info {
+    margin: 0 15px;
+    font-size: 14px;
+}
+
+.pagination-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: var(--secondary);
+}
+
+.pagination-button.active {
+    background-color: var(--secondary);
+    font-weight: bold;
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Per page selector */
+.per-page-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.per-page-selector label {
+    margin-right: 10px;
+}
+
+.per-page-selector select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Ellipsis */
+.ellipsis {
+    text-align: center;
+    padding: 10px;
+    color: #6c757d;
+}
+
+/* User rank info */
+.user-rank-info {
+    background-color: rgba(0, 60, 60, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-rank-info span {
+    color: var(--secondary);
+}
+
 @media (max-width: 600px) {
     .container {
         width: 90%;
@@ -60,5 +145,10 @@ th {
     .leaderboard-button {
         width: 100%;
         margin: 5px 0;
+    }
+    
+    .pagination-controls {
+        flex-direction: column;
+        gap: 10px;
     }
 }

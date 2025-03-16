@@ -8,37 +8,47 @@
 {% endblock %}
 
 {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scan</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">QR Code Challenge</h1>
+    
+    <a style="display: block; margin: 0 auto 20px auto;" href="/challenges" class="btn btn-primary w-25">Return to Challenges</a>
+
     <div class="container">
-        <h1>QR Code Challenge</h1>
-
+        
         <div class="map-container">
-            <img src="{% static 'qr/images/uni-qr-map.PNG' %}" alt="University QR Code Map" class="qr-map">
+            <img src="{%static 'qr/images/uni-qr-map.png' %}" alt="University QR Map">
         </div>
-
-        <p>Scan the QR code located near recycling 
-        bins across the University, or enter the code manually below.</p>
-
+        
+        <p class="info">Scan the QR code located near recycling bins across the University, or enter the code manually below.</p>
+        
         <div class="scan-overlay">
-            <!--Video element for QR Scanner -->
             <video id="preview"></video>
         </div>
 
-        <!-- Manual Entry Form -->
         <form method="post" action="" id="qrForm" class="form-container">
             {% csrf_token %}
             <div class="form-group">
-                <input type="hidden" class="form-control" id="qr_code" name="qr_code" required>
-            </div>
-            <div class="button-container">
+                <input type="hidden" name="qr_code" required>
                 <button type="submit" class="btn btn-primary">Submit QR Code</button>
             </div>
         </form>
-        
+
         <div class="navigation-links">
-            <a href="/home" class="btn btn-primary">Home</a>
-            <a href="/leaderboard" class="btn btn-primary">Leaderboard</a>
+            <a href="/home" class="btn btn-primary w-50">Home</a>
+            <a href="/leaderboard" class="btn btn-primary w-50">Leaderboard</a>
         </div>
     </div>
+</body>
 {% endblock %}
 {% block extra_js %}
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>

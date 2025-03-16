@@ -59,7 +59,7 @@ tr.current-user {
     font-weight: bold;
 }
 
-/* Pagination controls */
+/* pagination controls */
 .pagination-controls {
     display: flex;
     justify-content: center;
@@ -98,7 +98,7 @@ tr.current-user {
     cursor: not-allowed;
 }
 
-/* Per page selector */
+/* entries per page selector */
 .per-page-selector {
     display: flex;
     justify-content: center;
@@ -116,14 +116,14 @@ tr.current-user {
     border: 1px solid #ddd;
 }
 
-/* Ellipsis */
+/* ellipsis row */
 .ellipsis {
     text-align: center;
     padding: 10px;
     color: #6c757d;
 }
 
-/* User rank info */
+/* user rank info display */
 .user-rank-info {
     background-color: rgba(0, 60, 60, 0.05);
     padding: 10px;

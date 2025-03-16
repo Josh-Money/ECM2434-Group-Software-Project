@@ -1,6 +1,5 @@
 /* Author: Tim Mishakov */
 
-/* Leaderboard Container */
 .leaderboard-container {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -10,7 +9,7 @@
   margin-bottom: 20px;
 }
 
-/* Leaderboard Title */
+/* leaderboard title */
 .leaderboard-container h4 {
   text-align: center;
   margin-bottom: 20px;
@@ -18,7 +17,7 @@
   color: var(--primary);
 }
 
-/* Header Row */
+/* header row */
 .leaderboard-header {
   font-weight: bold;
   border-bottom: 1px solid #ccc;
@@ -34,7 +33,7 @@
   padding: 0 8px;
 }
 
-/* Leaderboard Rows */
+/* leaderboard rows */
 .leaderboard-row {
   padding: 10px 0;
   border-bottom: 1px solid #eee;
@@ -45,14 +44,14 @@
   border-bottom: none;
 }
 
-/* Current User Row */
+/* highlight current user row */
 .leaderboard-row.current-user {
   border-left: 4px solid var(--secondary);
   background-color: rgba(6, 128, 12, 0.05);
   font-weight: bold;
 }
 
-/* Ellipsis Row */
+/* ellipsis row */
 .leaderboard-row.ellipsis {
   border-bottom: none;
   padding: 5px 0;
@@ -60,14 +59,14 @@
   color: #6c757d;
 }
 
-/* Hover Effect */
+/* row hover effect */
 .leaderboard-row:hover {
   background-color: rgba(0, 60, 60, 0.05);
   cursor: pointer;
   transform: scale(1.05);
 }
 
-/* Progress Bar */
+/* progress bar */
 .progress {
   height: 20px;
   margin-bottom: 0;

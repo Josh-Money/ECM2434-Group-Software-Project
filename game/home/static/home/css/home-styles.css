@@ -117,7 +117,7 @@ p {
     height: 13%;
 }
 
-/* Progress bar with theme colors */
+/* themed progress bar */
 .theme-progress-bar {
     background-color: var(--secondary);
 }

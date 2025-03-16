@@ -1,4 +1,8 @@
-/* Styling for the Privacy Policy Container */
+
+.subtitle {
+    margin-top: 30px;
+}
+
 .privacy-policy-container {
     background-color: white;
     border-radius: 8px;
@@ -6,31 +10,25 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Center the h3 (subheadings) and increase spacing between the text and the heading */
 .privacy-policy-content h3 {
-    color: #5fc9a2;
     font-weight: bold;
-    text-align: center; /* Center the headings */
-    margin-top: 40px; /* Increase space above headings */
-    margin-bottom: 20px; /* Add space below the headings */
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
-/* Styling for paragraphs and unordered lists */
 .privacy-policy-content p,
 .privacy-policy-content ul {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #333;
-    margin-top: 20px; /* Add more space before the text */
+    margin-top: 20px;
 }
 
-/* Remove default bullet points from the list */
 .privacy-policy-content ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-/* Styling for individual list items */
 .privacy-policy-content ul li {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -39,11 +37,11 @@
     border-radius: 4px;
 }
 
-/* Styling for success/error messages (alerts) */
 .alert {
     margin-top: 10px;
     margin-bottom: 20px; /* Add space below the alert */
 }
+
 
 
 

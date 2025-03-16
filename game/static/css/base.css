@@ -1,24 +1,94 @@
-/* Global reset and styling */
+/* Author: Will Cooke */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap');
+
+:root {
+    --green: #357a32;
+    --teal: #20c997;
+    --cyan: #008196;
+    --white: #ffffff;
+    --gray: #6a737b;
+    --gray-dark: #343a40;
+    --primary: #003c3c;
+    --secondary: #06800c;
+    --third: #4CAF50;
+    --success: #357a32;
+    --info: #008196;
+    --warning: #f0ad4e;
+    --danger: #ca3120;
+    --light: #f8f9fa;
+    --dark: #343a40;
+
+    --bs-primary: var(--primary);  /* override bootstrap primary colour */
+    --bs-secondary: var(--secondary);  /* override bootstrap secondary colour */
+}
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 80px; /* Same as footer height */
+    display: flex;
+    flex-direction: column;
     background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    color: black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    position: relative;
 }
 
 header {
+    flex-shrink: 0;
     position: relative;
-    padding: 10px;
-    height: 50px;
+    height: 55px;
+    top: 0;
+    width: 100%;
+}
+
+main {
+    flex: 1 0 auto;
+    margin-bottom: 80px; /* Same as footer height */
+}
+
+.title {
+    margin-top: 20px;
+    color: var(--secondary);
+    text-align: center;
+    font-size: 60px;
+    font-weight: bold;
+    font-family: 'Raleway Dots'
+}
+
+.subtitle {
+    color: var(--primary);
+    text-align: center;
+    font-size: 40px;
+    font-weight: bolder;
+    font-family: 'Raleway Dots';
+}
+
+.subtitle2 {
+    color: var(--primary);
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    font-family: 'Raleway Dots';
 }
 
 button {
-    background-color: #28a745;
+    background-color: var(--primary);
     border: none;
     border-radius: 10px;
     color: white;
@@ -27,11 +97,37 @@ button:hover {
     background-color: #218838;
 }
 
-.navbar {
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     display: flex;
-    justify-content: space-between; /* Space between left/right sections */
+    padding: 6px 15px 6px; /* Adjust top (12px) and bottom (14px) padding */
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary) !important;
+}
+
+.button-secondary {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+.button-secondary:hover {
+    background-color: #218838;
+}
+
+.navbar {
+    background-color: var(--primary);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    height: 100%;
 }
 
 .nav-left {
@@ -41,6 +137,8 @@ button:hover {
 }
 
 .nav-left a {
+    font-size: 15px;
+    color: var(--white);
     text-decoration: none;
     transition: transform 0.2s ease-in-out;
 }
@@ -48,7 +146,7 @@ button:hover {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 10px;  /* Much larger gap between profile button and logout button */
+    gap: 10px;
 }
 
 .nav-right img {
@@ -60,45 +158,38 @@ button:hover {
 
 .nav-left a:hover, .nav-right img:hover {
     transition: transform 0.2s ease-in-out;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
-.nav-left a:hover, .nav-right .profile-button:hover {
-    border-radius: 5px;
-    border-bottom: #06800c;
-    translate: (-2px);
-}
-
-/* Styling for Profile Button */
 #profile-button {
-    margin-right: 5px;  /* Increased space to push profile button farther away from logout button */
+    margin-right: 5px;
 }
 
-/* Styling for the Logout button (making it much smaller) */
+#logo-button {
+    max-height: 35px;
+    
+}
+
 .btn.btn-danger {
-    padding: 4px 10px;  /* Smaller padding for a much smaller button */
-    font-size: 12px;  /* Smaller font size for the button */
-    margin-left: 5px; /* Extra space between profile button and logout button */
+    padding: 4px 10px;
+    font-size: 12px;
+    margin-left: 5px;
     background-color: #dc3545;
     border: none;
     color: white;
     border-radius: 4px;
     text-align: center;
     font-weight: bold;
+    position: relative;
 }
 
 .btn.btn-danger:hover {
-    background-color: #c82333;  /* Darker shade on hover */
+    background-color: #c82333;
     cursor: pointer;
 }
 
-/* Style for the Terms and Conditions button */
 .terms-btn {
-    position: fixed;   /* Fix the button at the bottom-right corner */
-    bottom: 20px;      /* Adjust the distance from the bottom */
-    right: 20px;       /* Adjust the distance from the right edge */
-    padding: 10px 20px;
-    background-color: #17a2b8; /* Bootstrap 'info' button color */
+    background-color: var(--secondary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -108,8 +199,90 @@ button:hover {
 }
 
 .terms-btn:hover {
-    background-color: #138496;  /* Darker shade on hover */
+    background-color: #00702f;
     cursor: pointer;
 }
 
 
+.earth-mascot {
+    position: fixed;
+    bottom: 52px;
+    left: 20px;
+    width: 150px;
+    max-width: 225px;
+    height: auto;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Hide the Earth mascot on the Privacy Policy page */
+body.privacy-policy-page .earth-mascot {
+    display: none;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #6a737b;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked {
+    border-color: var(--bs-secondary);
+    background-color: var(--bs-secondary);
+}
+
+#logout {
+    text-decoration: none;
+    color: white;
+    background-color: var(--secondary);
+    border-radius: 8px;
+    padding: 0px 8px 0px 8px;
+}
+
+#logout:Hover {
+    background-color: #00702f;
+}
+
+a {
+    text-decoration: none;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px;
+    height: 55px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer #footer-logo {
+    height: 100%;
+    width: auto;
+}
+
+.footer-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.logo {
+    max-height: 100px;
+    width: auto;
+}

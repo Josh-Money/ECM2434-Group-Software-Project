@@ -78,12 +78,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const validCodes = ['recycling_uni_bin']; // Add more valid codes as needed
         
         if (!validCodes.includes(code)) {
-            // Optionally show validation message, or let the server handle it
-            console.log('Submitting form with code:', code);
+            // Show validation message to the user
+            setStatus('Invalid QR code. Please try again.', 'danger');
+            event.preventDefault(); // Prevent form submission
         } else {
+            setStatus('Valid QR code!', 'success');
             console.log('Submitting valid QR code:', code);
+            // Auto-submit the form
+            qrForm.submit();
         }
-        
-        // Let the form submission continue to the server
     });
 });

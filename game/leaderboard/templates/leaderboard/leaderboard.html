@@ -8,9 +8,20 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="text-center">Leaderboard</h1>
-        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scan</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Leaderboard</h1>
+    <div class="container">
+    
         <div class="text-center">
             <button class="leaderboard-button" data-target="leaderboard-main">Overall</button>
             <button class="leaderboard-button" data-target="leaderboard-qr">QR Scan</button>
@@ -19,7 +30,7 @@
         </div>
 
         <div id="leaderboard-main" class="leaderboard-container">
-            <h2>Overall Leaderboard</h2>
+            <h2 class="title">Overall Leaderboard</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -41,7 +52,7 @@
         </div>
 
         <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
-            <h2>QR Scan Leaderboard</h2>
+            <h2 class="title">QR Scan Leaderboard</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -63,7 +74,7 @@
         </div>
 
         <div id="leaderboard-quiz" class="leaderboard-container" style="display: none;">
-            <h2>Quiz Leaderboard</h2>
+            <h2 class="title">Quiz Leaderboard</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -85,7 +96,7 @@
         </div>
 
         <div id="leaderboard-travel" class="leaderboard-container" style="display: none;">
-            <h2>Travel Leaderboard</h2>
+            <h2 class="title">Travel Leaderboard</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -106,6 +117,7 @@
             </table>
         </div>
     </div>
+</body>
 {% endblock %}
 {% block extra_js %}
 <script src="{% static 'leaderboard/js/leaderboard.js' %}"></script>

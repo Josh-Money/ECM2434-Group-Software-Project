@@ -1,0 +1,48 @@
+/* travel.css */
+
+/* Overall background and container spacing */
+body {
+  background-color: #f8f9fa;
+}
+
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Card enhancements */
+.card {
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+/* Heading styling */
+h1, h2 {
+  font-weight: 600;
+}
+
+/* Form customization */
+.form-group label {
+  font-weight: 500;
+}
+
+.form-control {
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+/* Button customization */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  h1, h2 {
+    font-size: 1.75rem;
+  }
+}

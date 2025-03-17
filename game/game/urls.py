@@ -16,21 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import signup_view, privacy_policy, login_view
+from login.views import signup_view, privacy_policy #login_view
 from django.contrib.auth.views import LogoutView
 from leaderboard.views import leaderboard
 from qr.views import scan_qr
 from django.contrib.auth import views as auth_views
-from login.views import logout_view
+from login.views import logout_view, CustomLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-
+    path('', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
     path('home/', include('home.urls')),
     path("sign-up/", signup_view, name="signup"),
     path('logout/', logout_view, name='logout'),
-   
     path('contact/', include('contact.urls')),
     path('leaderboard/', leaderboard, name="leaderboard"),
     path('articles/', include('articles.urls')),
@@ -38,8 +36,5 @@ urlpatterns = [
     path('qr/', scan_qr, name="qr_scan"),
     path('challenges/', include('challenges.urls')),
     path('travel/', include('travel.urls')),
-
-
-     path('profile/', include('profiles.urls')),
-
+    path('profile/', include('profiles.urls')),
 ]

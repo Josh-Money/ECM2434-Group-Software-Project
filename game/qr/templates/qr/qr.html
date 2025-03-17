@@ -31,7 +31,7 @@
             <img src="{%static 'qr/images/uni-qr-map.png' %}" alt="University QR Map">
         </div>
         
-        <p class="info">Scan the QR code located near recycling bins across the University, or enter the code manually below.</p>
+        <p class="info">Scan the QR code on the screen below, then press submit to enter!</p>
         
         <div class="scan-overlay">
             <video id="preview"></video>
@@ -40,7 +40,7 @@
         <form method="post" action="" id="qrForm" class="form-container">
             {% csrf_token %}
             <div class="form-group">
-                <input type="hidden" name="qr_code" required>
+                <input type="hidden" name="qr_code" id="qr_code" required>
                 <button type="submit" class="btn btn-primary">Submit QR Code</button>
             </div>
         </form>

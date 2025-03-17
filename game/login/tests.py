@@ -21,6 +21,7 @@ class AuthenticationTests(TestCase):
             'email': 'testuser@exeter.ac.uk',
             'password1': 'StrongPassword123',
             'password2': 'StrongPassword123',
+            'agree_to_privacy_policy': True,  # This field is required by the form
         }
         response = self.client.post(reverse('signup'), data)
 
@@ -30,6 +31,9 @@ class AuthenticationTests(TestCase):
         # Check that the redirect is to the login page
         self.assertRedirects(response, reverse('login'))
 
+        # Check that the user was created
+        self.assertTrue(User.objects.filter(username='uniqueusername').exists())
+
     def test_signup_without_exeter_email(self):
         """Test that a user cannot sign up without an @exeter.ac.uk email."""
         data = {
@@ -37,6 +41,7 @@ class AuthenticationTests(TestCase):
             'email': 'testuser@gmail.com',  # Invalid email (not @exeter.ac.uk)
             'password1': 'StrongPassword123',
             'password2': 'StrongPassword123',
+            'agree_to_privacy_policy': True,  # This field is required by the form
         }
         response = self.client.post(reverse('signup'), data)
 

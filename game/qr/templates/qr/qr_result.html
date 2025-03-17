@@ -35,14 +35,18 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const pointsEarned = urlParams.get('points_earned');
-        const activity = urlParams.get('activity');
+        var status = "{{ status }}";
+        var message = "{{ message }}";
         
-        // Show mascot message if points were earned
-        if (pointsEarned && activity && typeof window.showPointsEarned === 'function') {
-            window.showPointsEarned(pointsEarned, activity);
+        if (status === "success") {
+            // Extract points from the message (assuming format: "♻️Great job! You have earned X points for recycling!♻️")
+            var pointsMatch = message.match(/earned (\d+) points/);
+            if (pointsMatch) {
+                var points = pointsMatch[1];
+                setTimeout(function() {
+                    mascotSpeech("Great job recycling! You earned " + points + " points! Keep helping the environment! ♻️", 5000);
+                }, 500);
+            }
         }
     });
 </script>

@@ -75,6 +75,7 @@ Here is a step by step on how to get the developement enviroment working.
   pip install django-crispy-forms
   pip install crispy-bootstrap5
   pip install Pillow
+  pip install django-jazzmin
   ```
 
 6. Run migrations:

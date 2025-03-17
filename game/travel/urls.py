@@ -1,3 +1,4 @@
+# Author Tim Mishakov
 from django.urls import path
 from . import views
 

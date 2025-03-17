@@ -1,7 +1,13 @@
+<!--Authors: Tim Mishakov-->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Already Submitted{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -13,5 +19,35 @@
       <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
     </div>
   </div>
+  <div id="map" style="height:400px; margin-top:20px;"></div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Use the submission location passed from the view.
+    const submissionLat = parseFloat("{{ last_submission_lat }}");
+    const submissionLon = parseFloat("{{ last_submission_lon }}");
+
+    const campusCenter = { lat: 50.735566, lon: -3.533208 };
+    const campusRadius = 500; // in meters
+
+    const map = L.map('map').setView([submissionLat, submissionLon], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([submissionLat, submissionLon]).addTo(map)
+      .bindPopup("Your submitted location")
+      .openPopup();
+
+    L.circle([campusCenter.lat, campusCenter.lon], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.2,
+      radius: campusRadius
+    }).addTo(map);
+  </script>
 {% endblock %}

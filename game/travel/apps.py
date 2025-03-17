@@ -1,3 +1,4 @@
+# Author Tim Mishakov
 from django.apps import AppConfig
 
 

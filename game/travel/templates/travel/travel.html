@@ -1,3 +1,4 @@
+<!--Authors: Tim Mishakov-->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -5,6 +6,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
 
 {% block content %}
@@ -14,11 +16,9 @@
       <h2 class="mb-0">University of Exeter Campus Tracker</h2>
     </div>
     <div class="card-body">
-      <!-- Alert when the user is not on campus -->
       <div id="messageSection" class="alert alert-info" style="display:none;">
         <p>You are not on campus at the moment. Please come back when you're on campus!</p>
       </div>
-      <!-- Form is shown only if on campus -->
       <div id="formSection" style="display:none;">
         <form method="post" action="">
           {% csrf_token %}
@@ -31,22 +31,26 @@
               <option value="Public transport">Public transport</option>
             </select>
           </div>
+          <input type="hidden" name="lat" id="lat">
+          <input type="hidden" name="lon" id="lon">
           <button type="submit" class="btn btn-success">Submit</button>
         </form>
       </div>
+      <div id="map" style="height:400px; margin-top:20px;"></div>
     </div>
   </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-  // University of Exeter campus coordinates (example values)
-  const campusCenter = { lat: 50.735566, lon: -3.533208};
-  const campusRadius = 500; // in meters
+  const campusCenter = { lat: 50.736404, lon: -3.534551 };
+  const campusRadius = 500; // meters
+  let map;
 
   function getDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371000; // Earth's radius in meters
+      const R = 6371000; 
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
       const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -56,11 +60,34 @@
       return R * c;
   }
 
+  function initMap(userLat, userLon) {
+    if (!map) {
+      map = L.map('map').setView([userLat, userLon], 15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      L.circle([campusCenter.lat, campusCenter.lon], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.2,
+        radius: campusRadius
+      }).addTo(map);
+    } else {
+      map.setView([userLat, userLon], 15);
+    }
+    L.marker([userLat, userLon]).addTo(map)
+      .bindPopup("You are here.")
+      .openPopup();
+  }
+
   function checkCampus() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
               const lat = position.coords.latitude;
               const lon = position.coords.longitude;
+              document.getElementById("lat").value = lat;
+              document.getElementById("lon").value = lon;
+              
               const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
               if (distance <= campusRadius) {
                   document.getElementById("formSection").style.display = "block";
@@ -69,6 +96,7 @@
                   document.getElementById("formSection").style.display = "none";
                   document.getElementById("messageSection").style.display = "block";
               }
+              initMap(lat, lon);
           }, function(error) {
               console.error(error);
           });

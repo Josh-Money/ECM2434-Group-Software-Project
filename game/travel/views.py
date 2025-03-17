@@ -1,3 +1,4 @@
+# Author Tim Mishakov
 import datetime
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -7,28 +8,29 @@ def travel(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    # Use timezone.localdate() for the current day.
     today = timezone.localdate()
 
     # Check if the user already submitted today.
     if CampusTravel.objects.filter(user=request.user, date=today).exists():
         now = timezone.now()
-        # Compute midnight of the next day.
         midnight = (now + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
         wait_seconds = (midnight - now).seconds
         hours = wait_seconds // 3600
         minutes = (wait_seconds % 3600) // 60
-        if hours:
-            wait_time = f"{hours} hours and {minutes} minutes"
-        else:
-            wait_time = f"{minutes} minutes"
+        wait_time = f"{hours} hours and {minutes} minutes" if hours else f"{minutes} minutes"
+
+        last_submission = CampusTravel.objects.filter(user=request.user, date=today).latest('id')
         context = {
             'wait_time': wait_time,
+            'last_submission_lat': last_submission.lat,
+            'last_submission_lon': last_submission.lon,
         }
         return render(request, 'travel/already_submitted.html', context)
 
     if request.method == "POST":
         travel_method = request.POST.get('travel_method')
+        lat = request.POST.get('lat')
+        lon = request.POST.get('lon')
         points_map = {
             "Walking": 30,
             "Biking": 20,
@@ -39,10 +41,11 @@ def travel(request):
         CampusTravel.objects.create(
             user=request.user,
             travel_method=travel_method,
-            points=points
+            points=points,
+            lat=lat,
+            lon=lon 
         )
         context = {'points': points}
         return render(request, 'travel/thank_you.html', context)
 
-    # GET request: Render the travel (submission) page.
     return render(request, 'travel/travel.html')

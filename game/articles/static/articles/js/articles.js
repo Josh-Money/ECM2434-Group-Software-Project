@@ -107,11 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             console.log('Points earned:', data.points_earned);
             
-            // Show mascot message with points earned
-            if (typeof window.showPointsEarned === 'function' && data.points_earned > 0) {
+            // Use mascot speech to announce points earned
+            if (typeof window.mascotSpeech === 'function' && data.points_earned > 0) {
                 setTimeout(function() {
-                    window.showPointsEarned(data.points_earned, 'quiz');
-                }, 500); // Small delay to ensure the function is available
+                    window.mascotSpeech(`Great job! You earned ${data.points_earned} points from the quiz! Keep learning about sustainability! 🌍`);
+                }, 500);
             }
         })
         .catch(error => {

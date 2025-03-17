@@ -42,16 +42,25 @@
           <div class="col-5 text-center header-progress">PROGRESS</div>
         </div>
         {% for entry in leaderboard %}
-        <div class="leaderboard-row row align-items-center">
-          <div class="col-4 text-center">{{ entry.name }}</div>
+        <div class="leaderboard-row row align-items-center {% if entry.is_current_user %}current-user{% endif %} {% if entry.is_ellipsis %}ellipsis{% endif %}">
+          <div class="col-4 text-center">
+            {% if entry.is_ellipsis %}
+              ...
+            {% else %}
+              {% if entry.position %}
+                {{ entry.position }}. {{ entry.name }}
+              {% else %}
+                {{ forloop.counter }}. {{ entry.name }}
+              {% endif %}
+            {% endif %}
+          </div>
           <div class="col-3 text-center">{{ entry.points }}</div>
           <div class="col-5">
+            {% if not entry.is_ellipsis %}
             <div class="progress" style="height: 20px;">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                style="width: {{ entry.progress }}%;" aria-valuenow="{{ entry.progress }}" aria-valuemin="0"
-                aria-valuemax="100">
-              </div>
+              <div class="progress-bar progress-bar-striped progress-bar-animated theme-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ entry.progress }}" style="width: {{ entry.progress }}%;"></div>
             </div>
+            {% endif %}
           </div>
         </div>
         {% empty %}

@@ -1,0 +1,110 @@
+<!--Authors: Tim Mishakov-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Campus Travel Submission{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">University of Exeter Campus Tracker</h2>
+    </div>
+    <div class="card-body">
+      <div id="messageSection" class="alert alert-info" style="display:none;">
+        <p>You are not on campus at the moment. Please come back when you're on campus!</p>
+      </div>
+      <div id="formSection" style="display:none;">
+        <form method="post" action="">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="travel_method">How did you travel to campus?</label>
+            <select class="form-control" name="travel_method" id="travel_method">
+              <option value="Walking">Walking</option>
+              <option value="Biking">Biking</option>
+              <option value="Car">Car</option>
+              <option value="Public transport">Public transport</option>
+            </select>
+          </div>
+          <input type="hidden" name="lat" id="lat">
+          <input type="hidden" name="lon" id="lon">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+      <div id="map" style="height:400px; margin-top:20px;"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const campusCenter = { lat: 50.736404, lon: -3.534551 };
+  const campusRadius = 500; // meters
+  let map;
+
+  function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000; 
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+  }
+
+  function initMap(userLat, userLon) {
+    if (!map) {
+      map = L.map('map').setView([userLat, userLon], 15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      L.circle([campusCenter.lat, campusCenter.lon], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.2,
+        radius: campusRadius
+      }).addTo(map);
+    } else {
+      map.setView([userLat, userLon], 15);
+    }
+    L.marker([userLat, userLon]).addTo(map)
+      .bindPopup("You are here.")
+      .openPopup();
+  }
+
+  function checkCampus() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              document.getElementById("lat").value = lat;
+              document.getElementById("lon").value = lon;
+              
+              const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
+              if (distance <= campusRadius) {
+                  document.getElementById("formSection").style.display = "block";
+                  document.getElementById("messageSection").style.display = "none";
+              } else {
+                  document.getElementById("formSection").style.display = "none";
+                  document.getElementById("messageSection").style.display = "block";
+              }
+              initMap(lat, lon);
+          }, function(error) {
+              console.error(error);
+          });
+      } else {
+          alert("Geolocation is not supported by your browser.");
+      }
+  }
+
+  window.onload = checkCampus;
+</script>
+{% endblock %}

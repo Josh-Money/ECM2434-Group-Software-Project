@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'qr',
     'profiles.apps.ProfilesConfig',
     'challenges',
+    'travel',
     'import_export',
 ]
 

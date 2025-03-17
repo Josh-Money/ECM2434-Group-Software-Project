@@ -135,3 +135,62 @@ class QRTests(TestCase):
         
         # Check if the response is successful
         self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Invalid QR code. Please try again.")
+        # Check that the leaderboard entry for 'qr_scan' either does not exist or remains at 0.
+        try:
+            entry = Leaderboard.objects.get(user=self.user, activity_type="qr_scan")
+            self.assertEqual(entry.score, 0)
+        except Leaderboard.DoesNotExist:
+            # If no entry was created, that is acceptable.
+            pass
+
+    def test_requires_login(self):
+        """Test that the QR endpoint requires the user to be logged in."""
+
+        # Without login, the GET request should redirect to the login page.
+        response = self.client.get(reverse("qr_scan"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_one_entry_per_day(self):
+        """Test that a user can only submit one qr code a day."""
+        
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(reverse("qr_scan"), {"qr_code": "amory_uni_bin"})
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertContains(
+            response,
+            "Great job! You have earned 20 points for recycling!"
+        )
+
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(reverse("qr_scan"), {"qr_code": "amory_uni_bin"})
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertContains(
+            response,
+            "You've already scanned this QR code today. Come back tomorrow!"
+        )
+
+    def test_different_qr_codes_per_day(self):
+        """Tests that a user can scan multiple different bins in one day."""
+
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(reverse("qr_scan"), {"qr_code": "amory_uni_bin"})
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertContains(
+            response,
+            "Great job! You have earned 20 points for recycling!"
+        )
+
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(reverse("qr_scan"), {"qr_code": "birks_uni_bin"})
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertContains(
+            response,
+            "Great job! You have earned 20 points for recycling!"
+        )
+

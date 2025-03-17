@@ -18,7 +18,9 @@ def scan_qr(request):
 
         # Validate QR code
         valid_qr_codes = {
-            "recycling_uni_bin": 20, # key: QR code string, value: points awarded
+            "amory_uni_bin": 20,
+            "lafrowda_uni_bin": 20,
+            "birks_uni_bin": 20, # key: QR code string, value: points awarded
         }
 
         if qr_code_content in valid_qr_codes:
@@ -26,11 +28,12 @@ def scan_qr(request):
 
             already_scanned_today = QRScan.objects.filter(
                 user=request.user,
-                scan_date=today
+                scan_date=today,
+                qr_code=qr_code_content,
             ).exists()
             
             if already_scanned_today:
-                message = "You've already scanned a QR code today. Come back tomorrow!"
+                message = "You've already scanned this QR code today. Come back tomorrow!"
                 return render(request, 'qr/qr_result.html', {"message": message, "status": "warning"})
             else:
                 try: 
@@ -44,7 +47,7 @@ def scan_qr(request):
                     message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
                     return render(request, 'qr/qr_result.html', {"message": message, "status": "success"})
                 except IntegrityError:
-                    message = "You've already scanned a QR code today. Come back tomorrow!"
+                    message = "You've already scanned this QR code today. Come back tomorrow!"
                     return render(request, 'qr/qr_result.html', {"message": message, "status": "warning"})
         else:
             message = "Invalid QR code. Please try again."

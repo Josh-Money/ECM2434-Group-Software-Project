@@ -101,20 +101,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: new URLSearchParams({
-                'correct_answers': score
-            })
+            body: `correct_answers=${score}`
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log("Leaderboard updated:", data);
+            console.log('Points earned:', data.points_earned);
+            
+            // Show mascot message with points earned
+            if (typeof window.showPointsEarned === 'function' && data.points_earned > 0) {
+                setTimeout(function() {
+                    window.showPointsEarned(data.points_earned, 'quiz');
+                }, 500); // Small delay to ensure the function is available
+            }
         })
-        .catch(error => console.error("Error updating leaderboard:", error));
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 });
 

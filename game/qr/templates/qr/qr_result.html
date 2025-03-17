@@ -31,3 +31,19 @@
     </div>
 </body>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const pointsEarned = urlParams.get('points_earned');
+        const activity = urlParams.get('activity');
+        
+        // Show mascot message if points were earned
+        if (pointsEarned && activity && typeof window.showPointsEarned === 'function') {
+            window.showPointsEarned(pointsEarned, activity);
+        }
+    });
+</script>
+{% endblock %}

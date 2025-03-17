@@ -45,4 +45,16 @@
 {% endblock %}
 
 {% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make sure the showPointsEarned function is available
+        if (typeof window.showPointsEarned !== 'function') {
+            console.warn('showPointsEarned function not found, creating a fallback');
+            window.showPointsEarned = function(points, activity) {
+                console.log(`Points earned: ${points} for activity: ${activity}`);
+                alert(`Congratulations! You earned ${points} points!`);
+            };
+        }
+    });
+</script>
 {% endblock %}

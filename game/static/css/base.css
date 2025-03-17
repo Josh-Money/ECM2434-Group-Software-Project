@@ -286,3 +286,122 @@ a {
     max-height: 100px;
     width: auto;
 }
+
+/* Mascot and Speech Bubble */
+.mascot-container {
+    position: fixed;
+    bottom: 52px; /* Position just above the footer */
+    left: 20px;
+    z-index: 10001; /* Higher than footer */
+    width: 250px; /* Increased width to accommodate speech bubble and larger mascot */
+    height: 150px; /* Added height to ensure enough space for the mascot */
+    pointer-events: none; /* Allow clicks to pass through the container */
+}
+
+.earth-mascot {
+    width: 120px; /* Increased from 100px to make mascot bigger */
+    height: auto;
+    cursor: pointer;
+    pointer-events: auto; /* Re-enable pointer events for the mascot image */
+    position: absolute; /* Position absolute for original positioning */
+    bottom: 0; /* Position at the bottom of the container */
+    left: 0; /* Position at the left of the container */
+    z-index: 10001; /* Ensure mascot is above other elements */
+    transition: transform 0.3s ease; /* Add transition for hover effect */
+}
+
+.earth-mascot:hover {
+    transform: translateY(-5px) scale(1.05); /* Slight bounce and scale effect on hover */
+}
+
+.speech-bubble {
+    position: absolute;
+    bottom: 130px; /* Moved higher up from -60px */
+    left: 25px; /* Adjusted position to the right of the mascot */
+    transform: translateX(0); /* No transform needed with absolute positioning */
+    background-color: white;
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    padding: 12px 15px; /* Slightly more padding */
+    width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+    z-index: 10002; /* Higher than mascot */
+    pointer-events: auto; /* Enable pointer events for the speech bubble */
+    animation: pop-in 0.3s ease-out; /* Add animation */
+}
+
+/* Animation for speech bubble */
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -15px; /* Position at the bottom of the bubble */
+    left: 25px; /* Position towards the left side of the bubble */
+    border-width: 15px 15px 0; /* Point downward */
+    border-style: solid;
+    border-color: white transparent transparent; /* White triangle pointing down */
+    display: block;
+    width: 0;
+}
+
+.speech-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: -18px; /* Position at the bottom of the bubble */
+    left: 23px; /* Position towards the left side of the bubble */
+    border-width: 17px 17px 0; /* Point downward */
+    border-style: solid;
+    border-color: var(--primary) transparent transparent; /* Border color triangle pointing down */
+    display: block;
+    width: 0;
+}
+
+.speech-bubble p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.close-speech {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.close-speech:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Hide the Earth mascot on the Privacy Policy page */
+body.privacy-policy-page .mascot-container {
+    display: none;
+}

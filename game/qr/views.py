@@ -1,7 +1,8 @@
 # Author: Joshua Money
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from leaderboard.utils import update_leaderboard
+from django.contrib import messages
 
 # Create your views here.
 @login_required
@@ -18,11 +19,11 @@ def scan_qr(request):
         if qr_code_content in valid_qr_codes:
             points_earned = valid_qr_codes[qr_code_content]
             update_leaderboard(request.user, "qr_scan", points=points_earned)
-            message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
+            messages.success(request, f"♻️ Great job! You have earned {points_earned} points for recycling! ♻️")
         else:
-            message = "Invalid QR code. Please try again."
+            messages.error(request, "❌ Invalid QR code. Please try again.")
             
-        return render(request, 'qr/qr_result.html', {"message": message})
+        return redirect("qr_scan") # Redirect to the same page to clear the form
     else:
         # For GET requests, rendering QR scanning page. 
         return render(request, "qr/qr.html")

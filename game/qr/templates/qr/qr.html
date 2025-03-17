@@ -27,10 +27,20 @@
     <!--Video element for QR Scanner -->
     <video id="preview"></video>
 
+    <!-- Toast Message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div id="toast" class="toast {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <!-- Include Instascan Library -->
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </div>
 {% endblock %}
+
 {% block extra_js %}
 <script src="{% static 'qr/js/qr.js' %}"></script>
 {% endblock %}

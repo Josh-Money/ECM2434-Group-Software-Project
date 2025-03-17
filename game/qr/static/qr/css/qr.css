@@ -34,3 +34,32 @@ p {
 #submit {
     width: 100px;
 }
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    left: 140px;
+    bottom: 160px;
+    z-index: 9999;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #ffffff; /* Green for success */
+}
+
+.toast.error {
+    background-color: #ffffff; /* Red for error */
+}

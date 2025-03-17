@@ -16,4 +16,12 @@
     <br>
     <a href="/leaderboard" class="btn btn-primary w-50">Go to Leaderboard</a>
 </div>
+
+{% if message %}
+    <!-- Toast Container -->
+    <div id="toast" class="toast">
+        {{ message }}
+    </div>
+{% endif %}
 {% endblock %}
+

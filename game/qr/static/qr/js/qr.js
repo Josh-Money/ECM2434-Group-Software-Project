@@ -20,3 +20,13 @@ Instascan.Camera.getCameras().then(function (cameras) {
     console.error(e);
     alert('Error intializing QR scanner: ' + e);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const toast = document.querySelector('.toast');
+    if (toast) {
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000); // Toast disappears after 3 seconds
+    }
+});

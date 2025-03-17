@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const code = qrCodeInput.value.trim();
         
         // Validate if the QR code is one of the expected values
-        const validCodes = ['recycling_uni_bin']; // Add more valid codes as needed
+        const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more valid codes as needed
         
         if (!validCodes.includes(code)) {
             // Show validation message to the user

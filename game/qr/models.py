@@ -13,7 +13,7 @@ class QRScan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['user', 'scan_date']
+        unique_together = ['user', 'scan_date', 'qr_code']
 
     def __str__(self):
         return f"{self.user.username} - {self.scan_date} - {self.points_earned} points"

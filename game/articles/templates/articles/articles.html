@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Articles{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'articles/css/articles-styles.css' %}">
@@ -31,16 +31,22 @@
             leaderboard! </p>
         <p style="text-align: center;">Warning! You will only get one try on each quiz, so make sure you are confident before clicking check. </p>
         <br>
-        <a href="https://www.exeter.ac.uk/about/sustainability/whatyoucando/#footprint">Article 1 - University Of Exeter
-            sustainability page: What you can do to reduce your carbon footprint</a>
-        {% include 'quiz1.html' %}
-
-        <button id="checkAnswer" class="btn btn-primary w-80">Check Answers</button>
-
-        <p id="feedback"></p>
+        
+        <div class="article-list">
+            {% for article in articles %}
+                <div class="article-item">
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.content|truncatewords:30 }}</p>
+                    <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Read Article</a>
+                    {% if article.quiz %}
+                        <span class="quiz-badge">Quiz Available</span>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No articles available. Check back later!</p>
+            {% endfor %}
+        </div>
     </div>
-
-    <script src="{% static 'articles/js/articles.js' %}"></script>
 </body>
 {% endblock %}
 

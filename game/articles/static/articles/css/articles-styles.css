@@ -8,7 +8,7 @@
 }
 
 p {
-    line-height: 0.8;
+    line-height: 1.6;
 }
 
 button {
@@ -17,12 +17,13 @@ button {
 
 #toggleQuiz {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #checkAnswer {
     margin-top: 10px;
     display: block;
-    margin: 0 auto;
+    margin: 20px auto;
     width: 80%;
     line-height: 0px;
 }
@@ -30,9 +31,64 @@ button {
 .truefalse {
     margin-top: 0px;
     margin-bottom: 30px;
+    display: block;
 }
 
 .question {
     font-size: 20px;
     text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.article-item {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.article-item:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.article-item h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.article-content {
+    margin: 20px 0;
+    text-align: justify;
+}
+
+.published-date {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.quiz-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.quiz-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.hidden {
+    display: none;
+}
+
+#feedback {
+    margin-top: 20px;
+    text-align: center;
 }

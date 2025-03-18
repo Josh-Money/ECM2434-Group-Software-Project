@@ -5,7 +5,17 @@ div {
 .container {
     text-align: center;
     align-items: center;
-    max-width: 45%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.contact-form {
+    text-align: left;
+}
+
+.contact-form label {
+    font-weight: 500;
 }
 
 .contact-form button {
@@ -57,4 +67,41 @@ div {
 .alert-danger::before {
     content: "✕ ";
     font-weight: bold;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 500px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 450px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 400px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 390px) {
+    .container {
+        max-width: 320px;
+        padding: 10px;
+    }
+    
+    h1.title {
+        font-size: 28px;
+    }
+    
+    .form-control {
+        font-size: 14px;
+    }
 }

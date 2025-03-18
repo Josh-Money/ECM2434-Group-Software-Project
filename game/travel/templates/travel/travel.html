@@ -13,17 +13,17 @@
 <h2 class="title">Travel</h2>
 <a style="display: block; margin: 0 auto 20px auto;" href="/challenges" class="btn btn-primary w-25">Return to Challenges</a>
 
-<div class="container my-5">
-  <div class="card shadow">
+<div class="container">
+  <div class="card">
     <div class="card-body">
       <div id="messageSection" class="custom-alert" style="display:none;">
         <p>You are not on campus at the moment. Please come back when you're on campus!</p>
       </div>
-      <div id="formSection" style="display:none;">
+      <div id="formSection" class="form-container" style="display:none;">
         <form method="post" action="">
           {% csrf_token %}
           <div class="form-group">
-            <label for="travel_method">How did you travel to campus?</label>
+            <label for="travel_method" class="form-label">How did you travel to campus?</label>
             <select class="form-control" name="travel_method" id="travel_method">
               <option value="Walking">Walking</option>
               <option value="Biking">Biking</option>
@@ -33,10 +33,10 @@
           </div>
           <input type="hidden" name="lat" id="lat">
           <input type="hidden" name="lon" id="lon">
-          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="submit" class="btn-submit">Submit</button>
         </form>
       </div>
-      <div id="map" style="height:400px; margin-top:20px;"></div>
+      <div id="map" class="map-container" style="height:400px; margin-top:20px;"></div>
     </div>
   </div>
 </div>
@@ -78,13 +78,8 @@
         radius: campusRadius
       }).addTo(map);
 
-      // Wait a moment then remove the attribution element
-      setTimeout(function () {
-        const attributionElement = document.querySelector('.leaflet-control-attribution.leaflet-control');
-        if (attributionElement && attributionElement.parentNode) {
-          attributionElement.parentNode.removeChild(attributionElement);
-        }
-      }, 500); // 500ms delay to ensure map is fully loaded
+      // Remove attribution after map initialization
+      removeAttribution();
     } else {
       map.setView([userLat, userLon], 15);
     }
@@ -131,7 +126,7 @@
           // In production mode, don't show form if geolocation fails
           document.getElementById("formSection").style.display = "none";
           document.getElementById("messageSection").style.display = "block";
-          document.getElementById("messageSection").textContent = "Unable to determine your location. Please enable location services and try again.";
+          document.getElementById("messageSection").innerHTML = "<p>Unable to determine your location. Please enable location services and try again.</p>";
           // Show campus map centered at campus
           initMap(campusCenter.lat, campusCenter.lon);
         }
@@ -146,12 +141,60 @@
         // In production mode, don't show form if geolocation is not supported
         document.getElementById("formSection").style.display = "none";
         document.getElementById("messageSection").style.display = "block";
+        document.getElementById("messageSection").innerHTML = "<p>Geolocation is not supported by your browser. Please use a different browser.</p>";
       }
       // Show campus map centered at campus
       initMap(campusCenter.lat, campusCenter.lon);
     }
   }
 
-  window.onload = checkCampus;
+  // Adjust map height for different screen sizes
+  function adjustMapHeight() {
+    const mapElement = document.getElementById('map');
+    if (window.innerWidth <= 480) {
+      mapElement.style.height = '300px'; 
+    } else if (window.innerWidth <= 768) {
+      mapElement.style.height = '350px';
+    } else {
+      mapElement.style.height = '400px';
+    }
+  }
+
+  // Function to remove attribution that checks multiple times
+  function removeAttribution() {
+    // Try to remove immediately
+    const removeAttr = function() {
+      const attributionElement = document.querySelector('.leaflet-control-attribution.leaflet-control');
+      if (attributionElement && attributionElement.parentNode) {
+        attributionElement.parentNode.removeChild(attributionElement);
+        return true;
+      }
+      return false;
+    };
+
+    // Try immediately
+    if (removeAttr()) return;
+
+    // Try again after 500ms
+    setTimeout(function() {
+      if (removeAttr()) return;
+      
+      // Try again after 1s
+      setTimeout(function() {
+        if (removeAttr()) return;
+        
+        // Final attempt after 2s
+        setTimeout(removeAttr, 1000);
+      }, 500);
+    }, 500);
+  }
+
+  window.onload = function() {
+    checkCampus();
+    adjustMapHeight();
+    removeAttribution();
+  };
+
+  window.addEventListener('resize', adjustMapHeight);
 </script>
 {% endblock %}

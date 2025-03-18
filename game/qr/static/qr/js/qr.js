@@ -11,12 +11,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set status message
     function setStatus(message, type = 'info') {
-        scanStatus.textContent = message;
-        scanStatus.className = `alert alert-${type} mt-3 mb-4`;
+        if (scanStatus) {
+            scanStatus.textContent = message;
+            scanStatus.className = `alert alert-${type} mt-3 mb-4`;
+        }
         console.log(`Status: ${message}`);
     }
     
-    // Try to initialize the camera scanner, but don't worry if it fails
+    // Check if QR code is valid and submit form if it is
+    function processQrCode(content) {
+        const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more valid codes as needed
+        
+        if (validCodes.includes(content)) {
+            // Set form value
+            qrCodeInput.value = content;
+            
+            // Show success message
+            setStatus('Valid QR code detected! Submitting...', 'success');
+            
+            // Add a small delay to show the success message before submitting
+            setTimeout(function() {
+                qrForm.submit();
+            }, 800);
+            
+            return true;
+        } else {
+            // Show error message for invalid QR code
+            setStatus('Invalid QR code. Please try a valid recycling bin QR code.', 'danger');
+            return false;
+        }
+    }
+    
     try {
         // Don't initialize camera if Instascan isn't available
         if (typeof Instascan === 'undefined') {
@@ -31,15 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
             mirror: false
         });
         
-        // Add scan listener to auto-fill the form field when a QR code is detected
+        // Add scan listener to auto-submit the form when a valid QR code is detected
         scanner.addListener('scan', function(content) {
             console.log('QR code detected:', content);
-            
-            // Set form value
-            qrCodeInput.value = content;
-            
-            // Show success message
-            setStatus('QR code detected! Click the Submit button to continue.', 'success');
+            processQrCode(content);
         });
         
         // Start camera (if available)
@@ -49,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     scanner.start(cameras[0])
                         .then(() => {
                             console.log('Camera started successfully');
-                            setStatus('Camera active. Point at QR code or use manual entry above.');
+                            setStatus('Camera active. Point at a recycling bin QR code.', 'info');
                         })
                         .catch(err => {
                             console.error('Error starting camera:', err);
@@ -65,16 +85,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Don't show an error - user can use manual entry
             });
     } catch (error) {
-        // If there's any error with camera initialization, just log it
-        // User can still use the manual form
         console.error('Error with camera scanner:', error);
     }
     
-    // Enhance the form submit with validation
+    // Enhance the form submit with validation for manual entry
     qrForm.addEventListener('submit', function(event) {
         const code = qrCodeInput.value.trim();
         
-        // Validate if the QR code is one of the expected values
+        // Only validate if this is a manual submission (not already processed by scanner)
+        if (!code) {
+            setStatus('Please scan a QR code or enter a valid code.', 'warning');
+            event.preventDefault(); // Prevent empty submission
+            return;
+        }
+        
         const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more valid codes as needed
         
         if (!validCodes.includes(code)) {
@@ -84,8 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             setStatus('Valid QR code!', 'success');
             console.log('Submitting valid QR code:', code);
-            // Auto-submit the form
-            qrForm.submit();
+            // Form will submit naturally
         }
     });
 });

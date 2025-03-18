@@ -5,26 +5,84 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'qr/css/qr.css' %}">
+<style>
+    h1 {
+        text-align: center;
+    }
+    
+    .btn-primary {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .btn-primary:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+    
+    .container {
+        margin: 20px auto 100px !important; /* Reduced bottom margin to prevent footer overlap */
+    }
+    
+    /* Fix for footer text position specifically on QR page */
+    .footer .footer-text {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+        text-align: center !important;
+        width: auto !important;
+        white-space: nowrap !important;
+        font-size: 15px !important;
+    }
+    
+    /* Make footer position more robust */
+    .footer {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 9999 !important;
+    }
+    
+    /* Prevent videos from affecting layout */
+    .scan-overlay {
+        height: 250px !important;
+        max-height: 250px !important;
+        overflow: hidden !important;
+    }
+    
+    /* Reduce space between elements */
+    .qr-page-wrapper {
+        padding-bottom: 60px;
+    }
+    
+    /* Ensure main content doesn't push footer */
+    main {
+        padding-bottom: 60px !important;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Scan</title>
-    <style>
-        h1 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+<div class="qr-page-wrapper">
     <h1 class="title">QR Code Challenge</h1>
 
     <a style="display: block; margin: 0 auto 20px auto;" href="/challenges" class="btn btn-primary w-25">Return to Challenges</a>
 
     <div class="container">
-
         <p class="info"> See the map below to find the QR codes around University!</p>
 
         <div class="map-container">
@@ -32,6 +90,8 @@
         </div>
         
         <p class="info">Scan the QR code on the screen below, then press submit to enter!</p>
+        
+        <div id="scanStatus" class="alert alert-info mt-3 mb-4" style="display: none;">Camera initializing... Please wait.</div>
         
         <div class="scan-overlay">
             <video id="preview"></video>
@@ -50,9 +110,34 @@
             <a href="/leaderboard" class="btn btn-primary w-50">Leaderboard</a>
         </div>
     </div>
-</body>
+</div>
 {% endblock %}
+
 {% block extra_js %}
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="{% static 'qr/js/qr.js' %}"></script>
+<script>
+    // Fix footer text position on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ensure footer is properly positioned
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.style.position = 'fixed';
+            footer.style.bottom = '0';
+            footer.style.width = '100%';
+            footer.style.zIndex = '9999';
+        }
+        
+        // Fix footer text position
+        const footerText = document.querySelector('.footer-text');
+        if (footerText) {
+            footerText.style.position = 'absolute';
+            footerText.style.left = '50%';
+            footerText.style.top = '50%';
+            footerText.style.transform = 'translate(-50%, -50%)';
+            footerText.style.margin = '0';
+            footerText.style.textAlign = 'center';
+        }
+    });
+</script>
 {% endblock %}

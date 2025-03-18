@@ -22,7 +22,7 @@
     <h1 class="title">QR Scan Result</h1> 
     <div class="container">
 
-        <p>{{ message }}</p>
+        <p id="result-message" data-status="{{ status }}">{{ message }}</p>
 
         <div class="navigation-links">
             <a style="margin-top: 20px;" href="/home" class="btn btn-primary w-50">Home</a>
@@ -30,4 +30,35 @@
         </div>
     </div>
 </body>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get status and message
+        var messageElement = document.getElementById('result-message');
+        var status = messageElement.getAttribute('data-status');
+        var message = messageElement.textContent.trim();
+        
+        setTimeout(function() {
+            // Only show mascot message if window.mascotSpeech is available
+            if (typeof window.mascotSpeech === 'function') {
+                if (status === 'success') {
+                    // Extract the points from the message (format: "♻️Great job! You have earned X points for recycling!♻️")
+                    var pointsMatch = message.match(/earned (\d+) points/);
+                    if (pointsMatch && pointsMatch[1]) {
+                        var points = pointsMatch[1];
+                        window.mascotSpeech("Amazing recycling effort! 🌍 You've earned " + points + " points for helping our planet! Keep up the great work! ♻️", 10000);
+                    } else {
+                        window.mascotSpeech("Thank you for recycling! Every bit helps our planet! ♻️", 10000);
+                    }
+                } else if (status === 'warning') {
+                    window.mascotSpeech("You've already scanned this QR code today. Come back tomorrow for more points! ⏰", 8000);
+                } else if (status === 'error') {
+                    window.mascotSpeech("Oops! That QR code wasn't recognized. Please try scanning a valid recycling bin QR code. 🔍", 8000);
+                }
+            }
+        }, 500);
+    });
+</script>
 {% endblock %}

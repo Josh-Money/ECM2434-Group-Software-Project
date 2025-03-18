@@ -1,5 +1,5 @@
 # Author: Joshua Money
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from leaderboard.utils import update_leaderboard
 from django.utils import timezone
@@ -45,6 +45,7 @@ def scan_qr(request):
                     )
                     update_leaderboard(request.user, "qr_scan", points=points_earned)
                     message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
+                    # Simple redirect to result page
                     return render(request, 'qr/qr_result.html', {"message": message, "status": "success"})
                 except IntegrityError:
                     message = "You've already scanned this QR code today. Come back tomorrow!"
@@ -55,3 +56,10 @@ def scan_qr(request):
     else:
         # For GET requests, rendering QR scanning page. 
         return render(request, "qr/qr.html")
+
+@login_required
+def qr_result(request):
+    # Default message for direct access
+    message = "Please scan a QR code to see results."
+    status = "info"
+    return render(request, 'qr/qr_result.html', {"message": message, "status": status})

@@ -45,6 +45,11 @@
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
+  // TOGGLE THIS VARIABLE TO ENABLE/DISABLE LOCATION CHECK
+  // Set to true to bypass campus location check (testing mode)
+  // Set to false to enforce campus location check (production mode)
+  const TEST_MODE = true;
+  
   const campusCenter = { lat: 50.736404, lon: -3.534551 };
   const campusRadius = 500; // meters
   let map;
@@ -88,20 +93,54 @@
               document.getElementById("lat").value = lat;
               document.getElementById("lon").value = lon;
               
-              const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
-              if (distance <= campusRadius) {
+              if (TEST_MODE) {
+                // Test mode: Always show form regardless of location
+                document.getElementById("formSection").style.display = "block";
+                document.getElementById("messageSection").style.display = "none";
+              } else {
+                // Production mode: Check if user is on campus
+                const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
+                if (distance <= campusRadius) {
                   document.getElementById("formSection").style.display = "block";
                   document.getElementById("messageSection").style.display = "none";
-              } else {
+                } else {
                   document.getElementById("formSection").style.display = "none";
                   document.getElementById("messageSection").style.display = "block";
+                }
               }
+              
+              // Display the campus boundary on map for reference
               initMap(lat, lon);
           }, function(error) {
               console.error(error);
+              if (TEST_MODE) {
+                // Even if geolocation fails, show the form in test mode
+                document.getElementById("formSection").style.display = "block";
+                document.getElementById("messageSection").style.display = "none";
+                // Show campus map centered at campus
+                initMap(campusCenter.lat, campusCenter.lon);
+              } else {
+                // In production mode, don't show form if geolocation fails
+                document.getElementById("formSection").style.display = "none";
+                document.getElementById("messageSection").style.display = "block";
+                document.getElementById("messageSection").textContent = "Unable to determine your location. Please enable location services and try again.";
+                // Show campus map centered at campus
+                initMap(campusCenter.lat, campusCenter.lon);
+              }
           });
       } else {
           alert("Geolocation is not supported by your browser.");
+          if (TEST_MODE) {
+            // Even if geolocation is not supported, show the form in test mode
+            document.getElementById("formSection").style.display = "block";
+            document.getElementById("messageSection").style.display = "none";
+          } else {
+            // In production mode, don't show form if geolocation is not supported
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("messageSection").style.display = "block";
+          }
+          // Show campus map centered at campus
+          initMap(campusCenter.lat, campusCenter.lon);
       }
   }
 

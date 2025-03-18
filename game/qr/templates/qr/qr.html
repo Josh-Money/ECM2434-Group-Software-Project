@@ -38,28 +38,13 @@
     </div>
 </div>
 {% endblock %}
+
 {% block extra_js %}
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="{% static 'qr/js/qr.js' %}"></script>
 <script>
-    // Adjust for device sizes
-    function adjustForMobile() {
-        // Adjust scan overlay height based on device
-        const scanOverlay = document.querySelector('.scan-overlay');
-        if (scanOverlay) {
-            if (window.innerWidth <= 480) {
-                scanOverlay.style.height = '250px';
-            } else if (window.innerWidth <= 768) {
-                scanOverlay.style.height = '300px';
-            } else {
-                scanOverlay.style.height = '350px';
-            }
-        }
-    }
-
-    // Run on page load and when window resizes
+    // Fix footer text position on page load
     document.addEventListener('DOMContentLoaded', function() {
-        adjustForMobile();
-        
         // Ensure footer is properly positioned
         const footer = document.querySelector('.footer');
         if (footer) {
@@ -72,5 +57,17 @@
     
     // Listen for window resize events
     window.addEventListener('resize', adjustForMobile);
+        
+        // Fix footer text position
+        const footerText = document.querySelector('.footer-text');
+        if (footerText) {
+            footerText.style.position = 'absolute';
+            footerText.style.left = '50%';
+            footerText.style.top = '50%';
+            footerText.style.transform = 'translate(-50%, -50%)';
+            footerText.style.margin = '0';
+            footerText.style.textAlign = 'center';
+        }
+    });
 </script>
 {% endblock %}

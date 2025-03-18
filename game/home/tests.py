@@ -44,7 +44,7 @@ class HomeViewTest(TestCase):
         content = response.content.decode('utf-8')
         # Check that the leaderboard container and header are present.
         self.assertIn('<div class="leaderboard-container">', content)
-        self.assertIn('<h4 class="text-center">Leaderboard</h4>', content)
+        self.assertIn('<h4 class="subtitle">Leaderboard</h4>', content)
         
         # The aggregation in the view orders entries as:
         #   user2: score=200 => progress: 200/200*100 = 100%

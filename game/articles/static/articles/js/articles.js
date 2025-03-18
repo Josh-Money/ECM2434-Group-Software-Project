@@ -101,20 +101,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: new URLSearchParams({
-                'correct_answers': score
-            })
+            body: `correct_answers=${score}`
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log("Leaderboard updated:", data);
+            console.log('Points earned:', data.points_earned);
+            
+            // Use mascot speech to announce points earned
+            if (typeof window.mascotSpeech === 'function' && data.points_earned > 0) {
+                setTimeout(function() {
+                    window.mascotSpeech(`Great job! You earned ${data.points_earned} points from the quiz! Keep learning about sustainability! 🌍`);
+                }, 500);
+            }
         })
-        .catch(error => console.error("Error updating leaderboard:", error));
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 });
 

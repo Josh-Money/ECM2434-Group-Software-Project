@@ -515,6 +515,11 @@ p {
     }
 }
 
+.see-all-challenges {
+    width: 30%;
+    height: 13%;
+}
+
 /* themed progress bar */
 .theme-progress-bar {
     background-color: var(--secondary);

@@ -419,13 +419,32 @@ body.privacy-policy-page .mascot-container {
     }
 
     /* Adjust footer for mobile */
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 55px;
+    }
+    
     .footer-text {
+        position: static;
+        transform: none;
         font-size: 13px;
+        flex: 1;
+        margin: 0 10px;
+        text-align: center;
+    }
+    
+    /* Footer improvements for mobile */
+    .footer .btn {
+        font-size: 13px;
+        padding: 5px 10px;
+        white-space: nowrap;
     }
 
     /* Adjust mascot for mobile */
     .mascot-container {
-        bottom: 60px;
+        bottom: 52px;
         left: 10px;
         width: 200px;
     }
@@ -436,9 +455,7 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 110px;
-        width: 180px;
-        font-size: 13px;
-        padding: 10px 12px;
+        width: 200px;
     }
 }
 
@@ -468,7 +485,7 @@ body.privacy-policy-page .mascot-container {
 
     /* Adjust mascot for very small screens */
     .mascot-container {
-        bottom: 60px;
+        bottom: 52px;
         left: 5px;
         width: 180px;
     }
@@ -492,6 +509,26 @@ body.privacy-policy-page .mascot-container {
     /* Fix button widths on mobile */
     .w-25 {
         width: 75% !important;
+    }
+
+    /* Improve footer text readability and size */
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+    }
+    
+    .footer-text {
+        font-size: 12px;
+        text-align: center;
+        margin: 0 5px;
+    }
+    
+    .footer .btn {
+        font-size: 12px;
+        padding: 4px 8px;
+        height: auto;
+        white-space: nowrap;
     }
 }
 
@@ -532,7 +569,7 @@ body.privacy-policy-page .mascot-container {
     
     /* Further adjust mascot for iPhone 12 */
     .mascot-container {
-        bottom: 60px;
+        bottom: 52px;
         left: 3px;
         width: 160px;
     }
@@ -549,20 +586,31 @@ body.privacy-policy-page .mascot-container {
     }
     
     /* Ensure footer text is readable */
-    .footer-text {
-        font-size: 12px;
-    }
-    
-    /* Make buttons better sized for iPhone touch */
-    button, .btn, .btn-primary {
+    .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 55px;
         padding: 8px 10px;
-        font-size: 14px;
-        min-height: 38px; /* Better touch target */
     }
     
-    /* Fix button width */
-    .w-25 {
-        width: 80% !important;
+    .footer-text {
+        position: static;
+        transform: none;
+        font-size: 10px;
+        text-align: center;
+        flex: 1;
+        margin: 0 5px;
+    }
+    
+    /* Make footer button smaller and more touchable */
+    .footer .btn, 
+    .footer button {
+        padding: 4px 6px;
+        font-size: 10px;
+        min-height: initial;
+        white-space: nowrap;
     }
     
     main {
@@ -599,7 +647,7 @@ body.privacy-policy-page .mascot-container {
     
     /* Adjust mascot further for very small screens */
     .mascot-container {
-        bottom: 60px;
+        bottom: 52px;
         left: 2px;
         width: 140px;
     }
@@ -624,13 +672,22 @@ body.privacy-policy-page .mascot-container {
     /* Further adjust footer */
     .footer {
         height: 50px;
+        padding: 6px 8px;
+        flex-direction: row;
     }
     
     .footer-text {
-        font-size: 11px;
-        white-space: normal;
-        width: 70% !important;
-        text-align: center;
+        font-size: 9px;
+        flex: 1;
+        margin: 0 3px;
+    }
+    
+    .footer .btn,
+    .footer button {
+        padding: 3px 5px;
+        font-size: 9px;
+        min-height: initial;
+        white-space: nowrap;
     }
 }
 
@@ -755,7 +812,7 @@ body.privacy-policy-page .mascot-container {
 /* Media query for smaller screens to ensure mascot positioning */
 @media (max-width: 768px) {
     .mascot-container {
-        bottom: 60px;
+        bottom: 52px;
         left: 10px;
     }
     

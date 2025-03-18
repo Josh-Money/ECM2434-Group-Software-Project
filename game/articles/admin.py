@@ -6,16 +6,10 @@ class QuestionInline(admin.TabularInline):
     model = Question
     extra = 5
 
-class QuizInline(admin.StackedInline):
-    model = Quiz
-    can_delete = False
-    show_change_link = True
-
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'published_date', 'has_quiz')
     search_fields = ('title', 'content')
-    inlines = [QuizInline]
     
     def has_quiz(self, obj):
         return hasattr(obj, 'quiz')
@@ -30,9 +24,10 @@ class QuizAdmin(admin.ModelAdmin):
     def question_count(self, obj):
         return obj.questions.count()
     question_count.short_description = 'Number of Questions'
+    
+    class Meta:
+        verbose_name = 'Quiz'
+        verbose_name_plural = 'Quizzes'
 
-@admin.register(Question)
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'quiz', 'correct_answer', 'order')
-    list_filter = ('quiz', 'correct_answer')
-    ordering = ('quiz', 'order')
+# We don't register Question as a standalone admin model
+# It's only accessible through the Quiz admin

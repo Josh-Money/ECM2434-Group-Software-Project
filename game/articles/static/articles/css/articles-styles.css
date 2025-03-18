@@ -15,12 +15,13 @@ button {
     height: 32px;
 }
 
-#toggleQuiz {
+.toggleQuiz {
     margin-top: 10px;
     margin-bottom: 10px;
+    display: block;
 }
 
-#checkAnswer {
+.checkAnswer {
     margin-top: 10px;
     display: block;
     margin: 20px auto;
@@ -30,8 +31,8 @@ button {
 
 .truefalse {
     margin-top: 0px;
-    margin-bottom: 30px;
-    display: block;
+    margin-bottom: 10px;
+    display: block !important;
 }
 
 .question {
@@ -41,7 +42,17 @@ button {
     margin-bottom: 10px;
 }
 
-.article-item {
+.question-container {
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #eee;
+}
+
+.options-container {
+    margin-left: 20px;
+}
+
+.article-section {
     margin-bottom: 30px;
     padding: 15px;
     border: 1px solid #e0e0e0;
@@ -49,11 +60,11 @@ button {
     transition: all 0.3s ease;
 }
 
-.article-item:hover {
+.article-section:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.article-item h3 {
+.article-section h3 {
     margin-top: 0;
     color: #333;
 }
@@ -69,26 +80,19 @@ button {
     margin-bottom: 20px;
 }
 
-.quiz-badge {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 0.8em;
-    margin-left: 10px;
-}
-
-.quiz-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
+.quizContainer {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .hidden {
     display: none;
 }
 
-#feedback {
+.feedback {
     margin-top: 20px;
     text-align: center;
 }

@@ -4,7 +4,7 @@ from django.db import models
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = models.TextField(blank=True, null=True, help_text="Optional content if not using external URL")
     url = models.URLField(blank=True, null=True, help_text="Optional external URL to article content")
     published_date = models.DateTimeField(auto_now_add=True)
 
@@ -16,6 +16,9 @@ class Quiz(models.Model):
     article = models.OneToOneField(Article, on_delete=models.CASCADE, related_name='quiz')
     title = models.CharField(max_length=255)
     points_per_question = models.PositiveIntegerField(default=10, help_text="Points awarded per correct answer")
+    
+    class Meta:
+        verbose_name_plural = 'Quizzes'
     
     def __str__(self):
         return f"Quiz for {self.article.title}"

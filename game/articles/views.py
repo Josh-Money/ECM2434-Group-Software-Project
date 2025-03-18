@@ -24,22 +24,30 @@ def articles(request):
         articles = Article.objects.all()
         return render(request, 'articles/articles.html', {'articles': articles})
 
+# This view is no longer used in the single-page approach
+# @login_required
+# def article_detail(request, article_id):
+#     article = get_object_or_404(Article, id=article_id)
+#     try:
+#         quiz = article.quiz
+#         questions = quiz.questions.all()
+#     except Quiz.DoesNotExist:
+#         quiz = None
+#         questions = []
+#         
+#     context = {
+#         'article': article,
+#         'quiz': quiz,
+#         'questions': questions,
+#     }
+#     return render(request, 'articles/article_detail.html', context)
+
 @login_required
-def article_detail(request, article_id):
-    article = get_object_or_404(Article, id=article_id)
-    try:
-        quiz = article.quiz
-        questions = quiz.questions.all()
-    except Quiz.DoesNotExist:
-        quiz = None
-        questions = []
-        
-    context = {
-        'article': article,
-        'quiz': quiz,
-        'questions': questions,
-    }
-    return render(request, 'articles/article_detail.html', context)
+def get_question_answer(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    return JsonResponse({
+        'correct_answer': question.correct_answer
+    })
 
 
     

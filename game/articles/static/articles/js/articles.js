@@ -1,7 +1,11 @@
-// Author: Marcos Vega Ipas 
+// Author: Marcos Vega Ipas (updated for dynamic quizzes)
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    console.log("DOM content loaded");
+    
+    // Check for completed quizzes when page loads
+    checkCompletedQuizzes();
+    
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -16,105 +20,51 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return cookieValue;
     }
-
-    document.getElementById("toggleQuiz").addEventListener("click", function () {
-        const quizContainer = document.getElementById("quizContainer");
-        if (quizContainer.style.display === "none" || quizContainer.classList.contains("hidden")) {
-            quizContainer.style.display = "block";
-            this.textContent = "Close Quiz ⬆"; 
-        } else {
-            quizContainer.style.display = "none";
-            this.textContent = "Quiz 1 ⬇"; 
-
-        }
-        quizContainer.classList.toggle("hidden");
-    });
-
     
-    document.getElementById("checkAnswer").addEventListener("click", function () {
+    // Function to check already completed quizzes
+    function checkCompletedQuizzes() {
+        // Get all quiz containers
+        const quizContainers = document.querySelectorAll('.quizContainer');
+        console.log("Found quiz containers for checking completion:", quizContainers.length);
         
-        const correctAnswers = {
-            Q1: "false",
-            Q2: "true",
-            Q3: "false",
-            Q4: "true",
-            Q5: "true"
-        };
-
-        let score = 0;
-        const totalQuestions = Object.keys(correctAnswers).length;
-
-        Object.keys(correctAnswers).forEach(questionId => {
-           
-            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-
-            const existingFeedback = document.getElementById(`feedback-${questionId}`);
-            if (existingFeedback) {
-                existingFeedback.remove();
-            }
-           
-            const feedback = document.createElement("span");
-            feedback.id = `feedback-${questionId}`;
-            feedback.style.marginLeft = "10px"; 
-
-            if (selectedOption) {
-                if (selectedOption.value === correctAnswers[questionId]) {
-                    feedback.textContent = "✅ Correct";
-                    feedback.style.color = "green";
-                    score++;
-                } else {
-                    feedback.textContent = "❌ Incorrect";
-                    feedback.style.color = "red";
+        quizContainers.forEach(function(quizContainer) {
+            const quizId = quizContainer.querySelector('.quiz-id').value;
+            // Check if this quiz is already completed
+            if (isQuizCompleted(quizId)) {
+                console.log("Found completed quiz:", quizId);
+                
+                // Disable all inputs
+                quizContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.disabled = true;
+                });
+                
+                // Disable the check button
+                const checkBtn = quizContainer.querySelector('.checkAnswer');
+                if (checkBtn) {
+                    checkBtn.disabled = true;
+                    checkBtn.textContent = "Quiz Completed";
                 }
-            } else {
-                feedback.textContent = "⚠️ Please select an option!";
-                feedback.style.color = "orange";
+                
+                // Add completed message if not already present
+                if (!quizContainer.querySelector('.completed-message')) {
+                    const completedMsg = document.createElement('div');
+                    completedMsg.className = 'completed-message';
+                    completedMsg.textContent = 'You have already completed this quiz.';
+                    completedMsg.style.color = '#4CAF50';
+                    completedMsg.style.fontWeight = 'bold';
+                    completedMsg.style.marginTop = '10px';
+                    completedMsg.style.textAlign = 'center';
+                    checkBtn.after(completedMsg);
+                }
             }
-
-           
-            const lastRadioButton = document.querySelectorAll(`input[name="${questionId}"]`);
-            lastRadioButton[lastRadioButton.length - 1].parentNode.appendChild(feedback);
         });
-        let scoreDisplay = document.getElementById("scoreDisplay");
+    }
+    
+    // Function to check if quiz is completed
+    function isQuizCompleted(quizId) {
+        return localStorage.getItem('completed_quiz_' + quizId) === 'true';
+    }
 
-        if (!scoreDisplay) {
-
-            scoreDisplay = document.createElement("span");
-            scoreDisplay.id = "scoreDisplay";
-            scoreDisplay.style.marginLeft = "15px";
-            document.getElementById("checkAnswer").after(scoreDisplay);
-        }
-
-
-        scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}. You won ${score * 10} points`;
-        scoreDisplay.style.fontWeight = "bold";
-
-        document.querySelectorAll('input[type="radio"]').forEach(input => {
-            input.disabled = true;
-        });
-
-        document.getElementById("checkAnswer").disabled = true;
-
-        fetch('/articles/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: new URLSearchParams({
-                'correct_answers': score
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Leaderboard updated:", data);
-        })
-        .catch(error => console.error("Error updating leaderboard:", error));
-    });
+    // The check answers functionality is now handled by inline JavaScript in the HTML template
 });
 

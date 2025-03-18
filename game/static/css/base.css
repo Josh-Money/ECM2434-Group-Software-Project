@@ -290,7 +290,7 @@ a {
 /* Mascot and Speech Bubble */
 .mascot-container {
     position: fixed;
-    bottom: 52px; /* Position just above the footer */
+    bottom: 52px; /* Fixed value that works across environments - enough clearance from footer */
     left: 20px;
     z-index: 10001; /* Higher than footer */
     width: 250px; /* Increased width to accommodate speech bubble and larger mascot */
@@ -404,4 +404,21 @@ a {
 /* Hide the Earth mascot on the Privacy Policy page */
 body.privacy-policy-page .mascot-container {
     display: none;
+}
+
+/* Media query for smaller screens to ensure mascot positioning */
+@media (max-width: 768px) {
+    .mascot-container {
+        bottom: 60px; /* Fixed value for mobile - slightly closer to footer */
+        left: 10px;
+    }
+    
+    .earth-mascot {
+        width: 100px; /* Slightly smaller on mobile */
+    }
+    
+    .speech-bubble {
+        bottom: 110px; /* Adjust bubble position for smaller mascot */
+        width: 200px; /* Narrower bubble on small screens */
+    }
 }

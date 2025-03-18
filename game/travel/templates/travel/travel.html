@@ -5,7 +5,7 @@
 {% block title %}Campus Travel Submission{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
+<link rel="stylesheet" href="{% static 'travel/css/travel.css' %}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
 
@@ -48,7 +48,7 @@
   // TOGGLE THIS VARIABLE TO ENABLE/DISABLE LOCATION CHECK
   // Set to true to bypass campus location check (testing mode)
   // Set to false to enforce campus location check (production mode)
-  const TEST_MODE = true;
+  const TEST_MODE = false;
   
   const campusCenter = { lat: 50.736404, lon: -3.534551 };
   const campusRadius = 500; // meters

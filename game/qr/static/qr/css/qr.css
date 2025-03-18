@@ -7,7 +7,7 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: visible !important;
-  margin: 20px auto 100px !important; /* Reduced bottom margin to prevent footer overlap */
+  margin: 20px auto 100px !important;
 }
 
 .map-container {
@@ -25,6 +25,21 @@
 }
 
 p {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.scan-overlay {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  height: 350px !important;
+  max-height: 350px !important;
+  overflow: hidden !important;
+  position: relative;
   text-align: center;
   margin: 10px 0;
   font-size: 18px;
@@ -77,16 +92,18 @@ p {
 /* QR Page Specific Styles */
 h1 {
   text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
 }
 
 .btn-primary {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .btn-primary:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
+  background-color: var(--secondary);
+  border-color: var(--secondary);
 }
 
 .btn-secondary {
@@ -132,6 +149,7 @@ main {
   padding-bottom: 60px !important;
 }
 
+/* Media query for low-height screens */
 @media (max-height: 800px) {
   .container {
     margin: 10px auto 70px !important;
@@ -159,5 +177,104 @@ main {
   .btn {
     padding: 5px 10px;
     font-size: 14px;
+  }
+}
+
+/* Media query for tablets and smaller devices */
+@media (max-width: 768px) {
+  .container {
+    max-width: 95%;
+    margin: 15px auto 80px !important;
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 16px;
+  }
+  
+  .scan-overlay {
+    height: 300px !important;
+  }
+  
+  .navigation-links {
+    gap: 8px;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* Media query for mobile phones */
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    margin: 10px auto 70px !important;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  
+  p {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .scan-overlay {
+    height: 250px !important;
+  }
+  
+  .info {
+    font-size: 14px;
+  }
+  
+  .navigation-links, .form-container {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    max-width: 220px;
+  }
+  
+  .map-container {
+    margin: 8px 0;
+    border-radius: 6px;
+  }
+}
+
+/* Special adjustments for very small screens */
+@media (max-width: 320px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  .scan-overlay {
+    height: 200px !important;
+  }
+  
+  p {
+    font-size: 14px;
+  }
+  
+  .btn {
+    font-size: 13px;
+    max-width: 200px;
   }
 }

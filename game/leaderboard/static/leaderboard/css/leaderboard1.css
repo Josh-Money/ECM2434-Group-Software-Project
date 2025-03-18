@@ -155,4 +155,26 @@ tr.current-user {
         flex-direction: column;
         gap: 10px;
     }
+    
+    .pagination-button {
+        width: 90%;
+        margin: 3px 0;
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+    
+    .pagination-info {
+        margin: 10px 0;
+        font-size: 14px;
+    }
+}
+
+/* Additional media query for very small screens */
+@media (max-width: 400px) {
+    .pagination-button {
+        width: 95%;
+        padding: 10px;
+        font-size: 16px;
+        margin: 4px 0;
+    }
 }

@@ -6,3 +6,79 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.challenge-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.challenge-icon {
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.challenge-button {
+    margin-right: 20px;
+}
+
+.challenge-button .btn {
+    width: auto;
+    min-width: 120px;
+}
+
+.challenge-description {
+    font-size: 17px;
+    text-align: center;
+    width: 60%;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+    .container {
+        margin: 30px auto;
+        padding: 15px;
+        width: 90%;
+    }
+    
+    .challenge-row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+    
+    .challenge-icon {
+        margin-bottom: 10px;
+    }
+    
+    .challenge-button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .challenge-button .btn {
+        width: 100% !important;
+        display: block;
+    }
+    
+    .challenge-description {
+        width: 100% !important;
+        margin-left: 0 !important;
+        text-align: left;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    .container {
+        margin: 20px auto;
+        padding: 12px;
+    }
+    
+    .challenge-description {
+        font-size: 15px;
+    }
+}

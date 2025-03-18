@@ -28,6 +28,3 @@ class QuizAdmin(admin.ModelAdmin):
     class Meta:
         verbose_name = 'Quiz'
         verbose_name_plural = 'Quizzes'
-
-# We don't register Question as a standalone admin model
-# It's only accessible through the Quiz admin

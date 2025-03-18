@@ -1,9 +1,8 @@
-// Author: Marcos Vega Ipas (updated for dynamic quizzes)
+// Author: Marcos Vega Ipas 
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM content loaded");
     
-    // Check for completed quizzes when page loads
     checkCompletedQuizzes();
     
     function getCookie(name) {
@@ -21,31 +20,25 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookieValue;
     }
     
-    // Function to check already completed quizzes
     function checkCompletedQuizzes() {
-        // Get all quiz containers
         const quizContainers = document.querySelectorAll('.quizContainer');
         console.log("Found quiz containers for checking completion:", quizContainers.length);
         
         quizContainers.forEach(function(quizContainer) {
             const quizId = quizContainer.querySelector('.quiz-id').value;
-            // Check if this quiz is already completed
             if (isQuizCompleted(quizId)) {
                 console.log("Found completed quiz:", quizId);
                 
-                // Disable all inputs
                 quizContainer.querySelectorAll('input[type="radio"]').forEach(input => {
                     input.disabled = true;
                 });
                 
-                // Disable the check button
                 const checkBtn = quizContainer.querySelector('.checkAnswer');
                 if (checkBtn) {
                     checkBtn.disabled = true;
                     checkBtn.textContent = "Quiz Completed";
                 }
                 
-                // Add completed message if not already present
                 if (!quizContainer.querySelector('.completed-message')) {
                     const completedMsg = document.createElement('div');
                     completedMsg.className = 'completed-message';
@@ -60,11 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     
-    // Function to check if quiz is completed
     function isQuizCompleted(quizId) {
         return localStorage.getItem('completed_quiz_' + quizId) === 'true';
     }
-
-    // The check answers functionality is now handled by inline JavaScript in the HTML template
 });
 

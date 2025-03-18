@@ -83,7 +83,7 @@
     </div>
     
     <script>
-        // Inline script to handle quiz toggling directly
+      
         function toggleQuiz(quizId) {
             console.log("Toggle quiz called for ID:", quizId);
             const quizContainer = document.getElementById(`quizContainer-${quizId}`);
@@ -104,16 +104,13 @@
             }
         }
         
-        // Inline function to handle check answers directly
         function checkAnswersInline(quizId, buttonElement) {
             console.log("Inline check answers called for quiz ID:", quizId);
             
-            // Get the quiz container
             const quizContainer = buttonElement.closest('.quizContainer');
             const questions = quizContainer.querySelectorAll(".question-container");
             console.log("Found questions:", questions.length);
             
-            // Check if quiz is already completed
             if (localStorage.getItem('completed_quiz_' + quizId) === 'true') {
                 console.log("Quiz already completed, preventing resubmission");
                 alert("You have already completed this quiz.");
@@ -124,35 +121,29 @@
             let totalQuestions = questions.length;
             let processedQuestions = 0;
             
-            // Process all questions
             questions.forEach(function(questionContainer) {
                 const questionId = questionContainer.querySelector('input[type="radio"]').name.substring(1);
                 const selectedOption = questionContainer.querySelector('input[type="radio"]:checked');
                 
-                // Remove any existing feedback
                 const existingFeedback = questionContainer.querySelector('[id^="feedback-"]');
                 if (existingFeedback) {
                     existingFeedback.remove();
                 }
                 
-                // Create feedback element
                 const feedback = document.createElement("span");
                 feedback.id = `feedback-${questionId}`;
                 feedback.style.marginLeft = "10px";
                 
-                // Attach feedback to the last radio option
                 const lastRadio = questionContainer.querySelectorAll('.truefalse');
                 const attachTo = lastRadio[lastRadio.length - 1];
                 
                 if (!selectedOption) {
-                    // No answer selected
                     feedback.textContent = "⚠️ No answer selected!";
                     feedback.style.color = "orange";
                     attachTo.appendChild(feedback);
                     processedQuestions++;
                     checkIfAllProcessed();
                 } else {
-                    // Check answer
                     fetch(`/articles/question/${questionId}/`)
                         .then(response => response.json())
                         .then(data => {
@@ -179,15 +170,12 @@
                 }
             });
             
-            // Disable the button immediately
             buttonElement.disabled = true;
             
             function checkIfAllProcessed() {
-                // If all questions processed, update score and submit
                 if (processedQuestions === totalQuestions) {
                     console.log("All questions processed, score:", score);
                     
-                    // Display score
                     let scoreDisplay = quizContainer.querySelector(".scoreDisplay");
                     if (!scoreDisplay) {
                         scoreDisplay = document.createElement("span");
@@ -197,23 +185,19 @@
                         buttonElement.after(scoreDisplay);
                     }
                     
-                    const points_per_question = 10; // Default value
+                    const points_per_question = 10; // Default points per question
                     const totalPoints = score * points_per_question;
                     scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}. You earned ${totalPoints} points!`;
                     
-                    // Disable inputs
                     quizContainer.querySelectorAll('input[type="radio"]').forEach(input => {
                         input.disabled = true;
                     });
                     buttonElement.textContent = "Quiz Completed";
                     
-                    // Mark completed
                     localStorage.setItem('completed_quiz_' + quizId, 'true');
                     
-                    // Submit score
                     console.log("Submitting score to server");
                     
-                    // Get CSRF token for POST request
                     let csrftoken = '';
                     if (document.cookie && document.cookie !== '') {
                         const cookies = document.cookie.split(';');

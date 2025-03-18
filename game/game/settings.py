@@ -24,14 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*e8c&i9lm0&)nff)e8jmlaq98%(6@8ac&f@c5u3q+vp!mves!v"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set DEBUG based on environment
+DEBUG = False if os.environ.get('PYTHONANYWHERE_DOMAIN') else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ecoquest.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,6 +50,8 @@ INSTALLED_APPS = [
     'qr',
     'profiles.apps.ProfilesConfig',
     'challenges',
+    'travel',
+    'import_export',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -70,7 +74,9 @@ ROOT_URLCONF = "game.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [
+            BASE_DIR / 'templates',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,7 +91,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "game.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -132,11 +137,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# Always define STATIC_ROOT for collectstatic command
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Development settings - keep separate from STATIC_ROOT
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -147,4 +157,18 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/'
 
+
 CRISPY_TEMPLATE_PACK ="bootstrap5"
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Leaderboard Admin",
+    "site_header": "Leaderboard Admin",
+    "welcome_sign": "Welcome to the Leaderboard Admin Panel",
+    "search_model": ["leaderboard.Leaderboard"],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Leaderboard", "url": "/admin/leaderboard/leaderboard/", "permissions": ["leaderboard.view_leaderboard"]},
+    ],
+    "custom_css": "css/custom_admin.css",
+}
+

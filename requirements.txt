@@ -1,0 +1,6 @@
+Django
+django-crispy-forms
+crispy-bootstrap5
+Pillow
+django-jazzmin
+django-import-export

@@ -13,7 +13,7 @@
   <div class="row mb-3">
     <div class="col-12 text-end">
       {% if request.user.is_authenticated %}
-      <a href="{% url 'logout' %}" class="btn btn-primary w-25" id="logout" role="button">Logout</a>
+      <a href="{% url 'logout' %}" class="btn btn-primary w-10" id="logout" role="button">Logout</a>
       {% endif %}
     </div>
   </div>
@@ -77,3 +77,31 @@
 </div>
 </div>
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get profile elements
+        const username = document.querySelector('.card-title').textContent.trim();
+        const totalPoints = document.querySelector('.display-4.text-primary').textContent.trim();
+        const rank = document.querySelector('.display-4.text-success').textContent.trim();
+        
+        // Make the mascot speak a welcome message with profile info after a short delay
+        setTimeout(function() {
+            if (typeof window.mascotSpeech === 'function') {
+                window.mascotSpeech(`Welcome to your profile, ${username}! You have ${totalPoints} points and are ranked #${rank}. Keep up the great work!`);
+            }
+        }, 1500);
+        
+        // Add click listeners to profile elements
+        document.querySelector('.card-title').addEventListener('click', function() {
+            if (typeof window.mascotSpeech === 'function') {
+                window.mascotSpeech(`${username}, you're doing great for the environment!`);
+            }
+        });
+        
+        // Make username look clickable
+        document.querySelector('.card-title').style.cursor = 'pointer';
+    });
+</script>
+{% endblock %}

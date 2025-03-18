@@ -1,36 +1,163 @@
-#preview {
-    width: 100%;
-    max-width: 400px;
-    margin: 20px auto;
-    display: block;
-    border: 1px solid #ccc;
-    z-index: 1;
-}
-
-form {
-    text-align: center;
-}
-
 .container {
-    max-width: 800px;
-    margin: 50px auto 100px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 1;
+  max-width: 900px;
+  margin: 20px auto 80px !important;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible !important;
+  margin: 20px auto 100px !important; /* Reduced bottom margin to prevent footer overlap */
 }
 
-h1 {
-    text-align: center;
-    font-size: 35px;;
+.map-container {
+  margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.map-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 p {
-    text-align: center;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
-#submit {
-    width: 100px;
+.scan-overlay {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  height: 350px !important;
+  max-height: 350px !important;
+  overflow: hidden !important;
+  position: relative;
+}
+
+#preview {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.navigation-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.info {
+  font-size: 16px;
+}
+
+/* QR Page Specific Styles */
+h1 {
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-primary:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Fix for footer text position specifically on QR page */
+.footer .footer-text {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  text-align: center !important;
+  width: auto !important;
+  white-space: nowrap !important;
+  font-size: 15px !important;
+}
+
+/* Make footer position more robust */
+.footer {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+}
+
+/* Reduce space between elements */
+.qr-page-wrapper {
+  padding-bottom: 60px;
+}
+
+/* Ensure main content doesn't push footer */
+main {
+  padding-bottom: 60px !important;
+}
+
+@media (max-height: 800px) {
+  .container {
+    margin: 10px auto 70px !important;
+    padding: 15px 10px;
+  }
+  
+  .scan-overlay {
+    height: 250px !important;
+  }
+  
+  p {
+    margin: 8px 0;
+    font-size: 15px;
+  }
+  
+  .navigation-links, .form-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .map-container {
+    margin: 10px 0;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
 }

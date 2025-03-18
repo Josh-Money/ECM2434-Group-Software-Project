@@ -39,5 +39,9 @@
 
 .alert {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Add space below the alert */
 }
+
+
+
+

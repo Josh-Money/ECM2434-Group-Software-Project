@@ -1,0 +1,49 @@
+<!--Authors: Tim Mishakov-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-body text-center">
+      <h1 class="card-title">Thank You!</h1>
+      <p class="card-text" id="pointsText" data-points="{{ points }}">You earned <strong>{{ points }}</strong> points for your submission.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Wait a short moment before showing the mascot message
+    setTimeout(function() {
+      // Get points from data attribute
+      var pointsElement = document.getElementById('pointsText');
+      var pointsEarned = parseInt(pointsElement.getAttribute('data-points') || '0', 10);
+      var message = "";
+      
+      // Customize message based on transport method and points
+      if (pointsEarned === 30) {
+        message = "Great job walking to campus! You earned 30 points for choosing the most eco-friendly option! 🚶";
+      } else if (pointsEarned === 20) {
+        message = "Excellent choice biking to campus! You earned 20 points for your green transportation! 🚲";
+      } else if (pointsEarned === 5) {
+        message = "Thanks for using public transport! You earned 5 points for reducing your carbon footprint! 🚌";
+      } else if (pointsEarned === 0) {
+        message = "Thanks for logging your travel! Next time consider a greener option to earn points! 🚗";
+      } else {
+        message = "You earned " + pointsEarned + " points for your travel submission! Keep making eco-friendly choices!";
+      }
+      
+      // Show the mascot message
+      if (typeof window.mascotSpeech === 'function') {
+        window.mascotSpeech(message, 5000);
+      }
+    }, 500);
+  });
+</script>
+{% endblock %}

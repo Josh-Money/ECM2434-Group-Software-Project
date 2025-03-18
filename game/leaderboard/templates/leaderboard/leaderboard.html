@@ -8,105 +8,332 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="title">Leaderboard</h1>
-<div class="container mt-5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scan</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Leaderboard</h1>
+    <div class="container">
+    
+        <div class="text-center">
+            <button class="leaderboard-button" data-target="leaderboard-main">Overall</button>
+            <button class="leaderboard-button" data-target="leaderboard-qr">QR Scan</button>
+            <button class="leaderboard-button" data-target="leaderboard-quiz">Quiz</button>
+            <button class="leaderboard-button" data-target="leaderboard-travel">Travel</button>
+        </div>
 
-    <div class="text-center">
-        <button class="leaderboard-button" data-target="leaderboard-main">Overall</button>
-        <button class="leaderboard-button" data-target="leaderboard-qr">QR Scan</button>
-        <button class="leaderboard-button" data-target="leaderboard-quiz">Quiz</button>
-        <button class="leaderboard-button" data-target="leaderboard-travel">Travel</button>
-    </div>
+        <!-- Per page selector -->
+        <div class="per-page-selector">
+            <label for="per-page">Entries per page:</label>
+            <select id="per-page" onchange="changeEntriesPerPage(this.value)">
+                <option value="10" {% if entries_per_page == '10' %}selected{% endif %}>10</option>
+                <option value="25" {% if entries_per_page == '25' %}selected{% endif %}>25</option>
+                <option value="50" {% if entries_per_page == '50' %}selected{% endif %}>50</option>
+            </select>
+        </div>
 
-    <div id="leaderboard-main" class="leaderboard-container">
-        <h2 class="subtitle">Overall Leaderboard</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in leaderboard_main %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ entry.user__username }}</td>
-                    <td>{{ entry.total_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <!-- Main Leaderboard -->
+        <div id="leaderboard-main" class="leaderboard-container">
+            <h2 class="subtitle">Overall Leaderboard</h2>
+            
+            {% if user_ranks.main %}
+            <div class="user-rank-info">
+                Your rank: <span>#{{ user_ranks.main }}</span> out of {{ leaderboard_main.paginator.count }} players
+            </div>
+            {% endif %}
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in leaderboard_main %}
+                    <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
+                        <td>{{ forloop.counter0|add:leaderboard_main.start_index }}</td>
+                        <td>{{ entry.user__username }}</td>
+                        <td>{{ entry.total_score }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if user_ranks.main and user_pages.main != page_number and user_ranks.main > 0 %}
+                    <tr class="ellipsis">
+                        <td colspan="3">...</td>
+                    </tr>
+                    <tr class="current-user">
+                        <td>{{ user_ranks.main }}</td>
+                        <td>{{ username }}</td>
+                        <td>{{ user_main_score }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+            <!-- Pagination controls -->
+            <div class="pagination-controls">
+                {% if leaderboard_main.has_previous %}
+                <a href="?page=1&per_page={{ entries_per_page }}" class="pagination-button">First</a>
+                <a href="?page={{ leaderboard_main.previous_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Previous</a>
+                {% else %}
+                <span class="pagination-button disabled">First</span>
+                <span class="pagination-button disabled">Previous</span>
+                {% endif %}
+                
+                <span class="pagination-info">Page {{ page_number }} of {{ total_pages_main }}</span>
+                
+                {% if leaderboard_main.has_next %}
+                <a href="?page={{ leaderboard_main.next_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Next</a>
+                <a href="?page={{ total_pages_main }}&per_page={{ entries_per_page }}" class="pagination-button">Last</a>
+                {% else %}
+                <span class="pagination-button disabled">Next</span>
+                <span class="pagination-button disabled">Last</span>
+                {% endif %}
+            </div>
+            
+            {% if user_pages.main and user_pages.main != page_number %}
+            <div class="text-center mt-2">
+                <a href="?page={{ user_pages.main }}&per_page={{ entries_per_page }}" class="pagination-button">Go to your page</a>
+            </div>
+            {% endif %}
+        </div>
 
-    <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
-        <h2 class="subtitle">QR Scan Leaderboard</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in leaderboard_qr %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ entry.user__username }}</td>
-                    <td>{{ entry.total_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <!-- QR Scan Leaderboard -->
+        <div id="leaderboard-qr" class="leaderboard-container" style="display: none;">
+            <h2 class="subtitle">QR Scan Leaderboard</h2>
+            
+            {% if user_ranks.qr_scan %}
+            <div class="user-rank-info">
+                Your rank: <span>#{{ user_ranks.qr_scan }}</span> out of {{ leaderboard_qr.paginator.count }} players
+            </div>
+            {% endif %}
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in leaderboard_qr %}
+                    <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
+                        <td>{{ forloop.counter0|add:leaderboard_qr.start_index }}</td>
+                        <td>{{ entry.user__username }}</td>
+                        <td>{{ entry.total_score }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if user_ranks.qr_scan and user_pages.qr_scan != page_number and user_ranks.qr_scan > 0 %}
+                    <tr class="ellipsis">
+                        <td colspan="3">...</td>
+                    </tr>
+                    <tr class="current-user">
+                        <td>{{ user_ranks.qr_scan }}</td>
+                        <td>{{ username }}</td>
+                        <td>{{ user_qr_score }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+            <!-- Pagination controls -->
+            <div class="pagination-controls">
+                {% if leaderboard_qr.has_previous %}
+                <a href="?page=1&per_page={{ entries_per_page }}" class="pagination-button">First</a>
+                <a href="?page={{ leaderboard_qr.previous_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Previous</a>
+                {% else %}
+                <span class="pagination-button disabled">First</span>
+                <span class="pagination-button disabled">Previous</span>
+                {% endif %}
+                
+                <span class="pagination-info">Page {{ page_number }} of {{ total_pages_qr }}</span>
+                
+                {% if leaderboard_qr.has_next %}
+                <a href="?page={{ leaderboard_qr.next_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Next</a>
+                <a href="?page={{ total_pages_qr }}&per_page={{ entries_per_page }}" class="pagination-button">Last</a>
+                {% else %}
+                <span class="pagination-button disabled">Next</span>
+                <span class="pagination-button disabled">Last</span>
+                {% endif %}
+            </div>
+            
+            {% if user_pages.qr_scan and user_pages.qr_scan != page_number %}
+            <div class="text-center mt-2">
+                <a href="?page={{ user_pages.qr_scan }}&per_page={{ entries_per_page }}" class="pagination-button">Go to your page</a>
+            </div>
+            {% endif %}
+        </div>
 
-    <div id="leaderboard-quiz" class="leaderboard-container" style="display: none;">
-        <h2 class="subtitle">Quiz Leaderboard</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in leaderboard_quiz %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ entry.user__username }}</td>
-                    <td>{{ entry.total_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <!-- Quiz Leaderboard -->
+        <div id="leaderboard-quiz" class="leaderboard-container" style="display: none;">
+            <h2 class="subtitle">Quiz Leaderboard</h2>
+            
+            {% if user_ranks.quiz %}
+            <div class="user-rank-info">
+                Your rank: <span>#{{ user_ranks.quiz }}</span> out of {{ leaderboard_quiz.paginator.count }} players
+            </div>
+            {% endif %}
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in leaderboard_quiz %}
+                    <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
+                        <td>{{ forloop.counter0|add:leaderboard_quiz.start_index }}</td>
+                        <td>{{ entry.user__username }}</td>
+                        <td>{{ entry.total_score }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if user_ranks.quiz and user_pages.quiz != page_number and user_ranks.quiz > 0 %}
+                    <tr class="ellipsis">
+                        <td colspan="3">...</td>
+                    </tr>
+                    <tr class="current-user">
+                        <td>{{ user_ranks.quiz }}</td>
+                        <td>{{ username }}</td>
+                        <td>{{ user_quiz_score }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+            <!-- Pagination controls -->
+            <div class="pagination-controls">
+                {% if leaderboard_quiz.has_previous %}
+                <a href="?page=1&per_page={{ entries_per_page }}" class="pagination-button">First</a>
+                <a href="?page={{ leaderboard_quiz.previous_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Previous</a>
+                {% else %}
+                <span class="pagination-button disabled">First</span>
+                <span class="pagination-button disabled">Previous</span>
+                {% endif %}
+                
+                <span class="pagination-info">Page {{ page_number }} of {{ total_pages_quiz }}</span>
+                
+                {% if leaderboard_quiz.has_next %}
+                <a href="?page={{ leaderboard_quiz.next_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Next</a>
+                <a href="?page={{ total_pages_quiz }}&per_page={{ entries_per_page }}" class="pagination-button">Last</a>
+                {% else %}
+                <span class="pagination-button disabled">Next</span>
+                <span class="pagination-button disabled">Last</span>
+                {% endif %}
+            </div>
+            
+            {% if user_pages.quiz and user_pages.quiz != page_number %}
+            <div class="text-center mt-2">
+                <a href="?page={{ user_pages.quiz }}&per_page={{ entries_per_page }}" class="pagination-button">Go to your page</a>
+            </div>
+            {% endif %}
+        </div>
 
-    <div id="leaderboard-travel" class="leaderboard-container" style="display: none;">
-        <h2 class="subtitle">Travel Leaderboard</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in leaderboard_travel %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ entry.user__username }}</td>
-                    <td>{{ entry.total_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <!-- Travel Leaderboard -->
+        <div id="leaderboard-travel" class="leaderboard-container" style="display: none;">
+            <h2 class="subtitle">Travel Leaderboard</h2>
+            
+            {% if user_ranks.travel %}
+            <div class="user-rank-info">
+                Your rank: <span>#{{ user_ranks.travel }}</span> out of {{ leaderboard_travel.paginator.count }} players
+            </div>
+            {% endif %}
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in leaderboard_travel %}
+                    <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
+                        <td>{{ forloop.counter0|add:leaderboard_travel.start_index }}</td>
+                        <td>{{ entry.user__username }}</td>
+                        <td>{{ entry.total_score }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if user_ranks.travel and user_pages.travel != page_number and user_ranks.travel > 0 %}
+                    <tr class="ellipsis">
+                        <td colspan="3">...</td>
+                    </tr>
+                    <tr class="current-user">
+                        <td>{{ user_ranks.travel }}</td>
+                        <td>{{ username }}</td>
+                        <td>{{ user_travel_score }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+            <!-- Pagination controls -->
+            <div class="pagination-controls">
+                {% if leaderboard_travel.has_previous %}
+                <a href="?page=1&per_page={{ entries_per_page }}" class="pagination-button">First</a>
+                <a href="?page={{ leaderboard_travel.previous_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Previous</a>
+                {% else %}
+                <span class="pagination-button disabled">First</span>
+                <span class="pagination-button disabled">Previous</span>
+                {% endif %}
+                
+                <span class="pagination-info">Page {{ page_number }} of {{ total_pages_travel }}</span>
+                
+                {% if leaderboard_travel.has_next %}
+                <a href="?page={{ leaderboard_travel.next_page_number }}&per_page={{ entries_per_page }}" class="pagination-button">Next</a>
+                <a href="?page={{ total_pages_travel }}&per_page={{ entries_per_page }}" class="pagination-button">Last</a>
+                {% else %}
+                <span class="pagination-button disabled">Next</span>
+                <span class="pagination-button disabled">Last</span>
+                {% endif %}
+            </div>
+            
+            {% if user_pages.travel and user_pages.travel != page_number %}
+            <div class="text-center mt-2">
+                <a href="?page={{ user_pages.travel }}&per_page={{ entries_per_page }}" class="pagination-button">Go to your page</a>
+            </div>
+            {% endif %}
+        </div>
     </div>
-</div>
+</body>
 {% endblock %}
 {% block extra_js %}
 <script src="{% static 'leaderboard/js/leaderboard.js' %}"></script>
+<script>
+    function changeEntriesPerPage(value) {
+        window.location.href = '?page=1&per_page=' + value;
+    }
+</script>
 {% endblock %}

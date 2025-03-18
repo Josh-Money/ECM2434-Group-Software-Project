@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 
+
 class RedirectLoggedOutUsersMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -18,4 +19,5 @@ class RedirectLoggedOutUsersMiddleware:
             return redirect('/home/')
 
         return self.get_response(request)
+
 

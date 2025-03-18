@@ -1,0 +1,10 @@
+/* Example: Style the background and buttons */
+body {
+    background-color: #f4f4f9;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+}
+

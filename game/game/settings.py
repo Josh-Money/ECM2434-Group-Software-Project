@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-*e8c&i9lm0&)nff)e8jmlaq98%(6@8ac&f@c5u3q+vp!mves!v
 # Set DEBUG based on environment
 DEBUG = False if os.environ.get('PYTHONANYWHERE_DOMAIN') else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ecoquest.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -141,12 +141,12 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Local development settings
+# Always define STATIC_ROOT for collectstatic command
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Development settings - keep separate from STATIC_ROOT
 if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / "static"]
-# Production settings
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

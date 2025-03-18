@@ -23,7 +23,11 @@ def articles(request):
 
         update_leaderboard(request.user, 'quiz', points=points_earned)
 
-        return JsonResponse({'points_earned': points_earned})
+        return JsonResponse({
+            'points_earned': points_earned,
+            'activity': 'quiz',
+            'success': True
+        })
     else:
         articles = Article.objects.all()
         return render(request, 'articles/articles.html', {'articles': articles})

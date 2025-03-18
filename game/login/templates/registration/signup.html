@@ -8,11 +8,11 @@
 
 {% block content %}
 <div class="container my-4">
-    <h1 class="mb-4 text-center" style="font-size: 1.75rem;">Exeter University - Sustainability</h1>
+    <h1 class="title" style="margin-top: 78px; margin-bottom: 20px;">EcoQuest</h1>
 
     <div class="signup-wrapper d-flex justify-content-center">
         <div class="signup-container card p-5 shadow-sm" style="max-width: 400px; background-color: white;">
-            <h2 class="text-center text-success mb-4" style="font-size: 2rem;">Sign Up</h2>
+            <h2 class="subtitle" style="font-size: 2rem;">Sign Up</h2>
 
             <!-- Display messages -->
             {% if messages %}
@@ -23,7 +23,7 @@
                 {% endfor %}
             {% endif %}
 
-            <form method="post">
+            <form method="post" id="signup-form">
                 {% csrf_token %}
 
                 <div class="mb-3">
@@ -66,13 +66,59 @@
                     {% endif %}
                 </div>
 
+                <!-- Privacy Policy Checkbox -->
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="privacy-checkbox" name="agree_to_privacy_policy" disabled>
+                    <label for="privacy-checkbox" class="form-check-label">
+                        I have read and agree to the 
+                        <a href="{% url 'privacy_policy' %}" target="_blank" class="text-success" id="privacy-link">Privacy Policy</a>.
+                    </label>
+                    <div class="text-danger d-none" id="privacy-error">You must read the Privacy Policy before agreeing.</div>
+                </div>
+
                 <button type="submit" class="btn btn-primary w-100">Sign Up</button>
 
                 <p class="mt-3 text-center">
                     Already have an account? <a href="{% url 'login' %}" class="text-success">Login here</a>!
                 </p>
+                
             </form>
         </div>
     </div>
 </div>
+
+<!-- JavaScript to handle Privacy Policy Click Requirement -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let privacyCheckbox = document.getElementById("privacy-checkbox");
+        let privacyLink = document.getElementById("privacy-link");
+        let privacyError = document.getElementById("privacy-error");
+
+        // Reset checkbox when page loads
+        privacyCheckbox.checked = false;
+        privacyCheckbox.disabled = true;
+        sessionStorage.removeItem("privacy_policy_clicked"); // Reset sessionStorage each time
+
+        // When the privacy policy link is clicked, store a session flag
+        privacyLink.addEventListener("click", function() {
+            sessionStorage.setItem("privacy_policy_clicked", "true");
+        });
+
+        // Check if user visited privacy policy page and enable checkbox
+        setInterval(function() {
+            if (sessionStorage.getItem("privacy_policy_clicked") === "true") {
+                privacyCheckbox.disabled = false;
+            }
+        }, 500);
+
+        // Prevent form submission if checkbox is unchecked
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            if (!privacyCheckbox.checked) {
+                event.preventDefault();
+                privacyError.classList.remove("d-none");
+            }
+        });
+    });
+</script>
+
 {% endblock %}

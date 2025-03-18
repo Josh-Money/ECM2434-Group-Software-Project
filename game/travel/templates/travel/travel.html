@@ -5,18 +5,18 @@
 {% block title %}Campus Travel Submission{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'campus_tracker/css/travel.css' %}">
+<link rel="stylesheet" href="{% static 'travel/css/travel.css' %}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
 
 {% block content %}
+<h2 class="title">Travel</h2>
+<a style="display: block; margin: 0 auto 20px auto;" href="/challenges" class="btn btn-primary w-25">Return to Challenges</a>
+
 <div class="container my-5">
   <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-      <h2 class="mb-0">University of Exeter Campus Tracker</h2>
-    </div>
     <div class="card-body">
-      <div id="messageSection" class="alert alert-info" style="display:none;">
+      <div id="messageSection" class="custom-alert" style="display:none;">
         <p>You are not on campus at the moment. Please come back when you're on campus!</p>
       </div>
       <div id="formSection" style="display:none;">
@@ -48,21 +48,21 @@
   // TOGGLE THIS VARIABLE TO ENABLE/DISABLE LOCATION CHECK
   // Set to true to bypass campus location check (testing mode)
   // Set to false to enforce campus location check (production mode)
-  const TEST_MODE = true;
-  
+  const TEST_MODE = false;
+
   const campusCenter = { lat: 50.736404, lon: -3.534551 };
   const campusRadius = 500; // meters
   let map;
 
   function getDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371000; 
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
+    const R = 6371000;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
   }
 
   function initMap(userLat, userLon) {
@@ -77,6 +77,14 @@
         fillOpacity: 0.2,
         radius: campusRadius
       }).addTo(map);
+
+      // Wait a moment then remove the attribution element
+      setTimeout(function () {
+        const attributionElement = document.querySelector('.leaflet-control-attribution.leaflet-control');
+        if (attributionElement && attributionElement.parentNode) {
+          attributionElement.parentNode.removeChild(attributionElement);
+        }
+      }, 500); // 500ms delay to ensure map is fully loaded
     } else {
       map.setView([userLat, userLon], 15);
     }
@@ -86,62 +94,62 @@
   }
 
   function checkCampus() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-              const lat = position.coords.latitude;
-              const lon = position.coords.longitude;
-              document.getElementById("lat").value = lat;
-              document.getElementById("lon").value = lon;
-              
-              if (TEST_MODE) {
-                // Test mode: Always show form regardless of location
-                document.getElementById("formSection").style.display = "block";
-                document.getElementById("messageSection").style.display = "none";
-              } else {
-                // Production mode: Check if user is on campus
-                const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
-                if (distance <= campusRadius) {
-                  document.getElementById("formSection").style.display = "block";
-                  document.getElementById("messageSection").style.display = "none";
-                } else {
-                  document.getElementById("formSection").style.display = "none";
-                  document.getElementById("messageSection").style.display = "block";
-                }
-              }
-              
-              // Display the campus boundary on map for reference
-              initMap(lat, lon);
-          }, function(error) {
-              console.error(error);
-              if (TEST_MODE) {
-                // Even if geolocation fails, show the form in test mode
-                document.getElementById("formSection").style.display = "block";
-                document.getElementById("messageSection").style.display = "none";
-                // Show campus map centered at campus
-                initMap(campusCenter.lat, campusCenter.lon);
-              } else {
-                // In production mode, don't show form if geolocation fails
-                document.getElementById("formSection").style.display = "none";
-                document.getElementById("messageSection").style.display = "block";
-                document.getElementById("messageSection").textContent = "Unable to determine your location. Please enable location services and try again.";
-                // Show campus map centered at campus
-                initMap(campusCenter.lat, campusCenter.lon);
-              }
-          });
-      } else {
-          alert("Geolocation is not supported by your browser.");
-          if (TEST_MODE) {
-            // Even if geolocation is not supported, show the form in test mode
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        document.getElementById("lat").value = lat;
+        document.getElementById("lon").value = lon;
+
+        if (TEST_MODE) {
+          // Test mode: Always show form regardless of location
+          document.getElementById("formSection").style.display = "block";
+          document.getElementById("messageSection").style.display = "none";
+        } else {
+          // Production mode: Check if user is on campus
+          const distance = getDistance(lat, lon, campusCenter.lat, campusCenter.lon);
+          if (distance <= campusRadius) {
             document.getElementById("formSection").style.display = "block";
             document.getElementById("messageSection").style.display = "none";
           } else {
-            // In production mode, don't show form if geolocation is not supported
             document.getElementById("formSection").style.display = "none";
             document.getElementById("messageSection").style.display = "block";
           }
+        }
+
+        // Display the campus boundary on map for reference
+        initMap(lat, lon);
+      }, function (error) {
+        console.error(error);
+        if (TEST_MODE) {
+          // Even if geolocation fails, show the form in test mode
+          document.getElementById("formSection").style.display = "block";
+          document.getElementById("messageSection").style.display = "none";
           // Show campus map centered at campus
           initMap(campusCenter.lat, campusCenter.lon);
+        } else {
+          // In production mode, don't show form if geolocation fails
+          document.getElementById("formSection").style.display = "none";
+          document.getElementById("messageSection").style.display = "block";
+          document.getElementById("messageSection").textContent = "Unable to determine your location. Please enable location services and try again.";
+          // Show campus map centered at campus
+          initMap(campusCenter.lat, campusCenter.lon);
+        }
+      });
+    } else {
+      alert("Geolocation is not supported by your browser.");
+      if (TEST_MODE) {
+        // Even if geolocation is not supported, show the form in test mode
+        document.getElementById("formSection").style.display = "block";
+        document.getElementById("messageSection").style.display = "none";
+      } else {
+        // In production mode, don't show form if geolocation is not supported
+        document.getElementById("formSection").style.display = "none";
+        document.getElementById("messageSection").style.display = "block";
       }
+      // Show campus map centered at campus
+      initMap(campusCenter.lat, campusCenter.lon);
+    }
   }
 
   window.onload = checkCampus;

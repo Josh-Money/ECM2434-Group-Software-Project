@@ -24,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*e8c&i9lm0&)nff)e8jmlaq98%(6@8ac&f@c5u3q+vp!mves!v"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set DEBUG based on environment
+DEBUG = False if os.environ.get('PYTHONANYWHERE_DOMAIN') else True
 
 ALLOWED_HOSTS = ['ecoquest.pythonanywhere.com', 'localhost', '127.0.0.1']
 
@@ -136,11 +137,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# Always define STATIC_ROOT for collectstatic command
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Development settings - keep separate from STATIC_ROOT
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

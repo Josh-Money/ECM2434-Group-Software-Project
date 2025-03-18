@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
     const isPrivacyPage = currentPath === '/privacy-policy/';
     
+    console.log('Current path:', currentPath);
+    
     const logo = document.getElementById('footer-logo');
     const mascotImg = document.getElementById('mascot-img');
     const speechBubble = document.getElementById('speech-bubble');
@@ -19,6 +21,29 @@ document.addEventListener('DOMContentLoaded', function() {
         //'/profile/': "Track your sustainability journey here!"
     };
     
+    // Function to check if this is the first visit to a page in this session
+    function isFirstVisit(path) {
+        // Get the visited pages from local storage or initialize as empty array
+        const visitedPagesKey = 'ecoQuestVisitedPages';
+        const visitedPages = JSON.parse(localStorage.getItem(visitedPagesKey) || '[]');
+        
+        console.log('Visited pages from storage:', visitedPages);
+        console.log('Checking if visited:', path);
+        
+        // Check if this page has been visited
+        const hasVisited = visitedPages.includes(path);
+        console.log('Has visited before:', hasVisited);
+        
+        if (hasVisited) {
+            return false;
+        } else {
+            // Add this page to visited pages and save to local storage
+            visitedPages.push(path);
+            localStorage.setItem(visitedPagesKey, JSON.stringify(visitedPages));
+            return true;
+        }
+    }
+    
     if (isPrivacyPage) {
         // Privacy policy page - mascot is already hidden via template logic
     } else {
@@ -27,11 +52,20 @@ document.addEventListener('DOMContentLoaded', function() {
             logo.style.opacity = 0;
         }
         
-        // Show initial speech bubble after a short delay
+        // Show initial speech bubble after a short delay, but only for first visit to specific pages
         setTimeout(function() {
-            // Show page-specific message if available
-            if (pageMessages[currentPath] && mascotSpeechText && speechBubble) {
-                window.mascotSpeech(pageMessages[currentPath]);
+            // Check if there's a page-specific message for this path
+            const hasPageMessage = pageMessages.hasOwnProperty(currentPath);
+            console.log('Has page message:', hasPageMessage, 'for path:', currentPath);
+            
+            // Show page-specific message if available AND it's first visit in this session
+            if (hasPageMessage && mascotSpeechText && speechBubble) {
+                if (isFirstVisit(currentPath)) {
+                    console.log('Showing mascot message for first visit to:', currentPath);
+                    window.mascotSpeech(pageMessages[currentPath]);
+                } else {
+                    console.log('Not showing mascot message, already visited:', currentPath);
+                }
             } else if (mascotSpeechText && speechBubble) {
                 // Default message if no page-specific message
                 // window.mascotSpeech("Hello! I'm your eco-guide!");
@@ -80,4 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+    
+    // Debug: Show a way to reset storage for testing
+    console.log('To reset visited pages, run in console: localStorage.removeItem("ecoQuestVisitedPages")');
 });

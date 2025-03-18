@@ -45,8 +45,8 @@ def scan_qr(request):
                     )
                     update_leaderboard(request.user, "qr_scan", points=points_earned)
                     message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
-                    # Redirect with parameters for mascot message
-                    return redirect(f'/qr/result?points_earned={points_earned}&activity=qr_scan&status=success&message={message}')
+                    # Simple redirect to result page
+                    return render(request, 'qr/qr_result.html', {"message": message, "status": "success"})
                 except IntegrityError:
                     message = "You've already scanned this QR code today. Come back tomorrow!"
                     return render(request, 'qr/qr_result.html', {"message": message, "status": "warning"})
@@ -59,6 +59,7 @@ def scan_qr(request):
 
 @login_required
 def qr_result(request):
-    message = request.GET.get('message', '')
-    status = request.GET.get('status', '')
+    # Default message for direct access
+    message = "Please scan a QR code to see results."
+    status = "info"
     return render(request, 'qr/qr_result.html', {"message": message, "status": status})

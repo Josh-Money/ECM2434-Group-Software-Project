@@ -1,18 +1,9 @@
-# Author: Joshua Money
+# Authors: Joshua Money, Nitzan Lahav, Michael Porter
 from django.contrib import admin
 from .models import Leaderboard
 
 # Register your models here.
 
-#class LeaderboardAdmin(admin.ModelAdmin):
- #   list_display = ('user', 'activity_type', 'score', 'created_at')
-  #  list_filter = ('activity_type',)
-   # search_fields = ('user__username',)
-
-#admin.site.register(Leaderboard, LeaderboardAdmin)
-
-from django.contrib import admin
-from .models import Leaderboard
 from django.contrib.admin import SimpleListFilter
 from import_export.admin import ExportMixin
 

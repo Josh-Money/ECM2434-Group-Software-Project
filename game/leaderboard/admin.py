@@ -17,7 +17,7 @@ class ScoreRangeFilter(SimpleListFilter):
         ]
 
     def queryset(self, request, queryset):
-        # ✅ Apply score filtering only to allowed activity types
+        # Apply score filtering only to allowed activity types
         allowed_types = ['travel', 'qr_scan', 'quiz']
         queryset = queryset.filter(activity_type__in=allowed_types)
 
@@ -48,7 +48,7 @@ class ActivityTypeFilter(SimpleListFilter):
     parameter_name = 'activity_type'
 
     def lookups(self, request, model_admin):
-        # ✅ Exclude 'main' from the available filter options
+        # Exclude 'main' from the available filter options
         return [
             ('qr_scan', 'QR Scan'),
             ('quiz', 'Quiz'),
@@ -62,14 +62,14 @@ class ActivityTypeFilter(SimpleListFilter):
 
 class LeaderboardAdmin(ExportMixin, admin.ModelAdmin):
     list_display = ('user', 'activity_type', 'score', 'total_score', 'created_at') 
-    list_filter = (ActivityTypeFilter, ScoreRangeFilter)  # ✅ Use custom activity type filter
+    list_filter = (ActivityTypeFilter, ScoreRangeFilter)  # Use custom activity type filter
     search_fields = ('user__username',)
     ordering = ('-score', '-created_at')
     date_hierarchy = 'created_at'
     list_editable = ('score',)
     actions = [reset_scores, double_scores, remove_inactive_users]
 
-    # ✅ Sum points from 'travel', 'qr_scan', and 'quiz' only
+    # Sum points from 'travel', 'qr_scan', and 'quiz' only
     def total_score(self, obj):
         total = Leaderboard.objects.filter(
             user=obj.user,
@@ -82,7 +82,7 @@ class LeaderboardAdmin(ExportMixin, admin.ModelAdmin):
     total_score.short_description = "Total Score"
 
     def get_queryset(self, request):
-        # ✅ Exclude 'main' from the queryset entirely
+        # Exclude 'main' from the queryset entirely
         qs = super().get_queryset(request)
         qs = qs.select_related('user').exclude(activity_type='main')
         return qs

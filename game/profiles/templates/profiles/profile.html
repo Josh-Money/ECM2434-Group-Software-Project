@@ -4,104 +4,86 @@
 {% block title %}Profile - My Website{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
-<div class="container my-4">
-  <!-- Add logout button at top right -->
-  <div class="row mb-3">
-    <div class="col-12 text-end">
-      {% if request.user.is_authenticated %}
-      <a href="{% url 'logout' %}" class="btn btn-primary w-10" id="logout" role="button">Logout</a>
-      {% endif %}
-    </div>
-  </div>
 
+<div class="container my-4">
   <div class="row">
     <!-- Main Profile Section -->
     <div class="col-md-8">
       <div class="card mb-4">
-        <div class="card-body d-flex align-items-center">
-          <!-- User Profile Picture -->
-          {% if user.profile.image %}
-          <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="rounded-circle me-3"
-            style="width:80px; height:80px; object-fit:cover;">
-          {% else %}
-          <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="rounded-circle me-3"
-            style="width:80px; height:80px; object-fit:cover;">
-          {% endif %}
-
-          <!-- User Info -->
-          <div>
-            <h4 class="card-title mb-0">{{ user.username }}</h4>
-            <p class="text-muted">{{ user.email }}</p>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <!-- Left Column: Profile Picture and User Info -->
+            <div class="col-md-8 d-flex align-items-center">
+              <div>
+                {% if profile_user.profile.image %}
+                  <img 
+                    src="{{ profile_user.profile.image.url }}" 
+                    alt="Profile Picture" 
+                    class="rounded-circle me-3" 
+                    style="width:80px; height:80px; object-fit:cover;"
+                  >
+                {% else %}
+                  <img 
+                    src="{% static 'images/default_profile.png' %}" 
+                    alt="Default Profile Picture" 
+                    class="rounded-circle me-3" 
+                    style="width:80px; height:80px; object-fit:cover;"
+                  >
+                {% endif %}
+              </div>
+              <div>
+                <h4 class="card-title mb-0">{{ profile_user.username }}</h4>
+                <p class="text-muted">{{ profile_user.email }}</p>
+              </div>
+            </div>
+            <!-- Right Column: Change Profile Picture Button -->
+            <div class="col-md-4 d-flex justify-content-end align-items-center">
+              <a href="{% url 'update_profile_picture' %}" 
+                 class="btn btn-primary" 
+                 style="width: 120px; white-space: normal; line-height: 1.2;">
+                Change<br>Profile Picture
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Additional Profile Info -->
-      <div class="card">
+      <!-- Profile Details Card -->
+      <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Profile Details</h5>
           <div class="row text-center">
             <div class="col-md-6">
               <h6>Total Points</h6>
-              <p class="display-4 text-primary">{{ total_score }}</p>
+              <p class="display-4 text-primary">{{ profile_user.profile.points }}</p>
             </div>
             <div class="col-md-6">
               <h6>Overall Rank</h6>
-              <p class="display-4 text-success">{{ rank }}</p>
+              <p class="display-4 text-success">{{ profile_user.profile.get_rank }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--
-    
+
+    <!-- Sidebar for Streak Information -->
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-body">
-          <h5 class="card-title">Our Sidebar</h5>
-          <p class="card-text">You can put any information here you'd like.</p>
+          <h5 class="card-title">Streak Information</h5>
+          <p class="card-text">Track your progress!</p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Latest Posts</li>
-            <li class="list-group-item">Announcements</li>
-            <li class="list-group-item">Calendars</li>
-            <li class="list-group-item">etc</li>
+            <li class="list-group-item">Current Streak: {{ profile_user.profile.get_streak }}</li>
+            <li class="list-group-item">Max Streak: {{ profile_user.profile.longest_streak }}</li>
           </ul>
         </div>
       </div>
--->
+    </div>
   </div>
-</div>
 </div>
 {% endblock content %}
 
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get profile elements
-        const username = document.querySelector('.card-title').textContent.trim();
-        const totalPoints = document.querySelector('.display-4.text-primary').textContent.trim();
-        const rank = document.querySelector('.display-4.text-success').textContent.trim();
-        
-        // Make the mascot speak a welcome message with profile info after a short delay
-        setTimeout(function() {
-            if (typeof window.mascotSpeech === 'function') {
-                window.mascotSpeech(`Welcome to your profile, ${username}! You have ${totalPoints} points and are ranked #${rank}. Keep up the great work!`);
-            }
-        }, 1500);
-        
-        // Add click listeners to profile elements
-        document.querySelector('.card-title').addEventListener('click', function() {
-            if (typeof window.mascotSpeech === 'function') {
-                window.mascotSpeech(`${username}, you're doing great for the environment!`);
-            }
-        });
-        
-        // Make username look clickable
-        document.querySelector('.card-title').style.cursor = 'pointer';
-    });
-</script>
-{% endblock %}

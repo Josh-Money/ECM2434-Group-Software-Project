@@ -5,6 +5,9 @@ from django.utils import timezone
 from leaderboard.utils import update_leaderboard
 from .models import CampusTravel
 
+from profiles.models import Profile
+
+
 def travel(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -46,6 +49,8 @@ def travel(request):
             lat=lat,
             lon=lon 
         )
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        profile.add_points(points)
         update_leaderboard(request.user, 'travel', points=points)
         context = {'points': points}
         return render(request, 'travel/thank_you.html', context)

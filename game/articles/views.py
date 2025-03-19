@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Article, Quiz, Question
 from leaderboard.utils import update_leaderboard
+from profiles.models import Profile
+
 
 # Create your views here.
 @login_required
@@ -16,6 +18,11 @@ def articles(request):
         
         quiz = get_object_or_404(Quiz, id=quiz_id)
         points_earned = quiz.points_per_question * correct_count
+
+        # Updating profile
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        profile.add_points(points_earned)
+
 
         update_leaderboard(request.user, 'quiz', points=points_earned)
 

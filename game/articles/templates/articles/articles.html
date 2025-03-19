@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Articles{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'articles/css/articles-styles.css' %}">
@@ -19,6 +19,16 @@
         h1 {
             text-align: center;
         }
+        .truefalse {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .completed-message {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -31,19 +41,200 @@
             leaderboard! </p>
         <p style="text-align: center;">Warning! You will only get one try on each quiz, so make sure you are confident before clicking check. </p>
         <br>
-        <a href="https://www.exeter.ac.uk/about/sustainability/whatyoucando/#footprint">Article 1 - University Of Exeter
-            sustainability page: What you can do to reduce your carbon footprint</a>
-        {% include 'quiz1.html' %}
-
-        <button id="checkAnswer" class="btn btn-primary w-80">Check Answers</button>
-
-        <p id="feedback"></p>
+        
+        {% for article in articles %}
+            <div class="article-section">
+                {% if article.url %}
+                    <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                {% else %}
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.content }}</p>
+                {% endif %}
+                
+                {% if article.quiz %}
+                    <button onclick="toggleQuiz('{{ article.id }}')" id="toggleQuiz-{{ article.id }}" class="toggleQuiz btn btn-primary w-25">{{ article.quiz.title }} ⬇</button>
+                    <div id="quizContainer-{{ article.id }}" class="quizContainer hidden">
+                        <input type="hidden" class="quiz-id" value="{{ article.quiz.id }}">
+                        
+                        {% for question in article.quiz.questions.all %}
+                            <div class="question-container">
+                                <p class="subtitle question">Question {{ question.order }}</p>
+                                <p>{{ question.text }}</p>
+                                <div class="options-container">
+                                    <label class="truefalse">
+                                        <input type="radio" name="Q{{ question.id }}" value="true" /> True
+                                    </label>
+                                    <label class="truefalse">
+                                        <input type="radio" name="Q{{ question.id }}" value="false" /> False
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                        <button onclick="checkAnswersInline('{{ article.quiz.id }}', this)" class="checkAnswer btn btn-primary w-80">Check Answers</button>
+                        <p class="feedback"></p>
+                    </div>
+                {% endif %}
+            </div>
+            <hr>
+        {% empty %}
+            <p>No articles available. Check back later!</p>
+        {% endfor %}
     </div>
-
+    
+    <script>
+      
+        function toggleQuiz(quizId) {
+            console.log("Toggle quiz called for ID:", quizId);
+            const quizContainer = document.getElementById(`quizContainer-${quizId}`);
+            const toggleBtn = document.getElementById(`toggleQuiz-${quizId}`);
+            
+            if (quizContainer) {
+                if (quizContainer.classList.contains("hidden")) {
+                    quizContainer.style.display = "block";
+                    quizContainer.classList.remove("hidden");
+                    toggleBtn.textContent = toggleBtn.textContent.replace('⬇', '⬆');
+                } else {
+                    quizContainer.style.display = "none";
+                    quizContainer.classList.add("hidden");
+                    toggleBtn.textContent = toggleBtn.textContent.replace('⬆', '⬇');
+                }
+            } else {
+                console.error("Quiz container not found for ID:", quizId);
+            }
+        }
+        
+        function checkAnswersInline(quizId, buttonElement) {
+            console.log("Inline check answers called for quiz ID:", quizId);
+            
+            const quizContainer = buttonElement.closest('.quizContainer');
+            const questions = quizContainer.querySelectorAll(".question-container");
+            console.log("Found questions:", questions.length);
+            
+            if (localStorage.getItem('completed_quiz_' + quizId) === 'true') {
+                console.log("Quiz already completed, preventing resubmission");
+                alert("You have already completed this quiz.");
+                return;
+            }
+            
+            let score = 0;
+            let totalQuestions = questions.length;
+            let processedQuestions = 0;
+            
+            questions.forEach(function(questionContainer) {
+                const questionId = questionContainer.querySelector('input[type="radio"]').name.substring(1);
+                const selectedOption = questionContainer.querySelector('input[type="radio"]:checked');
+                
+                const existingFeedback = questionContainer.querySelector('[id^="feedback-"]');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+                
+                const feedback = document.createElement("span");
+                feedback.id = `feedback-${questionId}`;
+                feedback.style.marginLeft = "10px";
+                
+                const lastRadio = questionContainer.querySelectorAll('.truefalse');
+                const attachTo = lastRadio[lastRadio.length - 1];
+                
+                if (!selectedOption) {
+                    feedback.textContent = "⚠️ No answer selected!";
+                    feedback.style.color = "orange";
+                    attachTo.appendChild(feedback);
+                    processedQuestions++;
+                    checkIfAllProcessed();
+                } else {
+                    fetch(`/articles/question/${questionId}/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Got answer data:", data);
+                            
+                            if (selectedOption.value === data.correct_answer) {
+                                feedback.textContent = "✅ Correct";
+                                feedback.style.color = "green";
+                                score++;
+                            } else {
+                                feedback.textContent = "❌ Incorrect";
+                                feedback.style.color = "red";
+                            }
+                            
+                            attachTo.appendChild(feedback);
+                            processedQuestions++;
+                            checkIfAllProcessed();
+                        })
+                        .catch(error => {
+                            console.error("Error checking answer:", error);
+                            processedQuestions++;
+                            checkIfAllProcessed();
+                        });
+                }
+            });
+            
+            buttonElement.disabled = true;
+            
+            function checkIfAllProcessed() {
+                if (processedQuestions === totalQuestions) {
+                    console.log("All questions processed, score:", score);
+                    
+                    let scoreDisplay = quizContainer.querySelector(".scoreDisplay");
+                    if (!scoreDisplay) {
+                        scoreDisplay = document.createElement("span");
+                        scoreDisplay.className = "scoreDisplay";
+                        scoreDisplay.style.marginLeft = "15px";
+                        scoreDisplay.style.fontWeight = "bold";
+                        buttonElement.after(scoreDisplay);
+                    }
+                    
+                    const points_per_question = 10; // Default points per question
+                    const totalPoints = score * points_per_question;
+                    scoreDisplay.textContent = ` Score: ${score}/${totalQuestions}. You earned ${totalPoints} points!`;
+                    
+                    quizContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+                        input.disabled = true;
+                    });
+                    buttonElement.textContent = "Quiz Completed";
+                    
+                    localStorage.setItem('completed_quiz_' + quizId, 'true');
+                    
+                    console.log("Submitting score to server");
+                    
+                    let csrftoken = '';
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, 'csrftoken'.length + 1) === 'csrftoken=') {
+                                csrftoken = decodeURIComponent(cookie.substring('csrftoken'.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    
+                    fetch('/articles/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': csrftoken
+                        },
+                        body: 'quiz_id=' + quizId + '&correct_answers=' + score
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Leaderboard updated:", data);
+                    })
+                    .catch(error => console.error("Error updating leaderboard:", error));
+                }
+            }
+        }
+    </script>
+    
+    {% block extra_js %}
     <script src="{% static 'articles/js/articles.js' %}"></script>
+    {% endblock %}
 </body>
-{% endblock %}
-
-{% block extra_js %}
-
 {% endblock %}

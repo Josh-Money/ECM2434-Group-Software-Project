@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const mascotSpeechText = document.getElementById('mascot-speech-text');
     const closeButton = document.getElementById('close-speech');
     
+    // Collection of eco-friendly jokes for the mascot
+    const ecoJokes = [
+        "Why did the recycling bin go to therapy? It had too many issues to sort through! ♻️",
+        "What's a tree's favorite drink? Root beer! 🌳",
+        "How do you organize an eco-friendly party? You planet! 🌎",
+        "Why did the bicycle fall over? Because it was two-tired from reducing carbon emissions! 🚲",
+        "What's an environmentalist's favorite kind of joke? Recycled ones! ♻️",
+        "What did one LED bulb say to the other? 'You're so bright!' 💡",
+        "Why do trees have so many friends? They branch out! 🌲",
+        "What happens when you throw a green stone into the Red Sea? It gets wet! 💦",
+        "What do you call a suspicious looking tree? Shady! 🌴",
+    ];
+    
     // Page-specific mascot messages - define this early so it can be used below
     const pageMessages = {
         '/home/': "Welcome back! Ready to make a difference today?",
@@ -20,6 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // '/qr/': "Scan a QR code to log your recycling!",
         //'/profile/': "Track your sustainability journey here!"
     };
+    
+    // Function to get a random joke from the collection
+    function getRandomJoke() {
+        const randomIndex = Math.floor(Math.random() * ecoJokes.length);
+        return ecoJokes[randomIndex];
+    }
     
     // Function to check if this is the first visit to a page in this session
     function isFirstVisit(path) {
@@ -97,9 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mascot speech bubble functionality
     if (mascotImg && speechBubble) {
-        // Click on mascot to show default message
+        // Click on mascot to show a random joke
         mascotImg.addEventListener('click', function() {
-            window.mascotSpeech("Hello! I'm your eco-guide! Click me anytime for tips!");
+            const joke = getRandomJoke();
+            window.mascotSpeech(joke, 10000);
         });
         
         // Close button functionality

@@ -308,8 +308,10 @@ a {
     background-color: white;
     border: 2px solid var(--primary);
     border-radius: 15px;
-    padding: 12px 15px;
-    width: 220px;
+    padding: 15px 18px;
+    width: 250px;
+    max-height: 200px;
+    overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 10002;
@@ -360,7 +362,8 @@ a {
 .speech-bubble p {
     margin: 0;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
+    color: var(--dark);
 }
 
 .close-speech {
@@ -455,7 +458,8 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 110px;
-        width: 200px;
+        width: 220px;
+        padding: 12px 15px;
     }
 }
 
@@ -496,8 +500,9 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 90px;
-        width: 160px;
+        width: 200px;
         font-size: 12px;
+        padding: 10px 12px;
     }
 
     /* Make buttons more mobile-friendly */
@@ -725,8 +730,10 @@ body.privacy-policy-page .mascot-container {
     background-color: white;
     border: 2px solid var(--primary);
     border-radius: 15px;
-    padding: 12px 15px;
-    width: 220px;
+    padding: 15px 18px;
+    width: 250px;
+    max-height: 200px;
+    overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 10002;
@@ -777,7 +784,8 @@ body.privacy-policy-page .mascot-container {
 .speech-bubble p {
     margin: 0;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
+    color: var(--dark);
 }
 
 .close-speech {
@@ -822,6 +830,7 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 110px;
-        width: 200px;
+        width: 220px;
+        padding: 12px 15px;
     }
 }

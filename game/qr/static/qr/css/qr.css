@@ -209,6 +209,33 @@ main {
     width: 100%;
     max-width: 250px;
   }
+  
+  /* Footer responsive fix for mobile */
+  .footer .footer-text {
+    position: static !important;
+    transform: none !important;
+    font-size: 13px !important;
+    flex: 1 !important;
+    margin: 0 10px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    width: auto !important;
+  }
+  
+  .footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 55px !important;
+  }
+  
+  .footer .btn {
+    font-size: 13px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+  }
 }
 
 /* Media query for mobile phones */
@@ -253,6 +280,69 @@ main {
     margin: 8px 0;
     border-radius: 6px;
   }
+  
+  /* Footer responsive fix for small mobile */
+  .footer .footer-text {
+    font-size: 12px !important;
+    margin: 0 5px !important;
+  }
+  
+  .footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 8px !important;
+  }
+  
+  .footer .btn {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    height: auto !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+/* iPhone 12 and similar devices */
+@media (max-width: 390px) {
+  .container {
+    margin: 8px auto 65px !important;
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 23px;
+  }
+  
+  /* Footer responsive fix for iPhone 12 */
+  .footer {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 55px !important;
+    padding: 8px 10px !important;
+  }
+  
+  .footer .footer-text {
+    position: static !important;
+    transform: none !important;
+    font-size: 10px !important;
+    text-align: center !important;
+    flex: 1 !important;
+    margin: 0 5px !important;
+    white-space: normal !important;
+  }
+  
+  .footer .btn, 
+  .footer button {
+    padding: 4px 6px !important;
+    font-size: 10px !important;
+    min-height: initial !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+  }
 }
 
 /* Special adjustments for very small screens */
@@ -276,5 +366,28 @@ main {
   .btn {
     font-size: 13px;
     max-width: 200px;
+  }
+  
+  /* Footer responsive fix for very small screens */
+  .footer {
+    height: 50px !important;
+    padding: 6px 8px !important;
+    flex-direction: row !important;
+  }
+  
+  .footer .footer-text {
+    font-size: 9px !important;
+    flex: 1 !important;
+    margin: 0 3px !important;
+  }
+  
+  .footer .btn,
+  .footer button {
+    padding: 3px 5px !important;
+    font-size: 9px !important;
+    min-height: initial !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
   }
 }

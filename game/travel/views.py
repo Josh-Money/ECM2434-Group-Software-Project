@@ -2,6 +2,7 @@
 import datetime
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from leaderboard.utils import update_leaderboard
 from .models import CampusTravel
 
 def travel(request):
@@ -45,6 +46,7 @@ def travel(request):
             lat=lat,
             lon=lon 
         )
+        update_leaderboard(request.user, 'travel', points=points)
         context = {'points': points}
         return render(request, 'travel/thank_you.html', context)
 

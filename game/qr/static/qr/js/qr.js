@@ -1,27 +1,38 @@
 //Author: Josh Money
 
-// Hybrid approach with both manual entry and optional camera scanning
 document.addEventListener('DOMContentLoaded', function() {
-    
     // Get DOM elements
     const preview = document.getElementById('preview');
     const scanStatus = document.getElementById('scanStatus');
     const qrForm = document.getElementById('qrForm');
     const qrCodeInput = document.getElementById('qr_code');
     
+    // Valid QR codes
+    const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more as needed
+    
     // Set status message
     function setStatus(message, type = 'info') {
         if (scanStatus) {
             scanStatus.textContent = message;
-            scanStatus.className = `alert alert-${type} mt-3 mb-4`;
+            // Use #4CAF50 color for info messages
+            if (type === 'info') {
+                scanStatus.className = `alert mt-3 mb-4`;
+                scanStatus.style.backgroundColor = '#4CAF50';
+                scanStatus.style.color = 'white';
+                scanStatus.style.border = '1px solid #4CAF50';
+            } else {
+                scanStatus.className = `alert alert-${type} mt-3 mb-4`;
+                scanStatus.style.backgroundColor = '';
+                scanStatus.style.color = '';
+                scanStatus.style.border = '';
+            }
+            scanStatus.style.display = 'block';
         }
         console.log(`Status: ${message}`);
     }
     
     // Check if QR code is valid and submit form if it is
     function processQrCode(content) {
-        const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more valid codes as needed
-        
         if (validCodes.includes(content)) {
             // Set form value
             qrCodeInput.value = content;
@@ -29,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show success message
             setStatus('Valid QR code detected! Submitting...', 'success');
             
-            // Add a small delay to show the success message before submitting
+            // Submit form after a short delay
             setTimeout(function() {
                 qrForm.submit();
             }, 800);
@@ -42,64 +53,61 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    try {
-        // Don't initialize camera if Instascan isn't available
-        if (typeof Instascan === 'undefined') {
-            console.log('Instascan library not available, skipping camera initialization');
-            return;
-        }
+    // Initialize camera and QR scanner
+    function initializeCamera() {
+        setStatus('Camera initializing... Please wait.', 'info');
         
-        // Create scanner instance
-        let scanner = new Instascan.Scanner({
-            video: preview,
-            scanPeriod: 3,
-            mirror: false
-        });
-        
-        // Add scan listener to auto-submit the form when a valid QR code is detected
-        scanner.addListener('scan', function(content) {
-            console.log('QR code detected:', content);
-            processQrCode(content);
-        });
-        
-        // Start camera (if available)
-        Instascan.Camera.getCameras()
-            .then(function(cameras) {
-                if (cameras.length > 0) {
-                    scanner.start(cameras[0])
-                        .then(() => {
-                            console.log('Camera started successfully');
-                            setStatus('Camera active. Point at a recycling bin QR code.', 'info');
-                        })
-                        .catch(err => {
-                            console.error('Error starting camera:', err);
-                            // Don't show error to user - they can use manual entry
-                        });
-                } else {
-                    console.log('No cameras found');
-                    // Don't show an error - user can use manual entry
-                }
-            })
-            .catch(function(err) {
-                console.error('Error accessing cameras:', err);
-                // Don't show an error - user can use manual entry
+        try {
+            // Create scanner instance
+            const scanner = new Instascan.Scanner({
+                video: preview,
+                mirror: false,
+                backgroundScan: false,
+                scanPeriod: 5 // Scan every 5ms
             });
-    } catch (error) {
-        console.error('Error with camera scanner:', error);
+            
+            // Set up QR code detection
+            scanner.addListener('scan', function(content) {
+                console.log('QR code detected:', content);
+                processQrCode(content);
+            });
+            
+            // Get available cameras
+            Instascan.Camera.getCameras()
+                .then(function(cameras) {
+                    if (cameras.length > 0) {
+                        // Use the first camera by default
+                        scanner.start(cameras[0])
+                            .then(function() {
+                                setStatus('Camera active. Point camera at a QR code.', 'info');
+                            })
+                            .catch(function(err) {
+                                console.error('Error starting camera:', err);
+                                setStatus('Error starting camera. Please refresh.', 'danger');
+                            });
+                    } else {
+                        setStatus('No cameras found. Please try a different device.', 'danger');
+                    }
+                })
+                .catch(function(err) {
+                    console.error('Error getting cameras:', err);
+                    setStatus('Error accessing camera. Please allow camera access and refresh.', 'danger');
+                });
+        } catch (error) {
+            console.error('Error initializing camera:', error);
+            setStatus('Error accessing camera. Please refresh the page.', 'danger');
+        }
     }
     
     // Enhance the form submit with validation for manual entry
     qrForm.addEventListener('submit', function(event) {
         const code = qrCodeInput.value.trim();
         
-        // Only validate if this is a manual submission (not already processed by scanner)
         if (!code) {
             setStatus('Please scan a QR code or enter a valid code.', 'warning');
             event.preventDefault(); // Prevent empty submission
             return;
         }
-        
-        const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more valid codes as needed
         
         if (!validCodes.includes(code)) {
             // Show validation message to the user
@@ -111,4 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Form will submit naturally
         }
     });
+    
+    // Initialize camera on page load
+    initializeCamera();
 });

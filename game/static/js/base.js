@@ -105,11 +105,24 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Set the text and show the bubble
             mascotSpeechText.textContent = text;
+            
+            // Adjust font size based on text length
+            if (text.length > 100) {
+                mascotSpeechText.style.fontSize = '12px';
+            } else if (text.length > 70) {
+                mascotSpeechText.style.fontSize = '13px';
+            } else {
+                mascotSpeechText.style.fontSize = '14px';
+            }
+            
+            // Show the speech bubble
             speechBubble.style.display = 'block';
             
             // Auto-hide after duration
             speechTimeout = setTimeout(function() {
                 speechBubble.style.display = 'none';
+                // Reset font size to default after hiding
+                mascotSpeechText.style.fontSize = '14px';
             }, duration);
         }
     };

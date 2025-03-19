@@ -310,8 +310,8 @@ a {
     border-radius: 15px;
     padding: 15px 18px;
     width: 250px;
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 10002;
@@ -364,6 +364,9 @@ a {
     font-size: 14px;
     line-height: 1.5;
     color: var(--dark);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .close-speech {
@@ -460,6 +463,7 @@ body.privacy-policy-page .mascot-container {
         bottom: 110px;
         width: 220px;
         padding: 12px 15px;
+        max-height: none;
     }
 }
 
@@ -501,8 +505,13 @@ body.privacy-policy-page .mascot-container {
     .speech-bubble {
         bottom: 90px;
         width: 200px;
-        font-size: 12px;
         padding: 10px 12px;
+        max-height: none;
+    }
+    
+    .speech-bubble p {
+        font-size: 12px;
+        line-height: 1.4;
     }
 
     /* Make buttons more mobile-friendly */
@@ -585,9 +594,14 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 80px;
-        width: 150px;
-        font-size: 11px;
+        width: 180px;
         padding: 8px 10px;
+        max-height: none;
+    }
+    
+    .speech-bubble p {
+        font-size: 11px;
+        line-height: 1.3;
     }
     
     /* Ensure footer text is readable */
@@ -663,9 +677,14 @@ body.privacy-policy-page .mascot-container {
     
     .speech-bubble {
         bottom: 70px;
-        width: 140px;
-        font-size: 10px;
+        width: 160px;
         padding: 6px 8px;
+        max-height: none;
+    }
+    
+    .speech-bubble p {
+        font-size: 10px;
+        line-height: 1.3;
     }
     
     /* Make buttons more compact but still touchable */
@@ -732,8 +751,8 @@ body.privacy-policy-page .mascot-container {
     border-radius: 15px;
     padding: 15px 18px;
     width: 250px;
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 10002;
@@ -786,6 +805,9 @@ body.privacy-policy-page .mascot-container {
     font-size: 14px;
     line-height: 1.5;
     color: var(--dark);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .close-speech {
@@ -832,5 +854,6 @@ body.privacy-policy-page .mascot-container {
         bottom: 110px;
         width: 220px;
         padding: 12px 15px;
+        max-height: none;
     }
 }

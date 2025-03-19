@@ -18,9 +18,9 @@
             <!-- Left Column: Profile Picture and User Info -->
             <div class="col-md-8 d-flex align-items-center">
               <div>
-                {% if user.profile.image %}
+                {% if profile_user.profile.image %}
                   <img 
-                    src="{{ user.profile.image.url }}" 
+                    src="{{ profile_user.profile.image.url }}" 
                     alt="Profile Picture" 
                     class="rounded-circle me-3" 
                     style="width:80px; height:80px; object-fit:cover;"
@@ -35,8 +35,8 @@
                 {% endif %}
               </div>
               <div>
-                <h4 class="card-title mb-0">{{ user.username }}</h4>
-                <p class="text-muted">{{ user.email }}</p>
+                <h4 class="card-title mb-0">{{ profile_user.username }}</h4>
+                <p class="text-muted">{{ profile_user.email }}</p>
               </div>
             </div>
             <!-- Right Column: Change Profile Picture Button -->
@@ -58,11 +58,11 @@
           <div class="row text-center">
             <div class="col-md-6">
               <h6>Total Points</h6>
-              <p class="display-4 text-primary">{{ user.profile.points }}</p>
+              <p class="display-4 text-primary">{{ profile_user.profile.points }}</p>
             </div>
             <div class="col-md-6">
               <h6>Overall Rank</h6>
-              <p class="display-4 text-success">{{ user.profile.get_rank }}</p>
+              <p class="display-4 text-success">{{ profile_user.profile.get_rank }}</p>
             </div>
           </div>
         </div>
@@ -76,8 +76,8 @@
           <h5 class="card-title">Streak Information</h5>
           <p class="card-text">Track your progress!</p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Current Streak: {{ user.profile.get_streak }}</li>
-            <li class="list-group-item">Max Streak: {{ user.profile.longest_streak }}</li>
+            <li class="list-group-item">Current Streak: {{ profile_user.profile.get_streak }}</li>
+            <li class="list-group-item">Max Streak: {{ profile_user.profile.longest_streak }}</li>
           </ul>
         </div>
       </div>

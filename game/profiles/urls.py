@@ -6,4 +6,5 @@ urlpatterns = [
     # this view will be rendered.
     path('', profile_view, name='profile'),
     path('update-picture/', update_profile_picture, name='update_profile_picture'),
+    path('<str:username>/', profile_view, name='profile_detail'),
 ]

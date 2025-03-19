@@ -13,36 +13,45 @@
     <!-- Main Profile Section -->
     <div class="col-md-8">
       <div class="card mb-4">
-        <div class="card-body d-flex align-items-center">
-          <!-- User Profile Picture -->
-          {% if user.profile.image %}
-            <img 
-              src="{{ user.profile.image.url }}" 
-              alt="Profile Picture" 
-              class="rounded-circle me-3" 
-              style="width:80px; height:80px; object-fit:cover;"
-            >
-          {% else %}
-            <img 
-              src="{% static 'images/default_profile.png' %}" 
-              alt="Default Profile Picture" 
-              class="rounded-circle me-3" 
-              style="width:80px; height:80px; object-fit:cover;"
-            >
-          {% endif %}
-
-          <!-- User Info -->
-          <div>
-            <h4 class="card-title mb-0">{{ user.username }}</h4>
-            <p class="text-muted">{{ user.email }}</p>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <!-- Left Column: Profile Picture and User Info -->
+            <div class="col-md-8 d-flex align-items-center">
+              <div>
+                {% if user.profile.image %}
+                  <img 
+                    src="{{ user.profile.image.url }}" 
+                    alt="Profile Picture" 
+                    class="rounded-circle me-3" 
+                    style="width:80px; height:80px; object-fit:cover;"
+                  >
+                {% else %}
+                  <img 
+                    src="{% static 'images/default_profile.png' %}" 
+                    alt="Default Profile Picture" 
+                    class="rounded-circle me-3" 
+                    style="width:80px; height:80px; object-fit:cover;"
+                  >
+                {% endif %}
+              </div>
+              <div>
+                <h4 class="card-title mb-0">{{ user.username }}</h4>
+                <p class="text-muted">{{ user.email }}</p>
+              </div>
+            </div>
+            <!-- Right Column: Change Profile Picture Button -->
+            <div class="col-md-4 d-flex justify-content-end align-items-center">
+              <a href="{% url 'update_profile_picture' %}" 
+                 class="btn btn-primary" 
+                 style="width: 120px; white-space: normal; line-height: 1.2;">
+                Change<br>Profile Picture
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      
-     
-
-      <!-- Box 2: Using Direct Profile Access (New Method) -->
+      <!-- Profile Details Card -->
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Profile Details</h5>
@@ -53,37 +62,27 @@
             </div>
             <div class="col-md-6">
               <h6>Overall Rank</h6>
-              <p class="display-4 text-success">
-                {{ user.profile.get_rank }}
-              </p>
+              <p class="display-4 text-success">{{ user.profile.get_rank }}</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
-<<<<<<< Updated upstream
-    <!-- Sidebar Section -->
-=======
-    
->>>>>>> Stashed changes
+    <!-- Sidebar for Streak Information -->
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Streak Information</h5>
           <p class="card-text">Track your progress!</p>
           <ul class="list-group list-group-flush">
-            
             <li class="list-group-item">Current Streak: {{ user.profile.get_streak }}</li>
             <li class="list-group-item">Max Streak: {{ user.profile.longest_streak }}</li>
           </ul>
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
   </div>
-=======
->>>>>>> Stashed changes
 </div>
 {% endblock content %}
+

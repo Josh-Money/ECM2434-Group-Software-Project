@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from leaderboard.models import Leaderboard 
+from .forms import ProfileImageForm
 
 @login_required
 def profile_view(request):
@@ -25,3 +26,15 @@ def profile_view(request):
         'rank': rank,
     }
     return render(request, 'profiles/profile.html', context)
+
+@login_required
+def update_profile_picture(request):
+    profile = request.user.profile
+    if request.method == "POST":
+        form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to a profile view
+    else:
+        form = ProfileImageForm(instance=profile)
+    return render(request, 'profiles/update_picture.html', {'form': form})

@@ -6,3 +6,11 @@
     top: 80px;
 }
 
+/* Profile header with logout button */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+

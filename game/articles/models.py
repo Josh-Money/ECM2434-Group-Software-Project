@@ -11,7 +11,6 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-
 class Quiz(models.Model):
     article = models.OneToOneField(Article, on_delete=models.CASCADE, related_name='quiz')
     title = models.CharField(max_length=255)
@@ -22,7 +21,6 @@ class Quiz(models.Model):
     
     def __str__(self):
         return f"Quiz for {self.article.title}"
-
 
 class Question(models.Model):
     BOOL_CHOICES = (

@@ -12,7 +12,7 @@
             <h2 class="subtitle" style="font-size: 2rem;">Login</h2>
 
 
-            <!-- ✅ Display messages (Success or Error) -->
+            <!-- Display messages (Success or Error) -->
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<!-- ✅ Auto-hide message after 5 seconds -->
+<!-- Auto-hide message after 5 seconds -->
 <script>
     setTimeout(function() {
         let alert = document.querySelector(".alert");

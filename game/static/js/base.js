@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Page-specific mascot messages - define this early so it can be used below
     const pageMessages = {
         '/home/': "Welcome back! Ready to make a difference today?",
-        '/travel/': "How are you traveling to campus today?",
+        '/travel/': "How are you traveling to campus today? Don't lie to me!",
         // '/challenges/': "Check out these eco-challenges to earn points!",
         // '/articles/': "Learn something new about sustainability!",
         // '/leaderboard/': "See how you compare to other eco-warriors!",

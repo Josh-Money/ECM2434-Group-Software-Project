@@ -6,7 +6,7 @@ from django.db.models.functions import Rank
 from django.utils.timezone import localdate
 from datetime import timedelta
 
-User = get_user_model()  # ✅ Use Django's default User model
+User = get_user_model()     
 
 class Profile(models.Model):
     image = models.ImageField(default='default_profile.jpg', upload_to='profile_pics')

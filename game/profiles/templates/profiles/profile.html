@@ -25,15 +25,19 @@
             <!-- Left Column: Profile Picture and User Info -->
             <div class="col-md-8 d-flex align-items-center">
               <div>
-                {% if profile_user.profile.image %}
+                {% if profile_user.profile.image and profile_user.profile.image.name != 'default_profile.jpg' %}
+                  <!-- Custom uploaded image - use media URL -->
                   <img 
                     src="{{ profile_user.profile.image.url }}" 
-                    alt="Profile Picture" 
+                    alt="Profile Picture"
                     class="rounded-circle me-3" 
-                    style="width:80px; height:80px; object-fit:cover;"                  >
+                    style="width:80px; height:80px; object-fit:cover;"
+                    onerror="this.src='{% static 'images/default_profile.png' %}'"
+                  >
                 {% else %}
+                  <!-- Default image - use static URL -->
                   <img 
-                    src="{% static 'images/profile.png' %}" 
+                    src="{% static 'images/default_profile.jpg' %}" 
                     alt="Default Profile Picture" 
                     class="rounded-circle me-3" 
                     style="width:80px; height:80px; object-fit:cover;"
@@ -50,7 +54,7 @@
               <a href="{% url 'update_profile_picture' %}" 
                  class="btn btn-primary" 
                  style="width: 120px; white-space: normal; line-height: 1.2;">
-                Change<br>Profile Picture
+                Change Profile Picture
               </a>
             </div>
           </div>

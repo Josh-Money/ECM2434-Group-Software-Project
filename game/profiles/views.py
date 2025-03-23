@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from leaderboard.models import Leaderboard
 from .forms import ProfileImageForm
 
@@ -46,15 +47,26 @@ def profile_view(request, username=None):
 @login_required
 def update_profile_picture(request):
     """
-    Allows the currently logged-in user (request.user) to update their profile picture.
+    Allows the user to upload a new profile picture with robust error handling.
     """
     profile = request.user.profile
+    
     if request.method == "POST":
-        form = ProfileImageForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            # Redirect to the logged-in user's profile
-            return redirect('profile_detail', username=request.user.username)
+        try:
+            form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Profile picture updated successfully!")
+            else:
+                messages.error(request, "There was an error updating your profile picture. Please try again.")
+        except Exception as e:
+            # Log the error but don't crash
+            print(f"Error updating profile picture: {str(e)}")
+            messages.error(request, "There was an error processing your request. Please try again later.")
+        
+        # Always redirect back to profile page
+        return redirect('profile_detail', username=request.user.username)
     else:
         form = ProfileImageForm(instance=profile)
+    
     return render(request, 'profiles/update_picture.html', {'form': form})

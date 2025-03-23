@@ -9,18 +9,18 @@
 
 {% block content %}
 <div class="qr-page-wrapper">
-    <h1 class="title">QR Code Challenge</h1>
+    <h1 class="title">Scan a QR Code</h1>
 
     <a style="display: block; margin: 0 auto 20px auto;" href="/challenges" class="btn btn-primary w-25">Return to Challenges</a>
 
     <div class="container">
-        <p class="info"> See the map below to find the QR codes around University!</p>
+        <p style="margin-bottom: 20px;" class="info">See the map below to find the QR codes around University!</p>
 
         <div class="map-container">
             <img src="{%static 'qr/images/uni-qr-map.png' %}" alt="University QR Map">
         </div>
         
-        <p class="info">Scan the QR code on the screen below, then press submit to enter!</p>
+        <p style="margin-top: 25px; margin-bottom: 10px;" class="info">Scan the QR code on the screen below, then press submit to enter!</p>
         
         <div id="scanStatus" class="alert alert-info mt-3 mb-4" style="display: none;">Camera initializing... Please wait.</div>
         
@@ -28,18 +28,13 @@
             <video id="preview"></video>
         </div>
 
-        <form method="post" action="" id="qrForm" class="form-container">
+        <form style="margin-top: 20px;" method="post" action="" id="qrForm" class="form-container">
             {% csrf_token %}
             <div class="form-group">
                 <input type="hidden" name="qr_code" id="qr_code" required>
                 <button type="submit" class="btn btn-primary">Submit QR Code</button>
             </div>
         </form>
-
-        <div class="navigation-links">
-            <a href="/home" class="btn btn-primary w-50">Home</a>
-            <a href="/leaderboard" class="btn btn-primary w-50">Leaderboard</a>
-        </div>
     </div>
 </div>
 {% endblock %}

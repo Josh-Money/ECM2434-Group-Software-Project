@@ -8,6 +8,7 @@
 {% endblock extra_css %}
 
 {% block content %}
+
 <div class="container my-4">
 <<<<<<< Updated upstream
   <!-- Add logout button at top right -->
@@ -84,68 +85,38 @@
         </div>
       </div>
 
-      <!-- Additional Profile Info -->
-      <div class="card">
+      <!-- Profile Details Card -->
+      <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Profile Details</h5>
           <div class="row text-center">
             <div class="col-md-6">
               <h6>Total Points</h6>
-              <p class="display-4 text-primary">{{ total_score }}</p>
+              <p class="display-4 text-primary">{{ profile_user.profile.points }}</p>
             </div>
             <div class="col-md-6">
               <h6>Overall Rank</h6>
-              <p class="display-4 text-success">{{ rank }}</p>
+              <p class="display-4 text-success">{{ profile_user.profile.get_rank }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--
-    
+
+    <!-- Sidebar for Streak Information -->
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-body">
-          <h5 class="card-title">Our Sidebar</h5>
-          <p class="card-text">You can put any information here you'd like.</p>
+          <h5 class="card-title">Streak Information</h5>
+          <p class="card-text">Track your progress!</p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Latest Posts</li>
-            <li class="list-group-item">Announcements</li>
-            <li class="list-group-item">Calendars</li>
-            <li class="list-group-item">etc</li>
+            <li class="list-group-item">Current Streak: {{ profile_user.profile.get_streak }} 🔥</li>
+            <li class="list-group-item">Max Streak: {{ profile_user.profile.longest_streak }} 🏅</li>
           </ul>
         </div>
       </div>
--->
+    </div>
   </div>
-</div>
 </div>
 {% endblock content %}
 
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get profile elements
-        const username = document.querySelector('.card-title').textContent.trim();
-        const totalPoints = document.querySelector('.display-4.text-primary').textContent.trim();
-        const rank = document.querySelector('.display-4.text-success').textContent.trim();
-        
-        // Make the mascot speak a welcome message with profile info after a short delay
-        setTimeout(function() {
-            if (typeof window.mascotSpeech === 'function') {
-                window.mascotSpeech(`Welcome to your profile, ${username}! You have ${totalPoints} points and are ranked #${rank}. Keep up the great work!`);
-            }
-        }, 1500);
-        
-        // Add click listeners to profile elements
-        document.querySelector('.card-title').addEventListener('click', function() {
-            if (typeof window.mascotSpeech === 'function') {
-                window.mascotSpeech(`${username}, you're doing great for the environment!`);
-            }
-        });
-        
-        // Make username look clickable
-        document.querySelector('.card-title').style.cursor = 'pointer';
-    });
-</script>
-{% endblock %}

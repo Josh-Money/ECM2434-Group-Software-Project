@@ -75,8 +75,6 @@ Here is a step by step on how to get the developement enviroment working.
   ```
 This might take some time.
 
-
-
 6. Run migrations:
 
   ```bash

@@ -1,8 +1,10 @@
-# Author: Will Cooke and Tim Mishakov
+# Authors: Will Cooke (challenges + events) and Tim Mishakov (leaderboard)
 
 from django.shortcuts import render, redirect
 from leaderboard.models import Leaderboard
 from django.db.models import Sum 
+from .models import Event
+from django.utils import timezone
 
 def home(request):
     # Get all leaderboard data ordered by score
@@ -67,6 +69,11 @@ def home(request):
             'position': user_position + 1  # +1 because position is 0-indexed
         })
 
+    # Get upcoming events
+    upcoming_events = Event.objects.filter(
+        date__gte=timezone.now().date()
+    ).order_by('date', 'time')[:5]  # Show max 5 upcoming events
+
     user_total = Leaderboard.objects.filter(user=request.user).aggregate(total=Sum('score'))['total'] or 0
 
     context = {
@@ -78,6 +85,7 @@ def home(request):
             'points': user_total,
         },
         'leaderboard': leaderboard_list,
+        'events': upcoming_events,
     }
     return render(request, 'home/home.html', context)
 

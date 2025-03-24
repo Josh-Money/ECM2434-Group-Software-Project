@@ -63,7 +63,7 @@
                 aria-valuemin="0" 
                 aria-valuemax="100" 
                 aria-valuenow="{{ entry.progress }}"
-                style="width: {{ entry.progress }}%;">
+                style="width: {{ entry.progress }}%">
               </div>
             </div>
             {% endif %}
@@ -74,7 +74,47 @@
         {% endfor %}
       </div>
     </div>
-    
+  </div>
+  
+  <!-- Events Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="events-container">
+        <h2 class="subtitle">Upcoming Events</h2>
+        
+        {% if events %}
+          <div class="events-list">
+            {% for event in events %}
+              <div class="event-item">
+                <div class="event-image">
+                  {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                  {% else %}
+                    <img src="{% static 'home/images/event-placeholder.png' %}" alt="Event">
+                  {% endif %}
+                </div>
+                <div class="event-details">
+                  <h3>{{ event.title }}</h3>
+                  <div class="event-info">
+                    <p><strong>Date:</strong> {{ event.date|date:"F j, Y" }}</p>
+                    <p><strong>Time:</strong> {{ event.time|time:"g:i A" }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                  </div>
+                  <p class="event-description">{{ event.description|truncatechars:150 }}</p>
+                  {% if event.subscription %}
+                    <div class="event-subscription">
+                      <p><strong>How to join:</strong> {{ event.subscription }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-center">There are no events to display</p>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </div>
 

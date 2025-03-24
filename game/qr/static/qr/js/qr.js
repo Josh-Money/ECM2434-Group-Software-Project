@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const qrForm = document.getElementById('qrForm');
     const qrCodeInput = document.getElementById('qr_code');
     
-    // Valid QR codes
     const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more as needed
     
     // Set status message
     function setStatus(message, type = 'info') {
         if (scanStatus) {
             scanStatus.textContent = message;
-            // Use #4CAF50 color for info messages
             if (type === 'info') {
                 scanStatus.className = `alert mt-3 mb-4`;
                 scanStatus.style.backgroundColor = '#4CAF50';
@@ -31,13 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Status: ${message}`);
     }
     
-    // Check if QR code is valid and submit form if it is
     function processQrCode(content) {
         if (validCodes.includes(content)) {
-            // Set form value
             qrCodeInput.value = content;
             
-            // Show success message
             setStatus('Valid QR code detected! Submitting...', 'success');
             
             // Submit form after a short delay
@@ -47,52 +42,70 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return true;
         } else {
-            // Show error message for invalid QR code
             setStatus('Invalid QR code. Please try a valid recycling bin QR code.', 'danger');
             return false;
         }
     }
     
-    // Initialize camera and QR scanner
     function initializeCamera() {
         setStatus('Camera initializing... Please wait.', 'info');
         
         try {
-            // Create scanner instance
-            const scanner = new Instascan.Scanner({
-                video: preview,
-                mirror: false,
-                backgroundScan: false,
-                scanPeriod: 5 // Scan every 5ms
-            });
+            let scannerDivId = 'qr-reader';
+            let scannerDiv = document.getElementById(scannerDivId);
             
-            // Set up QR code detection
-            scanner.addListener('scan', function(content) {
-                console.log('QR code detected:', content);
-                processQrCode(content);
-            });
+            if (!scannerDiv) {
+                if (preview.tagName.toLowerCase() === 'video') {
+                    scannerDiv = document.createElement('div');
+                    scannerDiv.id = scannerDivId;
+                    scannerDiv.style.width = '100%';
+                    preview.parentNode.replaceChild(scannerDiv, preview);
+                } else {
+                    scannerDiv = preview;
+                    scannerDiv.id = scannerDivId;
+                }
+            }
             
-            // Get available cameras
-            Instascan.Camera.getCameras()
-                .then(function(cameras) {
-                    if (cameras.length > 0) {
-                        // Use the first camera by default
-                        scanner.start(cameras[0])
-                            .then(function() {
-                                setStatus('Camera active. Point camera at a QR code.', 'info');
-                            })
-                            .catch(function(err) {
-                                console.error('Error starting camera:', err);
-                                setStatus('Error starting camera. Please refresh.', 'danger');
-                            });
-                    } else {
-                        setStatus('No cameras found. Please try a different device.', 'danger');
+            // Initialize HTML5 QR code scanner
+            const html5QrCode = new Html5Qrcode(scannerDivId);
+            const config = { 
+                fps: 10, 
+                //qrbox: { width: 250, height: 250 },
+                showTorchButtonIfSupported: false,
+                showZoomSliderIfSupported: false,
+                hideQrCodeScannerOnSuccess: true,
+                rememberLastUsedCamera: true
+            };
+            
+            // Start scanning
+            html5QrCode.start(
+                { facingMode: "environment" }, // Use back camera
+                config,
+                (decodedText) => {
+                    // Success callback - QR code detected
+                    console.log('QR code detected:', decodedText);
+                    const valid = processQrCode(decodedText);
+                    
+                    // Stop scanning if valid QR code found
+                    if (valid) {
+                        html5QrCode.stop().then(() => {
+                            console.log('Scanner stopped after valid code');
+                        }).catch((err) => {
+                            console.error('Error stopping scanner:', err);
+                        });
                     }
-                })
-                .catch(function(err) {
-                    console.error('Error getting cameras:', err);
-                    setStatus('Error accessing camera. Please allow camera access and refresh.', 'danger');
-                });
+                },
+                (errorMessage) => {
+                    // Error callback - mostly ignored during scanning
+                    // We don't want to log every frame error
+                }
+            ).then(() => {
+                setStatus('Camera active. Point camera at a QR code.', 'info');
+            }).catch((err) => {
+                console.error('Error starting camera:', err);
+                setStatus('Error accessing camera. Please allow camera access and refresh.', 'danger');
+            });
+            
         } catch (error) {
             console.error('Error initializing camera:', error);
             setStatus('Error accessing camera. Please refresh the page.', 'danger');

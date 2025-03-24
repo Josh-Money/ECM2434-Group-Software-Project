@@ -17,7 +17,7 @@ Our app features a user-friendly, accessible design with a modern and intuitive 
 - Deployed website
 - Fully responsive on mobile
 - Full admin functionality
-- Many features e.g. profiles, leaderboard, qr scans, events page
+- Talking mascot
 
 ## Links
 - Deployed website: https://ecoquest.pythonanywhere.com/

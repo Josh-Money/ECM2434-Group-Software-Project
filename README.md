@@ -12,6 +12,17 @@ Our app allows users to scan QR codes located throughout the campus and complete
 
 Our app features a user-friendly, accessible design with a modern and intuitive interface that promotes engagement and exploration. Whether you're a student, visitor, or staff member, our web app provides a fun and educational way to embrace sustainability.
 
+## Advanced Features
+
+- Deployed website
+- Fully responsive on mobile
+- Full admin functionality
+- Many features e.g. profiles, leaderboard, qr scans, events page
+
+## Links
+- Deployed website: https://ecoquest.pythonanywhere.com/
+- Trello: https://trello.com/b/6XgNdnja/project
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -71,12 +82,7 @@ Here is a step by step on how to get the developement enviroment working.
 5. Install dependencies:
 
   ```bash
-  pip install Django 
-  pip install django-crispy-forms
-  pip install crispy-bootstrap5
-  pip install Pillow
-  pip install django-jazzmin
-  pip install django-import-export
+  pip install -r requirements.txt
   ```
 
 6. Run migrations:

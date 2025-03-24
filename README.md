@@ -18,8 +18,9 @@ The app has a user-friendly, accessible design with a modern and intuitive inter
 - Talking mascot
 
 ## Links
-- Deployed website: https://ecoquest.pythonanywhere.com/
+- Deployed Website: https://ecoquest.pythonanywhere.com/
 - Trello: https://trello.com/b/6XgNdnja/project
+- Recorded Demo: https://streamable.com/iaaksu
 
 ## Table of Contents
 

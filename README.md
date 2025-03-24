@@ -10,6 +10,18 @@ Our app allows users to scan QR codes located throughout the campus and complete
 
 The app has a user-friendly, accessible design with a modern and intuitive interface that promotes engagement and exploration. Whether you're a student, visitor, or staff member, our web app provides a fun and educational way to embrace sustainability.
 
+## Advanced Features
+
+- Deployed website
+- Fully responsive on mobile
+- Full admin functionality
+- Talking mascot
+
+## Links
+- Deployed Website: https://ecoquest.pythonanywhere.com/
+- Trello: https://trello.com/b/6XgNdnja/project
+- Recorded Demo: https://streamable.com/iaaksu
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -113,19 +125,19 @@ Unit tests verify the functionality of individual components within the applicat
 
 ## Initial Contributions
 
-### Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Will Cooke -> [Mascot + styling](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-### Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
+### Marcos Vega -> [Advanced articles page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
 
-### Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
+### Josh Money -> [QR page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
 
-### Tim Mishakov-> [Leaderboard home implementation](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
+### Tim Mishakov-> [LTravel page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-### Nitzan Lahav -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Nitzan Lahav -> [Admin page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-### Michael Porter -> [Login page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
+### Michael Porter -> [Signup + Privacy page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/login)
 
-### Lucas Doye -> [Profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
+### Lucas Doye -> [Advanced profile page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/profile)
 
 The rest of the details of our contributions are found in the workload unit file and the trello page.
 

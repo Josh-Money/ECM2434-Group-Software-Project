@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get DOM elements
+    console.log('1')
     const preview = document.getElementById('preview');
     const scanStatus = document.getElementById('scanStatus');
     const qrForm = document.getElementById('qrForm');

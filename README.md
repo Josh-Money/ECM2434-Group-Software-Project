@@ -128,7 +128,7 @@ Unit tests verify the functionality of individual components within the applicat
 
 ### Will Cooke -> [Home page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/home)
 
-### Marcos Vega -> [Artices page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
+### Marcos Vega -> [Articles page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/articles)
 
 ### Josh Money -> [Leaderboard page](https://github.com/Josh-Money/ECM2434-Group-Software-Project/tree/main/game/leaderboard)
 

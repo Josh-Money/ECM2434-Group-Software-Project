@@ -2,11 +2,21 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get DOM elements
-    console.log('1')
     const preview = document.getElementById('preview');
     const scanStatus = document.getElementById('scanStatus');
     const qrForm = document.getElementById('qrForm');
     const qrCodeInput = document.getElementById('qr_code');
+    
+    if (preview) {
+        preview.style.width = '100%';
+        preview.style.maxWidth = '400px';
+        preview.style.height = 'auto';
+        preview.style.margin = '0 auto';
+        preview.style.display = 'block';
+        preview.setAttribute('playsinline', 'true');
+        preview.setAttribute('autoplay', 'true');
+        preview.setAttribute('muted', 'true');
+    }
     
     // Check if user is on a mobile device
     function isMobileDevice() {
@@ -25,17 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
         cameraButton.style.padding = '10px';
         cameraButton.style.margin = '0 auto 15px';
         cameraButton.style.display = 'block';
-        preview.parentNode.insertBefore(cameraButton, preview);
+        
+        const container = preview.parentNode;
+        container.parentNode.insertBefore(cameraButton, container);
     }
     
     // Valid QR codes
-    const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more as needed
+    const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin'];
     
     // Set status message
     function setStatus(message, type = 'info') {
         if (scanStatus) {
             scanStatus.textContent = message;
-            // Use #4CAF50 color for info messages
             if (type === 'info') {
                 scanStatus.className = `alert mt-3 mb-4`;
                 scanStatus.style.backgroundColor = '#4CAF50';
@@ -55,26 +66,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if QR code is valid and submit form if it is
     function processQrCode(content) {
         if (validCodes.includes(content)) {
-            // Set form value
             qrCodeInput.value = content;
             
-            // Show success message
             setStatus('Valid QR code detected! Submitting...', 'success');
             
-            // Submit form after a short delay
             setTimeout(function() {
                 qrForm.submit();
             }, 800);
             
             return true;
         } else {
-            // Show error message for invalid QR code
             setStatus('Invalid QR code. Please try a valid recycling bin QR code.', 'danger');
             return false;
         }
     }
     
-    // Initialize camera and QR scanner
     function initializeCamera() {
         setStatus('Camera initializing... Please wait.', 'info');
         
@@ -93,27 +99,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 processQrCode(content);
             });
             
-            // Get available cameras
             Instascan.Camera.getCameras()
                 .then(function(cameras) {
                     if (cameras.length > 0) {
-                        // Try to use the back camera on mobile
-                        let selectedCamera = cameras[0]; // Default to first camera
+                        console.log('Available cameras:', cameras.map(c => c.name || 'unnamed camera'));
                         
-                        // Look for back camera on mobile devices
+                        // Default to first camera
+                        let selectedCamera = cameras[0];
+                        
                         if (isMobileDevice()) {
-                            for (let camera of cameras) {
-                                if (camera.name && camera.name.toLowerCase().includes('back')) {
-                                    selectedCamera = camera;
+                            for (let i = 0; i < cameras.length; i++) {
+                                if (cameras[i].name && cameras[i].name.toLowerCase().includes('back')) {
+                                    console.log('Selected back camera by name');
+                                    selectedCamera = cameras[i];
                                     break;
                                 }
                             }
+                            
+                            if (cameras.length === 2 && selectedCamera === cameras[0]) {
+                                console.log('Two cameras found, selecting the second one');
+                                selectedCamera = cameras[1];
+                            }
                         }
+                        
+                        console.log('Selected camera:', selectedCamera.name || 'unnamed camera');
                         
                         scanner.start(selectedCamera)
                             .then(function() {
                                 setStatus('Camera active. Point camera at a QR code.', 'info');
-                                // Hide the button once camera is active (if on mobile)
+                                // Hide the button once camera is active
                                 if (cameraButton) {
                                     cameraButton.style.display = 'none';
                                 }
@@ -136,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Enhance the form submit with validation for manual entry
     qrForm.addEventListener('submit', function(event) {
         const code = qrCodeInput.value.trim();
         
@@ -147,13 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (!validCodes.includes(code)) {
-            // Show validation message to the user
             setStatus('Invalid QR code. Please try again.', 'danger');
             event.preventDefault(); // Prevent form submission
         } else {
             setStatus('Valid QR code!', 'success');
             console.log('Submitting valid QR code:', code);
-            // Form will submit naturally
         }
     });
     

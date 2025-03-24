@@ -55,11 +55,7 @@ Here is a step by step on how to get the developement enviroment working.
   cd ECM2434-Group-Software-Project/game
   ```
 
-<<<<<<< Updated upstream
 3. Create a virtual environment:
-=======
-2. Create a virtual environment:
->>>>>>> Stashed changes
 
   ```bash
   python -m venv env
@@ -75,21 +71,11 @@ Here is a step by step on how to get the developement enviroment working.
 5. Install dependencies:
 
   ```bash
-<<<<<<< Updated upstream
-  pip install Django 
-  pip install django-crispy-forms
-  pip install crispy-bootstrap5
-  pip install Pillow
-  pip install django-jazzmin
-  pip install django-import-export
-  ```
-=======
   pip install -r requirements.txt
   ```
 This might take some time.
 
 
->>>>>>> Stashed changes
 
 6. Run migrations:
 

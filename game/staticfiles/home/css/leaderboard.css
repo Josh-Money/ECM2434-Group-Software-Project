@@ -1,0 +1,251 @@
+/* Author: Tim Mishakov */
+
+.leaderboard-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* leaderboard title */
+.leaderboard-container h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: var(--primary);
+  color: var(--primary);
+}
+
+/* header row */
+.leaderboard-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: var(--primary);
+  color: var(--primary);
+}
+
+
+.header-name,
+.header-points,
+.header-progress {
+  padding: 0 8px;
+}
+
+/* leaderboard rows */
+.leaderboard-row {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+/* Highlight current user row */
+.leaderboard-row.current-user {
+  border-left: 4px solid var(--secondary);
+  background-color: rgba(6, 128, 12, 0.05);
+  font-weight: bold;
+}
+
+/* Ellipsis row */
+.leaderboard-row.ellipsis {
+  border-bottom: none;
+  padding: 5px 0;
+  text-align: center;
+  color: #6c757d;
+}
+
+/* Hover Effect */
+.leaderboard-row:hover {
+  background-color: rgba(0, 60, 60, 0.05);
+  background-color: rgba(0, 60, 60, 0.05);
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* progress bar */
+.progress {
+  height: 20px;
+  margin-bottom: 0;
+}
+
+.progress-bar {
+  font-size: 0.9rem;
+  line-height: 20px;
+}
+
+/* Fix for progress bar in leaderboard */
+.leaderboard-container .progress {
+  height: 20px;
+  margin-bottom: 0;
+  border-radius: 0.25rem;
+  background-color: #e9ecef;
+  overflow: hidden;
+}
+
+.leaderboard-container .progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  transition: width 0.6s ease;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .leaderboard-container {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .leaderboard-container h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  .header-name, .header-points, .header-progress {
+    font-size: 14px;
+    padding: 0 5px;
+  }
+  
+  .leaderboard-row {
+    padding: 8px 0;
+    margin-bottom: 4px;
+  }
+  
+  .progress {
+    height: 18px;
+  }
+  
+  .progress-bar {
+    font-size: 0.8rem;
+    line-height: 18px;
+  }
+  
+  /* Reduce hover effect on mobile */
+  .leaderboard-row:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* iPhone 12 and similar sized devices */
+@media (max-width: 390px) {
+  .leaderboard-container {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  
+  .leaderboard-container h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .leaderboard-header {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .header-name, .header-points, .header-progress {
+    font-size: 12px;
+    padding: 0 3px;
+  }
+  
+  .leaderboard-row {
+    padding: 6px 0;
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+  
+  .leaderboard-row.current-user {
+    border-left: 3px solid var(--secondary);
+  }
+  
+  .progress {
+    height: 15px;
+  }
+  
+  .progress-bar {
+    font-size: 0.7rem;
+    line-height: 15px;
+  }
+  
+  /* Adjust column widths for better space allocation */
+  .col-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .col-3 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  
+  .col-5 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  /* Disable hover transform on small screens */
+  .leaderboard-row:hover {
+    transform: none;
+  }
+}
+
+/* Very small screens like iPhone SE */
+@media (max-width: 320px) {
+  .leaderboard-container {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .leaderboard-container h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .header-name, .header-points, .header-progress {
+    font-size: 11px;
+    padding: 0 2px;
+  }
+  
+  .leaderboard-row {
+    padding: 5px 0;
+    margin-bottom: 2px;
+    font-size: 11px;
+  }
+  
+  .progress {
+    height: 12px;
+  }
+  
+  .progress-bar {
+    font-size: 0.6rem;
+    line-height: 12px;
+  }
+  
+  /* Further adjust column spacing */
+  .col-4 {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  
+  .col-3 {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+  
+  .col-5 {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}

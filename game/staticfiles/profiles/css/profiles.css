@@ -1,0 +1,16 @@
+#logout {
+    height: 40px;
+    position: absolute;
+    right: 32px;
+    z-index: 20;
+    top: 80px;
+}
+
+/* Profile header with logout button */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+

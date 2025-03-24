@@ -1,0 +1,180 @@
+/* Author: Josh Money */
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-button {
+    border: none;
+    padding: 8px 14px;
+    margin: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.leaderboard-button:active {
+    font-weight: bold;
+    box-shadow: 0 0 8px rgba(22, 184, 1, 0.8);
+    transform: translateY(-2px);
+}
+
+.leaderboard-container {
+    margin-top: 20px;
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    color: white;
+    font-weight: bold;
+}
+
+/* Current user row highlighting */
+tr.current-user {
+    border-left: 4px solid var(--secondary);
+    background-color: rgba(6, 128, 12, 0.05);
+    font-weight: bold;
+}
+
+/* pagination controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-info {
+    margin: 0 15px;
+    font-size: 14px;
+}
+
+.pagination-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.pagination-button:hover {
+    background-color: var(--secondary);
+}
+
+.pagination-button.active {
+    background-color: var(--secondary);
+    font-weight: bold;
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* entries per page selector */
+.per-page-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.per-page-selector label {
+    margin-right: 10px;
+}
+
+.per-page-selector select {
+    padding: 4px 6px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* ellipsis row */
+.ellipsis {
+    text-align: center;
+    padding: 10px;
+    color: #6c757d;
+}
+
+/* user rank info display */
+.user-rank-info {
+    background-color: rgba(0, 60, 60, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-rank-info span {
+    color: var(--secondary);
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    .leaderboard-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .pagination-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .pagination-button {
+        width: 90%;
+        margin: 3px 0;
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+    
+    .pagination-info {
+        margin: 10px 0;
+        font-size: 14px;
+    }
+}
+
+/* Additional media query for very small screens */
+@media (max-width: 400px) {
+    .pagination-button {
+        width: 95%;
+        padding: 10px;
+        font-size: 16px;
+        margin: 4px 0;
+    }
+}

@@ -25,7 +25,6 @@ class ChallengesTests(TestCase):
     
     def test_challenges_page_loads(self):
         """Test that the challenges page loads successfully when logged in."""
-        # Login the user
         self.client.login(username='testuser@exeter.ac.uk', password='testpassword123')
         response = self.client.get(self.challenges_url)
         self.assertEqual(response.status_code, 200)
@@ -33,10 +32,19 @@ class ChallengesTests(TestCase):
     
     def test_challenges_page_content(self):
         """Test that the challenges page contains expected content when logged in."""
-        # Login the user
         self.client.login(username='testuser@exeter.ac.uk', password='testpassword123')
         response = self.client.get(self.challenges_url)
+        
+        # Check for main elements
         self.assertContains(response, 'Challenges')
+        self.assertContains(response, 'Articles')
+        self.assertContains(response, 'QR Codes')
+        
+        # Check for challenge buttons
+        self.assertContains(response, 'href="/articles"')
+        self.assertContains(response, 'href="/qr"')
+        self.assertContains(response, 'href="/travel"')
+
     
     def test_challenges_authenticated_user(self):
         """Test that authenticated users can access the challenges page."""
@@ -44,3 +52,10 @@ class ChallengesTests(TestCase):
         response = self.client.get(self.challenges_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'challenges/challenges.html')
+    
+    def test_challenges_page_styles(self):
+        """Test that the challenges page includes required CSS."""
+        self.client.login(username='testuser@exeter.ac.uk', password='testpassword123')
+        response = self.client.get(self.challenges_url)
+        self.assertContains(response, 'challenges-styles.css')
+ 

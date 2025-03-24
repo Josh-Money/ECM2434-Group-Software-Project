@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const qrForm = document.getElementById('qrForm');
     const qrCodeInput = document.getElementById('qr_code');
     
+    // Create camera activation button
+    const cameraButton = document.createElement('button');
+    cameraButton.textContent = 'Activate Camera';
+    cameraButton.className = 'btn btn-primary mb-3';
+    cameraButton.type = 'button';
+    preview.parentNode.insertBefore(cameraButton, preview);
+    
     // Valid QR codes
     const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more as needed
     
@@ -76,14 +83,26 @@ document.addEventListener('DOMContentLoaded', function() {
             Instascan.Camera.getCameras()
                 .then(function(cameras) {
                     if (cameras.length > 0) {
-                        // Use the first camera by default
-                        scanner.start(cameras[0])
+                        // Try to use the back camera
+                        let selectedCamera = cameras[0]; // Default to first camera
+                        
+                        // Look for back camera
+                        for (let camera of cameras) {
+                            if (camera.name && camera.name.toLowerCase().includes('back')) {
+                                selectedCamera = camera;
+                                break;
+                            }
+                        }
+                        
+                        scanner.start(selectedCamera)
                             .then(function() {
                                 setStatus('Camera active. Point camera at a QR code.', 'info');
+                                // Hide the button once camera is active
+                                cameraButton.style.display = 'none';
                             })
                             .catch(function(err) {
                                 console.error('Error starting camera:', err);
-                                setStatus('Error starting camera. Please refresh.', 'danger');
+                                setStatus('Error starting camera. Please refresh and try again.', 'danger');
                             });
                     } else {
                         setStatus('No cameras found. Please try a different device.', 'danger');
@@ -114,12 +133,17 @@ document.addEventListener('DOMContentLoaded', function() {
             setStatus('Invalid QR code. Please try again.', 'danger');
             event.preventDefault(); // Prevent form submission
         } else {
-            setStatus('Valid QR code!', 'success');
+            setStatus('Success! Valid QR code detected.', 'success');
             console.log('Submitting valid QR code:', code);
             // Form will submit naturally
         }
     });
     
-    // Initialize camera on page load
-    initializeCamera();
+    // Add click handler to the camera button
+    cameraButton.addEventListener('click', function() {
+        initializeCamera();
+    });
+    
+    // Initially display a message to prompt the user
+    setStatus('Click "Activate Camera" to begin scanning QR codes', 'info');
 });

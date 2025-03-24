@@ -27,34 +27,6 @@ def signup_view(request):
 
     return render(request, "registration/signup.html", {"form": form})
 
-#def login_view(request):
- #   if request.user.is_authenticated:
-  #      return redirect('home')  # Redirect to home or another page
-   # if request.method == "POST":
-    #    form = AuthenticationForm(request, data=request.POST)
-     ##   if form.is_valid():
-       #     user = form.get_user()
-        #    login(request, user)
-         #   messages.success(request, "Login successful!")
-            
-            # Debugging: Print out the user's superuser status and username
-          #  print(f"Logged in as: {user.username}, Superuser: {user.is_superuser}")
-            
-            # Check if the user is a superuser and redirect to admin
-           # print(f"User: {user.username}, is_superuser: {user.is_superuser}")
-##            if user.is_superuser:
-  #              print("Redirecting to admin")
-   #             return redirect('/admin/')
-    #        else:
-     #           print("Redirecting to home")
-      #          return redirect('home')
-       # else:
-   #         messages.error(request, "Invalid username or password. Please try again.")
-    #else:
-     #   form = AuthenticationForm()
-
-   # return render(request, "login.html", {"form": form})
-
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         """Override to add superuser redirect logic."""

@@ -33,13 +33,6 @@ class QRScanAdmin(admin.ModelAdmin):
         deleted, _ = queryset.delete()
         self.message_user(request, f"Successfully deleted {deleted} scan(s).")
 
-    # Highlight high points earned
-    def points_earned_colored(self, obj):
-        color = "green" if obj.points_earned >= 10 else "red"
-        return f'<span style="color: {color};">{obj.points_earned}</span>'
-    points_earned_colored.allow_tags = True
-    points_earned_colored.short_description = "Points Earned"
-
-    # Override list display to show colored points
-    def get_list_display(self, request):
-        return ('user', 'scan_date', 'qr_code', 'points_earned_colored', 'created_at')
+# Override list display to show colored points
+def get_list_display(self, request):
+    return ('user', 'scan_date', 'qr_code', 'points_earned_colored', 'created_at')

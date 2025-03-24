@@ -61,7 +61,11 @@
                     {% for entry in leaderboard_main %}
                     <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
                         <td>{{ forloop.counter0|add:leaderboard_main.start_index }}</td>
-                        <td>{{ entry.user__username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' entry.user__username %}">
+                                {{ entry.user__username }}
+                            </a>
+                        </td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% empty %}
@@ -76,7 +80,11 @@
                     </tr>
                     <tr class="current-user">
                         <td>{{ user_ranks.main }}</td>
-                        <td>{{ username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' username %}">
+                                {{ username }}
+                            </a>
+                        </td>
                         <td>{{ user_main_score }}</td>
                     </tr>
                     {% endif %}
@@ -133,7 +141,11 @@
                     {% for entry in leaderboard_qr %}
                     <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
                         <td>{{ forloop.counter0|add:leaderboard_qr.start_index }}</td>
-                        <td>{{ entry.user__username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' entry.user__username %}">
+                                {{ entry.user__username }}
+                            </a>
+                        </td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% empty %}
@@ -148,7 +160,11 @@
                     </tr>
                     <tr class="current-user">
                         <td>{{ user_ranks.qr_scan }}</td>
-                        <td>{{ username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' username %}">
+                                {{ username }}
+                            </a>
+                        </td>
                         <td>{{ user_qr_score }}</td>
                     </tr>
                     {% endif %}
@@ -205,7 +221,11 @@
                     {% for entry in leaderboard_quiz %}
                     <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
                         <td>{{ forloop.counter0|add:leaderboard_quiz.start_index }}</td>
-                        <td>{{ entry.user__username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' entry.user__username %}">
+                                {{ entry.user__username }}
+                            </a>
+                        </td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% empty %}
@@ -220,7 +240,11 @@
                     </tr>
                     <tr class="current-user">
                         <td>{{ user_ranks.quiz }}</td>
-                        <td>{{ username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' username %}">
+                                {{ username }}
+                            </a>
+                        </td>
                         <td>{{ user_quiz_score }}</td>
                     </tr>
                     {% endif %}
@@ -277,7 +301,11 @@
                     {% for entry in leaderboard_travel %}
                     <tr {% if entry.user_id == user_id %}class="current-user"{% endif %}>
                         <td>{{ forloop.counter0|add:leaderboard_travel.start_index }}</td>
-                        <td>{{ entry.user__username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' entry.user__username %}">
+                                {{ entry.user__username }}
+                            </a>
+                        </td>
                         <td>{{ entry.total_score }}</td>
                     </tr>
                     {% empty %}
@@ -292,7 +320,11 @@
                     </tr>
                     <tr class="current-user">
                         <td>{{ user_ranks.travel }}</td>
-                        <td>{{ username }}</td>
+                        <td>
+                            <a href="{% url 'profile_detail' username %}">
+                                {{ username }}
+                            </a>
+                        </td>
                         <td>{{ user_travel_score }}</td>
                     </tr>
                     {% endif %}

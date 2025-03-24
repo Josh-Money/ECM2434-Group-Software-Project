@@ -33,13 +33,6 @@ class CampusTravelAdmin(admin.ModelAdmin):
         deleted, _ = queryset.delete()
         self.message_user(request, f"Successfully deleted {deleted} travel record(s).")
 
-    # Highlight points for better visual clarity
-    def points_colored(self, obj):
-        color = "green" if obj.points >= 10 else "red"
-        return f'<span style="color: {color}; font-weight: bold;">{obj.points}</span>'
-    points_colored.allow_tags = True
-    points_colored.short_description = "Points"
-
     # Override list display to include colored points
     def get_list_display(self, request):
         return ('user', 'date', 'travel_method', 'points_colored', 'lat', 'lon')

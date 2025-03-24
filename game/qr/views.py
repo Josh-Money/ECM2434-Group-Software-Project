@@ -1,3 +1,4 @@
+
 # Author: Joshua Money
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -5,6 +6,8 @@ from leaderboard.utils import update_leaderboard
 from django.utils import timezone
 from django.db import IntegrityError
 from .models import QRScan
+
+from profiles.models import Profile
 
 # Create your views here.
 @login_required
@@ -43,6 +46,9 @@ def scan_qr(request):
                         qr_code = qr_code_content,
                         points_earned=points_earned
                     )
+                    profile, created = Profile.objects.get_or_create(user=request.user)
+                    profile.add_points(points_earned)
+
                     update_leaderboard(request.user, "qr_scan", points=points_earned)
                     message = f"♻️Great job! You have earned {points_earned} points for recycling!♻️"
                     # Simple redirect to result page

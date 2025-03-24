@@ -4,13 +4,11 @@
 
 ## Gamification of Sustainabilty on Campus
 
-A web app which uses gamification to promote sustainability on campus for students/staff at the University of Exeter.
-
 Welcome to our web app, an application designed to help users explore the campus and become sustainable students. Our app offers an engaging, gamified experience that inspires users to explore the campus while learning about sustainable living and ways to positively impact the environment.
 
 Our app allows users to scan QR codes located throughout the campus and complete quizzes and articles which help provide sustainable learning insights into the area where the qr code was found. The users earn points from completeting the quizzes and reading the articles, then they are placed on the app's leaderboard.
 
-Our app features a user-friendly, accessible design with a modern and intuitive interface that promotes engagement and exploration. Whether you're a student, visitor, or staff member, our web app provides a fun and educational way to embrace sustainability.
+The app has a user-friendly, accessible design with a modern and intuitive interface that promotes engagement and exploration. Whether you're a student, visitor, or staff member, our web app provides a fun and educational way to embrace sustainability.
 
 ## Advanced Features
 
@@ -60,29 +58,29 @@ Here is a step by step on how to get the developement enviroment working.
   git clone https://github.com/Josh-Money/ECM2434-Group-Software-Project/
   ```
 
-2. Change into the project directory:
-
-  ```bash
-  cd ECM2434-Group-Software-Project/game
-  ```
-
-3. Create a virtual environment:
+2. Create a virtual environment:
 
   ```bash
   python -m venv env
   ```
 
-4. Activate the virtual environment:
+3. Activate the virtual environment:
 
   ```bash
   source env/bin/activate # on Linux/MacOS
   env\Scripts\activate.bat # on Windows
   ```
 
-5. Install dependencies:
+4. Install dependencies:
 
   ```bash
   pip install -r requirements.txt
+  ```
+
+5. Change into the project directory:
+
+  ```bash
+  cd ECM2434-Group-Software-Project/game
   ```
 
 6. Run migrations:
@@ -91,7 +89,7 @@ Here is a step by step on how to get the developement enviroment working.
   python manage.py migrate
   ```
 
-7. Create a superuser. You can login into the site as superuser and then into django admin interface.
+7. (Optional) Create a superuser. You can login into the site as a superuser, then into django admin interface.
 
   ```bash
   python manage.py createsuperuser

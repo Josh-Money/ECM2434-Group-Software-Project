@@ -1,15 +1,12 @@
-
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db.models import F, Window
 from django.db.models.functions import Rank
 from django.utils.timezone import localdate
 from datetime import timedelta
 
-User = get_user_model()  # ✅ Use Django's default User model
-
 class Profile(models.Model):
-    image = models.ImageField(default='default_profile.jpg', upload_to='profile_pics')
+    image = models.ImageField(upload_to='profile_pics', null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     points = models.IntegerField(default=0)
     longest_streak = models.IntegerField(default=0)

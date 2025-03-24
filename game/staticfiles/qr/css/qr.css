@@ -1,0 +1,272 @@
+.container {
+  max-width: 900px;
+  margin: 20px auto 80px !important;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible !important;
+}
+
+.map-container {
+  margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.map-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.scan-overlay {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+#preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navigation-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.info {
+  font-size: 16px;
+}
+
+/* QR Page Specific Styles */
+h1 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Fix for footer text position specifically on QR page */
+.footer .footer-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  text-align: center;
+}
+
+/* Make footer position more robust */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+/* Reduce space between elements */
+.qr-page-wrapper {
+  padding-bottom: 60px;
+}
+
+/* Ensure main content doesn't push footer */
+main {
+  padding-bottom: 60px;
+}
+
+/* Media query for low-height screens */
+@media (max-height: 800px) {
+  .container {
+    margin: 10px auto 70px;
+    padding: 15px 10px;
+  }
+  
+  .scan-overlay {
+    height: 250px;
+  }
+  
+  p {
+    margin: 8px 0;
+    font-size: 15px;
+  }
+  
+  .navigation-links, .form-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .map-container {
+    margin: 10px 0;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+/* Media query for tablets and smaller devices */
+@media (max-width: 768px) {
+  .container {
+    max-width: 95%;
+    margin: 15px auto 80px;
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 16px;
+  }
+  
+  .scan-overlay {
+    height: 300px;
+  }
+  
+  .navigation-links {
+    gap: 8px;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* Media query for mobile phones */
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    margin: 10px auto 70px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  
+  p {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .scan-overlay {
+    height: 300px;
+  }
+  
+  .info {
+    font-size: 14px;
+  }
+  
+  .navigation-links, .form-container {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    max-width: 220px;
+  }
+  
+  .map-container {
+    margin: 8px 0;
+    border-radius: 6px;
+  }
+}
+
+/* iPhone 12 and similar devices */
+@media (max-width: 390px) {
+  .container {
+    margin: 8px auto 65px;
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 23px;
+  }
+}
+
+/* Special adjustments for very small screens */
+@media (max-width: 320px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  .scan-overlay {
+    height: 220px;
+  }
+  
+  p {
+    font-size: 14px;
+  }
+  
+  .btn {
+    font-size: 13px;
+    max-width: 200px;
+  }
+}

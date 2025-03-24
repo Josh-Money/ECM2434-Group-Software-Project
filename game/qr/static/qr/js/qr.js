@@ -8,6 +8,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const qrForm = document.getElementById('qrForm');
     const qrCodeInput = document.getElementById('qr_code');
     
+    // Check if user is on a mobile device
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Create camera activation button for mobile devices
+    let cameraButton = null;
+    if (isMobileDevice()) {
+        cameraButton = document.createElement('button');
+        cameraButton.textContent = 'Activate Camera';
+        cameraButton.className = 'btn btn-primary mb-3';
+        cameraButton.type = 'button';
+        cameraButton.style.width = '100%';
+        cameraButton.style.maxWidth = '400px';
+        cameraButton.style.padding = '10px';
+        cameraButton.style.margin = '0 auto 15px';
+        cameraButton.style.display = 'block';
+        preview.parentNode.insertBefore(cameraButton, preview);
+    }
+    
     // Valid QR codes
     const validCodes = ['amory_uni_bin', 'lafrowda_uni_bin', 'birks_uni_bin']; // Add more as needed
     
@@ -77,10 +97,26 @@ document.addEventListener('DOMContentLoaded', function() {
             Instascan.Camera.getCameras()
                 .then(function(cameras) {
                     if (cameras.length > 0) {
-                        // Use the first camera by default
-                        scanner.start(cameras[0])
+                        // Try to use the back camera on mobile
+                        let selectedCamera = cameras[0]; // Default to first camera
+                        
+                        // Look for back camera on mobile devices
+                        if (isMobileDevice()) {
+                            for (let camera of cameras) {
+                                if (camera.name && camera.name.toLowerCase().includes('back')) {
+                                    selectedCamera = camera;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        scanner.start(selectedCamera)
                             .then(function() {
                                 setStatus('Camera active. Point camera at a QR code.', 'info');
+                                // Hide the button once camera is active (if on mobile)
+                                if (cameraButton) {
+                                    cameraButton.style.display = 'none';
+                                }
                             })
                             .catch(function(err) {
                                 console.error('Error starting camera:', err);
@@ -121,6 +157,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Initialize camera on page load
-    initializeCamera();
+    if (isMobileDevice()) {
+        if (cameraButton) {
+            // Set initial status for mobile
+            setStatus('Click "Activate Camera" to begin scanning QR codes', 'info');
+            
+            // Add click handler
+            cameraButton.addEventListener('click', function() {
+                initializeCamera();
+            });
+        }
+    } else {
+        // Desktop: initialize camera on page load
+        initializeCamera();
+    }
 });

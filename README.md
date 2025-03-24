@@ -55,41 +55,42 @@ Here is a step by step on how to get the developement enviroment working.
 
 1. Clone the repository:
 
-  ```bash
-  git clone https://github.com/Josh-Money/ECM2434-Group-Software-Project/
-  ```
+    ```bash
+    git clone https://github.com/Josh-Money/ECM2434-Group-Software-Project/
+    ```
 
-2. Create a virtual environment:
+2. Change into the project directory:
 
-  ```bash
-  python -m venv env
-  ```
+    ```bash
+    cd ECM2434-Group-Software-Project/game
+    ```
 
-3. Activate the virtual environment:
+3. Create a virtual environment:
 
-  ```bash
-  source env/bin/activate # on Linux/MacOS
-  env\Scripts\activate.bat # on Windows
-  ```
+    ```bash
+    python -m venv env
+    ```
 
-4. Install dependencies:
+4. Activate the virtual environment:
 
-  ```bash
-  pip install -r requirements.txt
-  ```
+    ```bash
+    source env/bin/activate # on Linux/MacOS
+    env\Scripts\activate.bat # on Windows
+    ```
 
-5. Change into the project directory:
+5. Install dependencies:
 
-  ```bash
-  cd ECM2434-Group-Software-Project/game
-  ```
+    ```bash
+    pip install -r requirements.txt
+    ```
+  This might take some time.
 
 6. Run migrations:
 
-  ```bash
-  python manage.py migrate
-  ```
-
+    ```bash
+    python manage.py migrate
+    ```
+    
 7. (Optional) Create a superuser. You can login into the site as a superuser, then into django admin interface.
 
   ```bash
